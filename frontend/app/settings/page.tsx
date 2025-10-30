@@ -4,7 +4,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ProtectedRoute } from '@/lib/ProtectedRoute';
-import AuthNavbar from '@/components/AuthNavbar';
+import AuthLayout from '@/components/AuthLayout';
 import { GET_ME, UPDATE_PROFILE } from '@/lib/graphql/operations';
 
 function SettingsContent() {
@@ -60,10 +60,7 @@ function SettingsContent() {
   const user = data?.me;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
-      <AuthNavbar userName={user?.name} />
-
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
@@ -185,15 +182,16 @@ function SettingsContent() {
             </div>
           </div>
         </div>
-      </main>
-    </div>
+    </main>
   );
 }
 
 export default function Settings() {
   return (
     <ProtectedRoute>
-      <SettingsContent />
+      <AuthLayout>
+        <SettingsContent />
+      </AuthLayout>
     </ProtectedRoute>
   );
 }

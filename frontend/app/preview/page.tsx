@@ -8,7 +8,7 @@ import { usePortfolio } from '@/lib/PortfolioContext';
 import EngineerTemplate from '@/components/portfolio/EngineerTemplate';
 import MarketerTemplate from '@/components/portfolio/MarketerTemplate';
 import GeneralTemplate from '@/components/portfolio/GeneralTemplate';
-import AuthNavbar from '@/components/AuthNavbar';
+import AuthLayout from '@/components/AuthLayout';
 import Link from 'next/link';
 
 function PreviewContent() {
@@ -34,9 +34,7 @@ function PreviewContent() {
 
   if (error || !data?.getPortfolio) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
-        <AuthNavbar />
-        <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)]">
+      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)]">
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">No Portfolio Found</h1>
             <p className="text-gray-600 mb-6">You haven&apos;t created a portfolio yet.</p>
@@ -47,7 +45,6 @@ function PreviewContent() {
               Choose a Template
             </Link>
           </div>
-        </div>
       </div>
     );
   }
@@ -100,7 +97,9 @@ function PreviewContent() {
 export default function PreviewPage() {
   return (
     <ProtectedRoute>
-      <PreviewContent />
+      <AuthLayout>
+        <PreviewContent />
+      </AuthLayout>
     </ProtectedRoute>
   );
 }

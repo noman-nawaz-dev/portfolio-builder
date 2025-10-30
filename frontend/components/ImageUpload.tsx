@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 
+const API_URL = process.env.NEXT_PUBLIC_GRAPHQL_URL?.replace('/graphql', '') || 'http://localhost:4000';
+
 interface ImageUploadProps {
   value: string;
   onChange: (url: string) => void;
@@ -70,7 +72,7 @@ export default function ImageUpload({
     // If replacing an existing image, delete the old one from Cloudinary
     if (previewUrl && previewUrl.includes('cloudinary.com')) {
       try {
-        await fetch('http://localhost:4000/upload/delete', {
+        await fetch(`${API_URL}/upload/delete`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -110,7 +112,7 @@ export default function ImageUpload({
           formData.append('images', files[i]);
         }
 
-        const response = await fetch('http://localhost:4000/upload/multiple', {
+        const response = await fetch(`${API_URL}/upload/multiple`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -131,7 +133,7 @@ export default function ImageUpload({
         // Single file upload
         formData.append('image', files[0]);
 
-        const response = await fetch('http://localhost:4000/upload/single', {
+        const response = await fetch(`${API_URL}/upload/single`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -167,7 +169,7 @@ export default function ImageUpload({
     // If there's a Cloudinary URL, delete it from Cloudinary
     if (previewUrl && previewUrl.includes('cloudinary.com')) {
       try {
-        const response = await fetch('http://localhost:4000/upload/delete', {
+        const response = await fetch(`${API_URL}/upload/delete`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,

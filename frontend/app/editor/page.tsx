@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ProtectedRoute } from '@/lib/ProtectedRoute';
-import AuthNavbar from '@/components/AuthNavbar';
+import AuthLayout from '@/components/AuthLayout';
 import ImageUpload from '@/components/ImageUpload';
 import {
   GET_PORTFOLIO,
@@ -150,10 +150,7 @@ function EditorContent() {
   const userName = portfolio?.user?.name;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
-      <AuthNavbar userName={userName} />
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Editor Actions Bar */}
         <div className="mb-6 flex justify-between items-center">
           <div className="flex items-center gap-4">
@@ -457,14 +454,15 @@ function EditorContent() {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 
 export default function EditorPage() {
   return (
     <ProtectedRoute>
-      <EditorContent />
+      <AuthLayout>
+        <EditorContent />
+      </AuthLayout>
     </ProtectedRoute>
   );
 }

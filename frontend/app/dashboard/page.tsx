@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { GET_ME, TOGGLE_PUBLISH, DELETE_PORTFOLIO, UPDATE_PORTFOLIO_NAME } from '@/lib/graphql/operations';
 import { useAuth } from '@/lib/AuthContext';
 import { ProtectedRoute } from '@/lib/ProtectedRoute';
-import AuthNavbar from '@/components/AuthNavbar';
+import AuthLayout from '@/components/AuthLayout';
 import { usePortfolio } from '@/lib/PortfolioContext';
 
 const MAX_PORTFOLIOS = 3;
@@ -56,9 +56,7 @@ function DashboardContent() {
 
   if (portfolios.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
-        <AuthNavbar userName={user?.name} />
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
           <div className="bg-white rounded-2xl shadow-xl p-8 sm:p-12">
             <div className="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-4xl">🎨</span>
@@ -77,7 +75,6 @@ function DashboardContent() {
             </Link>
           </div>
         </div>
-      </div>
     );
   }
 
@@ -126,9 +123,7 @@ function DashboardContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
-      <AuthNavbar userName={user?.name} />
-
+    <>
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Welcome Banner */}
         <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -290,10 +285,10 @@ function DashboardContent() {
             </div>
           ))}
         </div>
-      </main>
+    </main>
 
-      {/* Delete Modal */}
-      {showDeleteModal && (
+    {/* Delete Modal */}
+    {showDeleteModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8">
             <div className="text-center mb-6">
@@ -327,14 +322,16 @@ function DashboardContent() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
 export default function DashboardPage() {
   return (
     <ProtectedRoute>
-      <DashboardContent />
+      <AuthLayout>
+        <DashboardContent />
+      </AuthLayout>
     </ProtectedRoute>
   );
 }

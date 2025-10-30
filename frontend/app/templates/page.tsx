@@ -4,7 +4,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { GET_TEMPLATES, GET_ME, CREATE_PORTFOLIO } from '@/lib/graphql/operations';
 import { ProtectedRoute } from '@/lib/ProtectedRoute';
-import AuthNavbar from '@/components/AuthNavbar';
+import AuthLayout from '@/components/AuthLayout';
 import { useEffect, useState } from 'react';
 import { usePortfolio } from '@/lib/PortfolioContext';
 
@@ -74,9 +74,7 @@ function TemplatesContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
-      <AuthNavbar userName={userData?.me?.name} />
-
+    <>
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
@@ -181,14 +179,16 @@ function TemplatesContent() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
 export default function TemplatesPage() {
   return (
     <ProtectedRoute>
-      <TemplatesContent />
+      <AuthLayout>
+        <TemplatesContent />
+      </AuthLayout>
     </ProtectedRoute>
   );
 }
