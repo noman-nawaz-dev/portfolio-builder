@@ -1,0 +1,50 @@
+{
+  "name": "portfolio-builder",
+  "version": "1.0.0",
+  "description": "Full-stack portfolio builder application with NestJS, GraphQL, Next.js, and PostgreSQL",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "dev:backend": "cd backend && npm run start:dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "build": "npm run build:backend && npm run build:frontend",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f postgres",
+    "docker:restart": "docker-compose restart",
+    "docker:reset": "docker-compose down -v && docker-compose up -d",
+    "docker:psql": "docker-compose exec postgres psql -U portfolio_user -d portfolio_mvp",
+    "docker:check": "./check-docker.sh",
+    "db:setup": "npm run prisma:generate && npm run prisma:migrate && npm run prisma:seed",
+    "prisma:generate": "cd backend && npm run prisma:generate",
+    "prisma:migrate": "cd backend && npm run prisma:migrate",
+    "prisma:seed": "cd backend && npm run prisma:seed",
+    "prisma:studio": "cd backend && npm run prisma:studio",
+    "lint:backend": "cd backend && npm run lint",
+    "lint:frontend": "cd frontend && npm run lint",
+    "lint": "npm run lint:backend && npm run lint:frontend",
+    "start": "npm run docker:up && npm run dev"
+  },
+  "keywords": [
+    "portfolio",
+    "builder",
+    "nestjs",
+    "nextjs",
+    "graphql",
+    "postgresql",
+    "prisma",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
