@@ -42,7 +42,8 @@
     "prisma": "^5.8.0",
     "reflect-metadata": "^0.2.1",
     "rxjs": "^7.8.1",
-    "sharp": "^0.34.4"
+    "sharp": "^0.34.4",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.3.0",
@@ -60,7 +61,6 @@
     "prettier": "^3.2.4",
     "source-map-support": "^0.5.21",
     "ts-loader": "^9.5.1",
-    "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.3.3"
   },
