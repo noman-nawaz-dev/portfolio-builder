@@ -6,7 +6,12 @@ async function bootstrap() {
   
   // Enable CORS
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'],
+    origin: [
+      'http://localhost:3000', 
+      'http://localhost:3001', 
+      'https://portfolio-builder.noman-nawaz.dev',
+      process.env.NODE_ENV === 'production' ? process.env.FRONTEND_URL : undefined,
+    ].filter(Boolean),
     credentials: true,
   });
 
