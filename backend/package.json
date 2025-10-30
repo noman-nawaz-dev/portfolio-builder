@@ -16,7 +16,8 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:seed": "ts-node prisma/seed.ts",
-    "prisma:studio": "prisma studio"
+    "prisma:studio": "prisma studio",
+    "heroku-postbuild": "prisma generate && npm run build"
   },
   "dependencies": {
     "@nestjs/apollo": "^12.0.11",
