@@ -10,6 +10,7 @@ import MarketerTemplate from '@/components/portfolio/MarketerTemplate';
 import GeneralTemplate from '@/components/portfolio/GeneralTemplate';
 import AuthLayout from '@/components/AuthLayout';
 import Link from 'next/link';
+import { LoadingScreen } from '@/components/ui';
 
 function PreviewContent() {
   const searchParams = useSearchParams();
@@ -25,11 +26,7 @@ function PreviewContent() {
   });
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-xl text-gray-600">Loading preview...</div>
-      </div>
-    );
+    return <LoadingScreen message="Loading preview..." />;
   }
 
   if (error || !data?.getPortfolio) {

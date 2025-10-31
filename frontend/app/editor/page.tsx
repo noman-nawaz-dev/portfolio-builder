@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { ProtectedRoute } from '@/lib/ProtectedRoute';
 import AuthLayout from '@/components/AuthLayout';
 import ImageUpload from '@/components/ImageUpload';
+import { LoadingScreen } from '@/components/ui';
 import {
   GET_PORTFOLIO,
   UPDATE_PORTFOLIO_HERO,
@@ -135,11 +136,7 @@ function EditorContent() {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-xl text-gray-600">Loading editor...</div>
-      </div>
-    );
+    return <LoadingScreen message="Loading editor..." />;
   }
 
   const tabs: Tab[] = ['hero', 'about', 'skills', 'projects', 'contact'];

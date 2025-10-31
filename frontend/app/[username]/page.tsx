@@ -6,6 +6,7 @@ import { GET_PUBLIC_PORTFOLIO } from '@/lib/graphql/operations';
 import EngineerTemplate from '@/components/portfolio/EngineerTemplate';
 import MarketerTemplate from '@/components/portfolio/MarketerTemplate';
 import GeneralTemplate from '@/components/portfolio/GeneralTemplate';
+import { LoadingScreen } from '@/components/ui';
 
 export default function PublicPortfolioPage() {
   const params = useParams();
@@ -17,11 +18,7 @@ export default function PublicPortfolioPage() {
   });
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-xl text-gray-600">Loading portfolio...</div>
-      </div>
-    );
+    return <LoadingScreen message="Loading portfolio..." />;
   }
 
   if (error || !data?.publicPortfolio) {
