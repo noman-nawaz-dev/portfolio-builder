@@ -6,9 +6,11 @@ import { useRouter } from 'next/navigation';
 import { ProtectedRoute } from '@/lib/ProtectedRoute';
 import AuthLayout from '@/components/AuthLayout';
 import { GET_ME, UPDATE_PROFILE } from '@/lib/graphql/operations';
+import { useAuth } from '@/lib/AuthContext';
 
 function SettingsContent() {
   const router = useRouter();
+  const { user: contextUser, setUser } = useAuth();
   const { data, loading, refetch } = useQuery(GET_ME);
   const [updateProfile, { loading: updating }] = useMutation(UPDATE_PROFILE);
 
@@ -33,9 +35,15 @@ function SettingsContent() {
     setMessage(null);
 
     try {
-      await updateProfile({
+      const result = await updateProfile({
         variables: { data: formData },
       });
+      
+      // Update user in context
+      if (result.data?.updateProfile) {
+        setUser(result.data.updateProfile);
+      }
+      
       await refetch();
       setMessage({ type: 'success', text: 'Profile updated successfully!' });
       

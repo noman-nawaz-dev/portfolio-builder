@@ -25,7 +25,7 @@ export default function LoginPage() {
 
   const [login, { loading }] = useMutation(LOGIN, {
     onCompleted: async (data) => {
-      await authLogin(data.login.accessToken);
+      await authLogin(data.login.accessToken, data.login.user);
       router.push('/dashboard');
     },
     onError: (err) => {

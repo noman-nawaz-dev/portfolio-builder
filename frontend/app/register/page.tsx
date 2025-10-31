@@ -27,7 +27,7 @@ export default function RegisterPage() {
 
   const [register, { loading }] = useMutation(REGISTER, {
     onCompleted: async (data) => {
-      await authLogin(data.register.accessToken);
+      await authLogin(data.register.accessToken, data.register.user);
       router.push('/templates');
     },
     onError: (err) => {

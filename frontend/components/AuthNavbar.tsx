@@ -5,14 +5,10 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/AuthContext';
 import { useState, useEffect, useRef } from 'react';
 
-interface AuthNavbarProps {
-  userName?: string;
-}
-
-export default function AuthNavbar({ userName }: AuthNavbarProps) {
+export default function AuthNavbar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { logout } = useAuth();
+  const { logout, isAuthenticated, user } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -68,14 +64,16 @@ export default function AuthNavbar({ userName }: AuthNavbarProps) {
 
           {/* User Menu */}
           <div className="flex items-center gap-3 sm:gap-4">
-            {userName && (
+            {isAuthenticated && (
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-full border border-indigo-200 hover:border-indigo-300 transition-all"
                 >
                   <span className="text-xl">👤</span>
-                  <span className="text-sm font-medium text-gray-700 hidden sm:inline">{userName}</span>
+                  <span className="text-sm font-medium text-gray-700 hidden sm:inline">
+                    {user?.name || 'User'}
+                  </span>
                   <svg 
                     className={`w-4 h-4 text-gray-600 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
                     fill="none" 
@@ -90,7 +88,7 @@ export default function AuthNavbar({ userName }: AuthNavbarProps) {
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-50">
                     <div className="px-4 py-3 border-b border-gray-100">
-                      <p className="text-sm font-semibold text-gray-900">{userName}</p>
+                      <p className="text-sm font-semibold text-gray-900">{user?.name || 'User'}</p>
                       <p className="text-xs text-gray-500 mt-0.5">Manage your account</p>
                     </div>
                     
@@ -120,14 +118,6 @@ export default function AuthNavbar({ userName }: AuthNavbarProps) {
                   </div>
                 )}
               </div>
-            )}
-            {!userName && (
-              <button
-                onClick={logout}
-                className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-gradient-to-r hover:from-red-500 hover:to-pink-500 rounded-lg transition-all border border-gray-300 hover:border-transparent"
-              >
-                Logout
-              </button>
             )}
           </div>
         </div>

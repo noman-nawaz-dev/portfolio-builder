@@ -2,15 +2,10 @@
 
 import Link from 'next/link';
 import { useAuth } from '@/lib/AuthContext';
-import { useQuery } from '@apollo/client';
-import { GET_ME } from '@/lib/graphql/operations';
 import AuthNavbar from '@/components/AuthNavbar';
 
 export default function Home() {
   const { isAuthenticated, loading: authLoading } = useAuth();
-  const { data: userData } = useQuery(GET_ME, {
-    skip: !isAuthenticated,
-  });
 
   // Show loading while checking auth
   if (authLoading) {
@@ -25,7 +20,7 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       {/* Header - Show AuthNavbar if logged in, otherwise show public nav */}
       {isAuthenticated ? (
-        <AuthNavbar userName={userData?.me?.name} />
+        <AuthNavbar />
       ) : (
         <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
           <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
