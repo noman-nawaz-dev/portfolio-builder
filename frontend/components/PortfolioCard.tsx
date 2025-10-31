@@ -111,23 +111,23 @@ export const PortfolioCard: React.FC<PortfolioCardProps> = ({
             fullWidth
             size="md"
             disabled={publishing}
-            className="bg-blue-50 text-blue-700 hover:bg-blue-100"
+            className="!bg-blue-100 !text-blue-700 hover:!bg-blue-200 disabled:!bg-gray-200 disabled:!text-gray-500"
           >
             <span>{portfolio.isPublished ? '🔒' : '🚀'}</span>
             {portfolio.isPublished ? 'Unpublish' : 'Publish'}
           </Button>
+          
+          {/* Delete Button */}
+          <Button
+            onClick={() => onDelete(portfolio.id)}
+            variant="ghost"
+            fullWidth
+            size="md"
+            className="!bg-red-100 !text-red-600 hover:!bg-red-200"
+          >
+            🗑️ Delete
+          </Button>
         </div>
-
-        {/* Delete Button */}
-        <Button
-          onClick={() => onDelete(portfolio.id)}
-          variant="ghost"
-          fullWidth
-          size="sm"
-          className="mt-4 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white"
-        >
-          🗑️ Delete
-        </Button>
       </CardBody>
     </Card>
   );
