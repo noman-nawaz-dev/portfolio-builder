@@ -1,8 +1,7 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { User } from '../users/user.model';
 import { Template } from '../templates/template.model';
-import { GraphQLJSONObject } from 'graphql-type-json';
-import { JSONScalar } from '../common/scalars/json.scalar';
+import { GraphQLJSON, GraphQLJSONObject } from 'graphql-type-json';
 
 @ObjectType()
 export class Portfolio {
@@ -30,10 +29,10 @@ export class Portfolio {
   @Field(() => GraphQLJSONObject, { nullable: true })
   aboutData?: any;
 
-  @Field(() => JSONScalar, { nullable: true })
+  @Field(() => GraphQLJSON, { nullable: true })
   skillsData?: any;
 
-  @Field(() => JSONScalar, { nullable: true })
+  @Field(() => GraphQLJSON, { nullable: true })
   projectsData?: any;
 
   @Field(() => GraphQLJSONObject, { nullable: true })

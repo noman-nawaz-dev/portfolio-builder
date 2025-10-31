@@ -8,8 +8,7 @@ import { UsersModule } from './users/users.module';
 import { TemplatesModule } from './templates/templates.module';
 import { PortfoliosModule } from './portfolios/portfolios.module';
 import { UploadModule } from './upload/upload.module';
-import { JSONScalar } from './common/scalars/json.scalar';
-import { GraphQLJSONObject } from 'graphql-type-json';
+import { GraphQLJSON, GraphQLJSONObject } from 'graphql-type-json';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 
 @Module({
@@ -20,7 +19,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
       sortSchema: true,
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
-      resolvers: { JSON: GraphQLJSONObject },
+      resolvers: { JSON: GraphQLJSON, JSONObject: GraphQLJSONObject },
       context: ({ req }) => ({ req }),
     }),
     PrismaModule,
@@ -30,6 +29,6 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
     PortfoliosModule,
     UploadModule,
   ],
-  providers: [JSONScalar],
+  providers: [],
 })
 export class AppModule {}

@@ -1,11 +1,10 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
-import { GraphQLJSONObject } from 'graphql-type-json';
+import { GraphQLJSON, GraphQLJSONObject } from 'graphql-type-json';
 import { Portfolio } from './portfolio.model';
 import { PortfoliosService } from './portfolios.service';
 import { GqlAuthGuard } from '../auth/gql-auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
-import { JSONScalar } from '../common/scalars/json.scalar';
 
 @Resolver(() => Portfolio)
 export class PortfoliosResolver {
@@ -73,7 +72,7 @@ export class PortfoliosResolver {
   async updatePortfolioSkills(
     @CurrentUser() user: any,
     @Args('portfolioId') portfolioId: string,
-    @Args('data', { type: () => JSONScalar }) data: any,
+    @Args('data', { type: () => GraphQLJSON }) data: any,
   ) {
     return this.portfoliosService.updateSkillsData(portfolioId, user.userId, data);
   }
@@ -83,7 +82,7 @@ export class PortfoliosResolver {
   async updatePortfolioProjects(
     @CurrentUser() user: any,
     @Args('portfolioId') portfolioId: string,
-    @Args('data', { type: () => JSONScalar }) data: any,
+    @Args('data', { type: () => GraphQLJSON }) data: any,
   ) {
     return this.portfoliosService.updateProjectsData(portfolioId, user.userId, data);
   }
