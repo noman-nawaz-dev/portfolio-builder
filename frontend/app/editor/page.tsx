@@ -28,19 +28,19 @@ function EditorContent() {
     skip: !portfolioId,
   });
 
-  const [updateHero] = useMutation(UPDATE_PORTFOLIO_HERO, {
+  const [updateHero, { loading: heroLoading }] = useMutation(UPDATE_PORTFOLIO_HERO, {
     onCompleted: () => refetch(),
   });
-  const [updateAbout] = useMutation(UPDATE_PORTFOLIO_ABOUT, {
+  const [updateAbout, { loading: aboutLoading }] = useMutation(UPDATE_PORTFOLIO_ABOUT, {
     onCompleted: () => refetch(),
   });
-  const [updateSkills] = useMutation(UPDATE_PORTFOLIO_SKILLS, {
+  const [updateSkills, { loading: skillsLoading }] = useMutation(UPDATE_PORTFOLIO_SKILLS, {
     onCompleted: () => refetch(),
   });
-  const [updateProjects] = useMutation(UPDATE_PORTFOLIO_PROJECTS, {
+  const [updateProjects, { loading: projectsLoading }] = useMutation(UPDATE_PORTFOLIO_PROJECTS, {
     onCompleted: () => refetch(),
   });
-  const [updateContact] = useMutation(UPDATE_PORTFOLIO_CONTACT, {
+  const [updateContact, { loading: contactLoading }] = useMutation(UPDATE_PORTFOLIO_CONTACT, {
     onCompleted: () => refetch(),
   });
 
@@ -250,10 +250,23 @@ function EditorContent() {
                 />
                 <button
                   onClick={handleSaveHero}
-                  className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2"
+                  disabled={heroLoading}
+                  className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
-                  Save & Continue to About
-                  <span>→</span>
+                  {heroLoading ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      <span>Saving...</span>
+                    </>
+                  ) : (
+                    <>
+                      Save & Continue to About
+                      <span>→</span>
+                    </>
+                  )}
                 </button>
               </div>
             )}
@@ -275,10 +288,23 @@ function EditorContent() {
                 </div>
                 <button
                   onClick={handleSaveAbout}
-                  className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2"
+                  disabled={aboutLoading}
+                  className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
-                  Save & Continue to Skills
-                  <span>→</span>
+                  {aboutLoading ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      <span>Saving...</span>
+                    </>
+                  ) : (
+                    <>
+                      Save & Continue to Skills
+                      <span>→</span>
+                    </>
+                  )}
                 </button>
               </div>
             )}
@@ -303,10 +329,23 @@ function EditorContent() {
                 </div>
                 <button
                   onClick={handleSaveSkills}
-                  className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2"
+                  disabled={skillsLoading}
+                  className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
-                  Save & Continue to Projects
-                  <span>→</span>
+                  {skillsLoading ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      <span>Saving...</span>
+                    </>
+                  ) : (
+                    <>
+                      Save & Continue to Projects
+                      <span>→</span>
+                    </>
+                  )}
                 </button>
               </div>
             )}
@@ -383,10 +422,23 @@ function EditorContent() {
                 ))}
                 <button
                   onClick={handleSaveProjects}
-                  className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2"
+                  disabled={projectsLoading}
+                  className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
-                  Save & Continue to Contact
-                  <span>→</span>
+                  {projectsLoading ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      <span>Saving...</span>
+                    </>
+                  ) : (
+                    <>
+                      Save & Continue to Contact
+                      <span>→</span>
+                    </>
+                  )}
                 </button>
               </div>
             )}
@@ -444,10 +496,23 @@ function EditorContent() {
                 </div>
                 <button
                   onClick={handleSaveContact}
-                  className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2"
+                  disabled={contactLoading}
+                  className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
-                  Save & Finish
-                  <span>✓</span>
+                  {contactLoading ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      <span>Saving...</span>
+                    </>
+                  ) : (
+                    <>
+                      Save & Finish
+                      <span>✓</span>
+                    </>
+                  )}
                 </button>
               </div>
             )}
