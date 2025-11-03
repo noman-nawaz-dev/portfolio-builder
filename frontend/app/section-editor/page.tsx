@@ -323,9 +323,10 @@ function SectionEditorContent() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setShowThemeSelector(!showThemeSelector)}
-              className="theme-button px-4 py-2 bg-white border rounded-lg hover:bg-gray-50"
+              disabled={updatingPortfolio || addingSection || deletingSection || updatingSection}
+              className="theme-button px-4 py-2 bg-white border rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              🎨 Theme
+              {updatingPortfolio ? '⏳' : '🎨'} Theme
             </button>
             <button
               onClick={() => router.push(`/preview?portfolio=${portfolioId}`)}
@@ -335,14 +336,19 @@ function SectionEditorContent() {
             </button>
             <button
               onClick={handlePublish}
-              disabled={publishing}
-              className={`px-4 py-2 rounded-lg font-semibold ${
+              disabled={publishing || updatingSection || addingSection || deletingSection}
+              className={`px-4 py-2 rounded-lg font-semibold disabled:opacity-70 disabled:cursor-not-allowed ${
                 portfolio?.isPublished
                   ? 'bg-green-600 text-white hover:bg-green-700'
                   : 'bg-indigo-600 text-white hover:bg-indigo-700'
               }`}
             >
-              {publishing ? 'Processing...' : portfolio?.isPublished ? '✓ Published' : 'Publish'}
+              {publishing ? (
+                <span className="flex items-center gap-2">
+                  <div className="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  Processing...
+                </span>
+              ) : portfolio?.isPublished ? '✓ Published' : 'Publish'}
             </button>
           </div>
         </div>
@@ -433,7 +439,8 @@ function SectionEditorContent() {
                       <button
                         key={theme.id}
                         onClick={() => handleChangeTheme(theme.id)}
-                        className={`w-full p-3 rounded-lg border-2 text-left transition-all ${
+                        disabled={updatingSection || addingSection || deletingSection}
+                        className={`w-full p-3 rounded-lg border-2 text-left transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
                           currentTheme?.id === theme.id
                             ? 'border-indigo-600 bg-indigo-50 shadow-md'
                             : 'border-gray-200 hover:border-indigo-300 hover:shadow-sm'
@@ -500,19 +507,26 @@ function SectionEditorContent() {
               {showAddSection && (
                 <div className="mb-4 p-4 bg-gray-50 rounded-lg">
                   <h3 className="font-semibold mb-3 text-sm">Choose Section Type:</h3>
-                  <div className="space-y-2">
-                    {sectionTypes.map((st: any) => (
-                      <button
-                        key={st.id}
-                        onClick={() => handleAddSection(st.id)}
-                        disabled={addingSection}
-                        className="w-full p-2 text-left text-sm bg-white border rounded hover:border-indigo-600 hover:bg-indigo-50 transition"
-                      >
-                        <div className="font-medium">{st.displayName}</div>
-                        <div className="text-xs text-gray-500">{st.category}</div>
-                      </button>
-                    ))}
-                  </div>
+                  {addingSection ? (
+                    <div className="flex items-center justify-center py-8">
+                      <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+                      <span className="ml-3 text-gray-600">Creating section...</span>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      {sectionTypes.map((st: any) => (
+                        <button
+                          key={st.id}
+                          onClick={() => handleAddSection(st.id)}
+                          disabled={addingSection}
+                          className="w-full p-2 text-left text-sm bg-white border rounded hover:border-indigo-600 hover:bg-indigo-50 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          <div className="font-medium">{st.displayName}</div>
+                          <div className="text-xs text-gray-500">{st.category}</div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -540,15 +554,17 @@ function SectionEditorContent() {
                         <div className="flex items-center gap-1">
                           <button
                             onClick={() => handleMoveSection(section.id, 'up')}
-                            disabled={index === 0}
-                            className="p-1 hover:bg-gray-200 rounded disabled:opacity-30"
+                            disabled={index === 0 || addingSection || updatingSection || deletingSection}
+                            className="p-1 hover:bg-gray-200 rounded disabled:opacity-30 disabled:cursor-not-allowed"
+                            title="Move up"
                           >
                             ↑
                           </button>
                           <button
                             onClick={() => handleMoveSection(section.id, 'down')}
-                            disabled={index === sortedSections.length - 1}
-                            className="p-1 hover:bg-gray-200 rounded disabled:opacity-30"
+                            disabled={index === sortedSections.length - 1 || addingSection || updatingSection || deletingSection}
+                            className="p-1 hover:bg-gray-200 rounded disabled:opacity-30 disabled:cursor-not-allowed"
+                            title="Move down"
                           >
                             ↓
                           </button>
@@ -557,13 +573,17 @@ function SectionEditorContent() {
                               setSelectedSectionId(section.id);
                               setEditingContent(section.content);
                             }}
-                            className="p-1 hover:bg-gray-200 rounded"
+                            disabled={addingSection || updatingSection || deletingSection}
+                            className="p-1 hover:bg-gray-200 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+                            title="Edit content"
                           >
                             ✏️
                           </button>
                           <button
                             onClick={() => setDeletingSectionId(section.id)}
-                            className="p-1 hover:bg-red-100 rounded text-red-600"
+                            disabled={addingSection || updatingSection || deletingSection}
+                            className="p-1 hover:bg-red-100 rounded text-red-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                            title="Delete section"
                           >
                             🗑️
                           </button>
@@ -617,6 +637,16 @@ function SectionEditorContent() {
           </div>
         </div>
       </div>
+
+      {/* Loading Overlay for Reordering */}
+      {reorderingSection && (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-40 pointer-events-none">
+          <div className="bg-white rounded-lg shadow-xl p-6 flex items-center gap-3">
+            <div className="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-indigo-600"></div>
+            <span className="font-medium">Reordering sections...</span>
+          </div>
+        </div>
+      )}
 
       {/* Content Editor Modal */}
       {selectedSectionId && editingContent && (
