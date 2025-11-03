@@ -58,12 +58,7 @@ export const GET_PORTFOLIO_BY_USERNAME = gql`
       slug
       customDomain
       isPublished
-      seo {
-        title
-        description
-        keywords
-        ogImage
-      }
+      seo
       theme {
         id
         name
@@ -259,12 +254,7 @@ export const GET_PUBLIC_PORTFOLIO_BY_ID = gql`
       slug
       customDomain
       isPublished
-      seo {
-        title
-        description
-        keywords
-        ogImage
-      }
+      seo
       theme {
         id
         name
