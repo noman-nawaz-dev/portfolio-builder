@@ -250,6 +250,67 @@ export const GET_PUBLIC_PORTFOLIO = gql`
   }
 `;
 
+export const GET_PUBLIC_PORTFOLIO_BY_ID = gql`
+  query GetPublicPortfolioById($portfolioId: String!) {
+    publicPortfolioById(portfolioId: $portfolioId) {
+      id
+      name
+      title
+      slug
+      customDomain
+      isPublished
+      seo {
+        title
+        description
+        keywords
+        ogImage
+      }
+      theme {
+        id
+        name
+        description
+        colors
+        fonts
+        fontSizes
+        fontWeights
+        lineHeights
+        spacing
+        borderRadius
+        borderWidth
+        shadows
+        animations
+        breakpoints
+        customCSS
+        category
+      }
+      sections {
+        id
+        order
+        content
+        layout
+        styles
+        sectionType {
+          id
+          name
+          displayName
+          description
+          category
+        }
+      }
+      template {
+        id
+        name
+        category
+      }
+      user {
+        id
+        username
+        name
+      }
+    }
+  }
+`;
+
 export const CREATE_PORTFOLIO = gql`
   mutation CreatePortfolio($templateId: String!, $name: String) {
     createPortfolio(templateId: $templateId, name: $name) {
