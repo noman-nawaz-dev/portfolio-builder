@@ -68,11 +68,11 @@ function SectionEditorContent() {
     },
   });
 
-  const [reorderSections] = useMutation(REORDER_PORTFOLIO_SECTIONS, {
+  const [reorderSections, { loading: reorderingSection }] = useMutation(REORDER_PORTFOLIO_SECTIONS, {
     onCompleted: () => refetch(),
   });
 
-  const [updatePortfolio] = useMutation(UPDATE_PORTFOLIO, {
+  const [updatePortfolio, { loading: updatingPortfolio }] = useMutation(UPDATE_PORTFOLIO, {
     onCompleted: () => refetch(),
   });
 
