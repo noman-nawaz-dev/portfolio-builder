@@ -37,6 +37,11 @@ export class PortfoliosResolver {
     return this.portfoliosService.findByUsername(username);
   }
 
+  @Query(() => Portfolio)
+  async portfolioByUsername(@Args('username') username: string) {
+    return this.portfoliosService.findByUsername(username);
+  }
+
   @Mutation(() => Portfolio)
   @UseGuards(GqlAuthGuard)
   async createPortfolio(
@@ -114,6 +119,28 @@ export class PortfoliosResolver {
     @Args('portfolioId') portfolioId: string,
   ) {
     return this.portfoliosService.togglePublish(portfolioId, user.userId);
+  }
+
+  @Mutation(() => Portfolio)
+  @UseGuards(GqlAuthGuard)
+  async updatePortfolio(
+    @CurrentUser() user: any,
+    @Args('id') id: string,
+    @Args('name', { nullable: true }) name?: string,
+    @Args('themeId', { nullable: true }) themeId?: string,
+    @Args('customDomain', { nullable: true }) customDomain?: string,
+  ) {
+    return this.portfoliosService.update(id, user.userId, { name, themeId, customDomain });
+  }
+
+  @Mutation(() => Portfolio)
+  @UseGuards(GqlAuthGuard)
+  async publishPortfolio(
+    @CurrentUser() user: any,
+    @Args('portfolioId') portfolioId: string,
+    @Args('publish') publish: boolean,
+  ) {
+    return this.portfoliosService.setPublish(portfolioId, user.userId, publish);
   }
 
   @Mutation(() => Portfolio)

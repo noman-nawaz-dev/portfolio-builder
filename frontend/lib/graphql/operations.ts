@@ -50,6 +50,60 @@ export const GET_ME = gql`
   }
 `;
 
+export const GET_PORTFOLIO_BY_USERNAME = gql`
+  query GetPortfolioByUsername($username: String!) {
+    portfolioByUsername(username: $username) {
+      id
+      title
+      slug
+      customDomain
+      isPublished
+      seo {
+        title
+        description
+        keywords
+        ogImage
+      }
+      theme {
+        id
+        name
+        description
+        colors
+        fonts
+        fontSizes
+        fontWeights
+        lineHeights
+        spacing
+        borderRadius
+        borderWidth
+        shadows
+        animations
+        breakpoints
+        customCSS
+      }
+      sections {
+        id
+        order
+        content
+        layout
+        styles
+        sectionType {
+          id
+          name
+          displayName
+          description
+          category
+        }
+      }
+      user {
+        id
+        username
+        name
+      }
+    }
+  }
+`;
+
 export const GET_MY_PORTFOLIOS = gql`
   query MyPortfolios {
     myPortfolios {
@@ -77,6 +131,44 @@ export const GET_PORTFOLIO = gql`
         id
         name
         category
+      }
+      theme {
+        id
+        name
+        description
+        colors
+        fonts
+        fontSizes
+        fontWeights
+        lineHeights
+        spacing
+        borderRadius
+        borderWidth
+        shadows
+        animations
+        breakpoints
+        customCSS
+      }
+      sections {
+        id
+        order
+        content
+        layout
+        styles
+        sectionType {
+          id
+          name
+          displayName
+          description
+          category
+          layoutVariants
+        }
+      }
+      user {
+        id
+        name
+        email
+        username
       }
       heroData
       aboutData
@@ -257,5 +349,257 @@ export const CHANGE_TEMPLATE = gql`
 export const DELETE_PORTFOLIO = gql`
   mutation DeletePortfolio($portfolioId: String!) {
     deletePortfolio(portfolioId: $portfolioId)
+  }
+`;
+
+// ============================================
+// SECTION TYPES
+// ============================================
+
+export const GET_SECTION_TYPES = gql`
+  query GetSectionTypes($category: String) {
+    sectionTypes(category: $category) {
+      id
+      name
+      displayName
+      description
+      icon
+      category
+      componentName
+      schema
+      defaultData
+      styleOptions
+      layoutVariants
+      isActive
+      isPremium
+    }
+  }
+`;
+
+export const GET_SECTION_CATEGORIES = gql`
+  query GetSectionCategories {
+    sectionCategories
+  }
+`;
+
+// ============================================
+// THEMES
+// ============================================
+
+export const GET_THEMES = gql`
+  query GetThemes($includePrivate: Boolean) {
+    themes(includePrivate: $includePrivate) {
+      id
+      name
+      description
+      category
+      colors
+      fonts
+      fontSizes
+      fontWeights
+      lineHeights
+      spacing
+      borderRadius
+      borderWidth
+      shadows
+      animations
+      breakpoints
+      customCSS
+      isDefault
+      isPublic
+      isPremium
+      usageCount
+    }
+  }
+`;
+
+export const GET_DEFAULT_THEME = gql`
+  query GetDefaultTheme {
+    defaultTheme {
+      id
+      name
+      description
+      colors
+      fonts
+      fontSizes
+      fontWeights
+      lineHeights
+      spacing
+      borderRadius
+      borderWidth
+      shadows
+      animations
+      breakpoints
+      customCSS
+    }
+  }
+`;
+
+export const GET_MY_THEMES = gql`
+  query GetMyThemes {
+    myThemes {
+      id
+      name
+      description
+      colors
+      fonts
+      fontSizes
+      fontWeights
+      lineHeights
+      spacing
+      borderRadius
+      borderWidth
+      shadows
+      animations
+      breakpoints
+      customCSS
+      isDefault
+      isPublic
+      isPremium
+    }
+  }
+`;
+
+// ============================================
+// PORTFOLIO SECTIONS
+// ============================================
+
+export const GET_PORTFOLIO_SECTIONS = gql`
+  query GetPortfolioSections($portfolioId: String!) {
+    portfolioSections(portfolioId: $portfolioId) {
+      id
+      portfolioId
+      order
+      isVisible
+      content
+      styles
+      layout
+      animations
+      sectionType {
+        id
+        name
+        displayName
+        componentName
+        category
+        layoutVariants
+        styleOptions
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+export const ADD_PORTFOLIO_SECTION = gql`
+  mutation AddPortfolioSection($input: AddPortfolioSectionInput!) {
+    addPortfolioSection(input: $input) {
+      id
+      portfolioId
+      order
+      isVisible
+      content
+      styles
+      layout
+      animations
+      sectionType {
+        id
+        name
+        displayName
+        componentName
+      }
+    }
+  }
+`;
+
+export const UPDATE_PORTFOLIO_SECTION = gql`
+  mutation UpdatePortfolioSection($input: UpdatePortfolioSectionInput!) {
+    updatePortfolioSection(input: $input) {
+      id
+      content
+      styles
+      layout
+      animations
+      isVisible
+      sectionType {
+        id
+        name
+        displayName
+      }
+    }
+  }
+`;
+
+export const DELETE_PORTFOLIO_SECTION = gql`
+  mutation DeletePortfolioSection($id: String!) {
+    deletePortfolioSection(id: $id)
+  }
+`;
+
+export const REORDER_PORTFOLIO_SECTIONS = gql`
+  mutation ReorderPortfolioSections($input: ReorderSectionsInput!) {
+    reorderPortfolioSections(input: $input) {
+      id
+      order
+      sectionType {
+        displayName
+      }
+    }
+  }
+`;
+
+export const DUPLICATE_PORTFOLIO_SECTION = gql`
+  mutation DuplicatePortfolioSection($id: String!) {
+    duplicatePortfolioSection(id: $id) {
+      id
+      portfolioId
+      order
+      content
+      styles
+      layout
+      animations
+      sectionType {
+        id
+        name
+        displayName
+      }
+    }
+  }
+`;
+
+export const UPDATE_PORTFOLIO = gql`
+  mutation UpdatePortfolio($id: String!, $name: String, $themeId: String, $customDomain: String) {
+    updatePortfolio(id: $id, name: $name, themeId: $themeId, customDomain: $customDomain) {
+      id
+      name
+      theme {
+        id
+        name
+        description
+        colors
+        fonts
+        fontSizes
+        fontWeights
+        lineHeights
+        spacing
+        borderRadius
+        borderWidth
+        shadows
+        animations
+        breakpoints
+        customCSS
+      }
+      customDomain
+      updatedAt
+    }
+  }
+`;
+
+export const PUBLISH_PORTFOLIO = gql`
+  mutation PublishPortfolio($portfolioId: String!, $publish: Boolean!) {
+    publishPortfolio(portfolioId: $portfolioId, publish: $publish) {
+      id
+      isPublished
+      updatedAt
+    }
   }
 `;

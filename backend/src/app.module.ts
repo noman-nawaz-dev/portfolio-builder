@@ -8,6 +8,9 @@ import { UsersModule } from './users/users.module';
 import { TemplatesModule } from './templates/templates.module';
 import { PortfoliosModule } from './portfolios/portfolios.module';
 import { UploadModule } from './upload/upload.module';
+import { SectionTypesModule } from './section-types/section-types.module';
+import { ThemesModule } from './themes/themes.module';
+import { PortfolioSectionsModule } from './portfolio-sections/portfolio-sections.module';
 import { GraphQLJSON, GraphQLJSONObject } from 'graphql-type-json';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 
@@ -28,6 +31,9 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
     TemplatesModule,
     PortfoliosModule,
     UploadModule,
+    SectionTypesModule,
+    ThemesModule,
+    PortfolioSectionsModule,
   ],
   providers: [],
 })

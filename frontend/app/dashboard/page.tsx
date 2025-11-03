@@ -27,7 +27,14 @@ function DashboardContent() {
   const { setCurrentPortfolioId } = usePortfolio();
   
   const [togglePublish, { loading: publishing }] = useMutation(TOGGLE_PUBLISH, {
-    onCompleted: () => refetch(),
+    onCompleted: (data) => {
+      refetch();
+      // If just published, redirect to live portfolio
+      if (data?.togglePublish?.isPublished) {
+        const portfolioUrl = `${window.location.origin}/${user?.username}?p=${data.togglePublish.id}`;
+        window.open(portfolioUrl, '_blank', 'noopener,noreferrer');
+      }
+    },
   });
 
   const [deletePortfolio, { loading: deleting }] = useMutation(DELETE_PORTFOLIO, {
@@ -131,7 +138,7 @@ function DashboardContent() {
         />
 
         {/* Portfolios Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl">
           {portfolios.map((portfolio: any) => {
             if (editingPortfolioId === portfolio.id) {
               // Show inline edit form

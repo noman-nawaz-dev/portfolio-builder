@@ -10,7 +10,19 @@ export class PortfoliosService {
   async findAllByUserId(userId: string) {
     return this.prisma.portfolio.findMany({
       where: { userId },
-      include: { user: true, template: true },
+      include: { 
+        user: true, 
+        template: true,
+        theme: true,
+        sections: {
+          include: {
+            sectionType: true,
+          },
+          orderBy: {
+            order: 'asc',
+          },
+        },
+      },
       orderBy: { createdAt: 'desc' },
     });
   }
@@ -18,7 +30,19 @@ export class PortfoliosService {
   async findById(portfolioId: string) {
     return this.prisma.portfolio.findUnique({
       where: { id: portfolioId },
-      include: { user: true, template: true },
+      include: { 
+        user: true, 
+        template: true,
+        theme: true,
+        sections: {
+          include: {
+            sectionType: true,
+          },
+          orderBy: {
+            order: 'asc',
+          },
+        },
+      },
     });
   }
 
@@ -42,7 +66,19 @@ export class PortfoliosService {
         userId: user.id,
         isPublished: true,
       },
-      include: { template: true, user: true },
+      include: { 
+        template: true, 
+        user: true,
+        theme: true,
+        sections: {
+          include: {
+            sectionType: true,
+          },
+          orderBy: {
+            order: 'asc',
+          },
+        },
+      },
       orderBy: { createdAt: 'desc' },
     });
 
@@ -72,7 +108,19 @@ export class PortfoliosService {
         templateId,
         name: portfolioName,
       },
-      include: { user: true, template: true },
+      include: { 
+        user: true, 
+        template: true,
+        theme: true,
+        sections: {
+          include: {
+            sectionType: true,
+          },
+          orderBy: {
+            order: 'asc',
+          },
+        },
+      },
     });
   }
 
@@ -86,7 +134,7 @@ export class PortfoliosService {
     return this.prisma.portfolio.update({
       where: { id: portfolioId },
       data: { heroData: data },
-      include: { user: true, template: true },
+      include: { user: true, template: true, theme: true },
     });
   }
 
@@ -100,7 +148,7 @@ export class PortfoliosService {
     return this.prisma.portfolio.update({
       where: { id: portfolioId },
       data: { aboutData: data },
-      include: { user: true, template: true },
+      include: { user: true, template: true, theme: true },
     });
   }
 
@@ -114,7 +162,7 @@ export class PortfoliosService {
     return this.prisma.portfolio.update({
       where: { id: portfolioId },
       data: { skillsData: data },
-      include: { user: true, template: true },
+      include: { user: true, template: true, theme: true },
     });
   }
 
@@ -128,7 +176,7 @@ export class PortfoliosService {
     return this.prisma.portfolio.update({
       where: { id: portfolioId },
       data: { projectsData: data },
-      include: { user: true, template: true },
+      include: { user: true, template: true, theme: true },
     });
   }
 
@@ -142,7 +190,7 @@ export class PortfoliosService {
     return this.prisma.portfolio.update({
       where: { id: portfolioId },
       data: { contactData: data },
-      include: { user: true, template: true },
+      include: { user: true, template: true, theme: true },
     });
   }
 
@@ -156,7 +204,7 @@ export class PortfoliosService {
     return this.prisma.portfolio.update({
       where: { id: portfolioId },
       data: { isPublished: !portfolio.isPublished },
-      include: { user: true, template: true },
+      include: { user: true, template: true, theme: true },
     });
   }
 
@@ -170,7 +218,7 @@ export class PortfoliosService {
     return this.prisma.portfolio.update({
       where: { id: portfolioId },
       data: { templateId },
-      include: { user: true, template: true },
+      include: { user: true, template: true, theme: true },
     });
   }
 
@@ -184,7 +232,7 @@ export class PortfoliosService {
     return this.prisma.portfolio.update({
       where: { id: portfolioId },
       data: { name },
-      include: { user: true, template: true },
+      include: { user: true, template: true, theme: true },
     });
   }
 
@@ -200,5 +248,42 @@ export class PortfoliosService {
     });
 
     return true;
+  }
+
+  async update(portfolioId: string, userId: string, data: { name?: string; themeId?: string; customDomain?: string }) {
+    const portfolio = await this.findById(portfolioId);
+    
+    if (!portfolio || portfolio.userId !== userId) {
+      throw new NotFoundException('Portfolio not found');
+    }
+
+    const updateData: any = {};
+    if (data.name !== undefined) updateData.name = data.name;
+    if (data.themeId !== undefined) updateData.themeId = data.themeId;
+    if (data.customDomain !== undefined) updateData.customDomain = data.customDomain;
+
+    return this.prisma.portfolio.update({
+      where: { id: portfolioId },
+      data: updateData,
+      include: { 
+        user: true, 
+        template: true,
+        theme: true,
+      },
+    });
+  }
+
+  async setPublish(portfolioId: string, userId: string, publish: boolean) {
+    const portfolio = await this.findById(portfolioId);
+    
+    if (!portfolio || portfolio.userId !== userId) {
+      throw new NotFoundException('Portfolio not found');
+    }
+
+    return this.prisma.portfolio.update({
+      where: { id: portfolioId },
+      data: { isPublished: publish },
+      include: { user: true, template: true, theme: true },
+    });
   }
 }

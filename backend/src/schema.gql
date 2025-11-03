@@ -2,6 +2,16 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input AddPortfolioSectionInput {
+  animations: JSON
+  content: JSON!
+  layout: String
+  order: Float
+  portfolioId: String!
+  sectionTypeId: String!
+  styles: JSON
+}
+
 type AuthPayload {
   accessToken: String!
   user: User!
@@ -23,17 +33,24 @@ The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](
 scalar JSONObject
 
 type Mutation {
+  addPortfolioSection(input: AddPortfolioSectionInput!): PortfolioSection!
   changeTemplate(portfolioId: String!, templateId: String!): Portfolio!
   createPortfolio(name: String, templateId: String!): Portfolio!
   deletePortfolio(portfolioId: String!): Boolean!
+  deletePortfolioSection(id: String!): Boolean!
+  duplicatePortfolioSection(id: String!): PortfolioSection!
   login(email: String!, password: String!): AuthPayload!
+  publishPortfolio(portfolioId: String!, publish: Boolean!): Portfolio!
   register(email: String!, name: String!, password: String!, username: String!): AuthPayload!
+  reorderPortfolioSections(input: ReorderSectionsInput!): [PortfolioSection!]!
   togglePublish(portfolioId: String!): Portfolio!
+  updatePortfolio(customDomain: String, id: String!, name: String, themeId: String): Portfolio!
   updatePortfolioAbout(data: JSONObject!, portfolioId: String!): Portfolio!
   updatePortfolioContact(data: JSONObject!, portfolioId: String!): Portfolio!
   updatePortfolioHero(data: JSONObject!, portfolioId: String!): Portfolio!
   updatePortfolioName(name: String!, portfolioId: String!): Portfolio!
   updatePortfolioProjects(data: JSON!, portfolioId: String!): Portfolio!
+  updatePortfolioSection(input: UpdatePortfolioSectionInput!): PortfolioSection!
   updatePortfolioSkills(data: JSON!, portfolioId: String!): Portfolio!
   updateProfile(data: UpdateProfileInput!): User!
 }
@@ -42,26 +59,83 @@ type Portfolio {
   aboutData: JSONObject
   contactData: JSONObject
   createdAt: DateTime!
+  customDomain: String
+  globalSettings: JSONObject
   heroData: JSONObject
   id: ID!
   isPublished: Boolean!
   name: String!
   projectsData: JSON
+  sections: [PortfolioSection!]
+  seo: JSONObject
   skillsData: JSON
+  slug: String
   template: Template!
+  theme: Theme
+  themeId: String
+  title: String
   updatedAt: DateTime!
   user: User!
   userId: String!
 }
 
+type PortfolioSection {
+  animations: JSON
+  content: JSON!
+  createdAt: DateTime!
+  id: ID!
+  isVisible: Boolean!
+  layout: String
+  order: Float!
+  portfolioId: String!
+  sectionType: SectionType!
+  sectionTypeId: String!
+  styles: JSON
+  updatedAt: DateTime!
+}
+
 type Query {
+  defaultTheme: Theme
   getPortfolio(portfolioId: String!): Portfolio
   me: User!
   myPortfolio: Portfolio
   myPortfolios: [Portfolio!]!
+  myThemes: [Theme!]!
+  portfolioByUsername(username: String!): Portfolio!
+  portfolioSection(id: String!): PortfolioSection
+  portfolioSections(portfolioId: String!): [PortfolioSection!]!
   publicPortfolio(username: String!): Portfolio!
+  sectionCategories: [String!]!
+  sectionType(id: String!): SectionType
+  sectionTypes(category: String): [SectionType!]!
+  sectionTypesByCategory(category: String!): [SectionType!]!
   template(id: String!): Template
   templates: [Template!]!
+  theme(id: String!): Theme
+  themes(includePrivate: Boolean = false): [Theme!]!
+}
+
+input ReorderSectionsInput {
+  portfolioId: String!
+  sectionIds: [String!]!
+}
+
+type SectionType {
+  category: String!
+  componentName: String!
+  createdAt: DateTime!
+  defaultData: JSON
+  description: String!
+  displayName: String!
+  icon: String
+  id: ID!
+  isActive: Boolean!
+  isPremium: Boolean!
+  layoutVariants: JSON
+  name: String!
+  schema: JSON!
+  styleOptions: JSON
+  updatedAt: DateTime!
 }
 
 type Template {
@@ -71,6 +145,41 @@ type Template {
   id: ID!
   name: String!
   previewImage: String!
+}
+
+type Theme {
+  animations: JSON!
+  borderRadius: JSON!
+  borderWidth: JSON!
+  breakpoints: JSON!
+  category: String!
+  colors: JSON!
+  createdAt: DateTime!
+  customCSS: String
+  description: String
+  fontSizes: JSON!
+  fontWeights: JSON!
+  fonts: JSON!
+  id: ID!
+  isDefault: Boolean!
+  isPremium: Boolean!
+  isPublic: Boolean!
+  lineHeights: JSON!
+  name: String!
+  shadows: JSON!
+  spacing: JSON!
+  updatedAt: DateTime!
+  usageCount: Float!
+  userId: String
+}
+
+input UpdatePortfolioSectionInput {
+  animations: JSON
+  content: JSON
+  id: String!
+  isVisible: Boolean
+  layout: String
+  styles: JSON
 }
 
 input UpdateProfileInput {

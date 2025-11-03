@@ -34,26 +34,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUserState] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
   const router = useRouter();
   const apolloClient = useApolloClient();
 
   useEffect(() => {
+    // Mark component as mounted to handle hydration
+    setMounted(true);
+
     // Check authentication on mount
-    const isAuth = isAuthenticated();
-    setAuthenticated(isAuth);
-    
-    // Load user from localStorage if authenticated
-    if (isAuth && typeof window !== 'undefined') {
-      const storedUser = localStorage.getItem('user');
-      if (storedUser) {
-        try {
-          setUserState(JSON.parse(storedUser));
-        } catch (error) {
-          console.error('Failed to parse stored user:', error);
+    const checkAuth = () => {
+      const isAuth = isAuthenticated();
+      setAuthenticated(isAuth);
+      
+      // Load user from localStorage if authenticated
+      if (isAuth && typeof window !== 'undefined') {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+          try {
+            setUserState(JSON.parse(storedUser));
+          } catch (error) {
+            console.error('Failed to parse stored user:', error);
+          }
         }
       }
-    }
-    setLoading(false);
+      setLoading(false);
+    };
+
+    checkAuth();
   }, []);
 
   const setUser = (userData: User | null) => {

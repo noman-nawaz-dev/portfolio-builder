@@ -1,14 +1,20 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/lib/AuthContext';
 import AuthNavbar from '@/components/AuthNavbar';
 
 export default function Home() {
   const { isAuthenticated, loading: authLoading } = useAuth();
+  const [mounted, setMounted] = useState(false);
 
-  // Show loading while checking auth
-  if (authLoading) {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Show loading while checking auth or during initial mount
+  if (!mounted || authLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center">
         <div className="text-xl text-gray-600">Loading...</div>

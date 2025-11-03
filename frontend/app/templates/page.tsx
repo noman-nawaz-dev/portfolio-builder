@@ -25,7 +25,7 @@ function TemplatesContent() {
     onCompleted: (data) => {
       const newPortfolioId = data.createPortfolio.id;
       setCurrentPortfolioId(newPortfolioId);
-      router.push(`/editor?portfolio=${newPortfolioId}`);
+      router.push(`/section-editor?portfolio=${newPortfolioId}`);
     },
     onError: (error) => {
       alert(error.message);
