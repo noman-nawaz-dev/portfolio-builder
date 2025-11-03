@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import { GET_PORTFOLIO_BY_USERNAME, GET_PORTFOLIO } from '@/lib/graphql/operations';
+import { GET_PORTFOLIO_BY_USERNAME, GET_PUBLIC_PORTFOLIO_BY_ID } from '@/lib/graphql/operations';
 import { useTheme, ThemeConfig } from '@/lib/ThemeContext';
 import { getSectionComponent } from './sections';
 import { LoadingSpinner } from './ui/Loading';
@@ -11,8 +11,8 @@ interface PortfolioRendererProps {
 }
 
 export const PortfolioRenderer: React.FC<PortfolioRendererProps> = ({ username, portfolioId }) => {
-  // If portfolioId is provided, use GET_PORTFOLIO, otherwise use GET_PORTFOLIO_BY_USERNAME
-  const queryToUse = portfolioId ? GET_PORTFOLIO : GET_PORTFOLIO_BY_USERNAME;
+  // If portfolioId is provided, use GET_PUBLIC_PORTFOLIO_BY_ID, otherwise use GET_PORTFOLIO_BY_USERNAME
+  const queryToUse = portfolioId ? GET_PUBLIC_PORTFOLIO_BY_ID : GET_PORTFOLIO_BY_USERNAME;
   const variables = portfolioId ? { portfolioId } : { username };
   
   const { loading, error, data } = useQuery(queryToUse, {
@@ -24,7 +24,7 @@ export const PortfolioRenderer: React.FC<PortfolioRendererProps> = ({ username, 
 
   // Apply portfolio theme when loaded
   React.useEffect(() => {
-    const loadedTheme = data?.portfolioByUsername?.theme || data?.getPortfolio?.theme;
+    const loadedTheme = data?.portfolioByUsername?.theme || data?.publicPortfolioById?.theme;
     if (loadedTheme) {
       setTheme(loadedTheme);
     }
@@ -51,7 +51,7 @@ export const PortfolioRenderer: React.FC<PortfolioRendererProps> = ({ username, 
     );
   }
 
-  const portfolio = data?.portfolioByUsername || data?.getPortfolio;
+  const portfolio = data?.portfolioByUsername || data?.publicPortfolioById;
   if (!portfolio) {
     return (
       <div className="flex items-center justify-center min-h-screen">
