@@ -52,12 +52,23 @@ export default function SectionContentEditor({
   const [formData, setFormData] = useState(content || {});
   const [showSkillsPicker, setShowSkillsPicker] = useState(false);
   const [skillSearchQuery, setSkillSearchQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
   
   const placeholders = getPlaceholdersByTemplate(templateCategory || 'general');
 
   useEffect(() => {
     setFormData(content || {});
   }, [content]);
+
+  useEffect(() => {
+    // Simulate form rendering delay and set loading to false
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [sectionType]);
 
   const handleChange = (path: string, value: any) => {
     const keys = path.split('.');
@@ -678,6 +689,15 @@ export default function SectionContentEditor({
   );
 
   const renderForm = () => {
+    if (isLoading) {
+      return (
+        <div className="text-center py-12">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+          <p className="mt-4 text-gray-600">Loading form...</p>
+        </div>
+      );
+    }
+
     switch (sectionType) {
       case 'hero-minimal':
         return renderHeroMinimalForm();
@@ -733,6 +753,15 @@ export default function SectionContentEditor({
     }
   };
 
+  const handleSave = async () => {
+    setIsSaving(true);
+    try {
+      await onSave(formData);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   // Function to get color scheme based on category
   return (
     <>
@@ -750,11 +779,18 @@ export default function SectionContentEditor({
           {renderForm()}
         </div>
         <div className="p-4 border-t flex justify-end gap-2">
-          <Button variant="outline" onClick={onCancel}>
+          <Button variant="outline" onClick={onCancel} disabled={isSaving}>
             Cancel
           </Button>
-          <Button onClick={() => onSave(formData)}>
-            Save Changes
+          <Button onClick={handleSave} disabled={isSaving}>
+            {isSaving ? (
+              <>
+                <div className="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                Saving...
+              </>
+            ) : (
+              'Save Changes'
+            )}
           </Button>
         </div>
       </div>
