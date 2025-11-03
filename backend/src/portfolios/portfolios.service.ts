@@ -89,6 +89,38 @@ export class PortfoliosService {
     return portfolio;
   }
 
+  async findPublicById(portfolioId: string) {
+    const portfolio = await this.prisma.portfolio.findUnique({
+      where: { 
+        id: portfolioId,
+      },
+      include: { 
+        template: true, 
+        user: true,
+        theme: true,
+        sections: {
+          include: {
+            sectionType: true,
+          },
+          orderBy: {
+            order: 'asc',
+          },
+        },
+      },
+    });
+
+    if (!portfolio) {
+      throw new NotFoundException('Portfolio not found');
+    }
+
+    // Only return published portfolios for public access
+    if (!portfolio.isPublished) {
+      throw new NotFoundException('Portfolio not found');
+    }
+
+    return portfolio;
+  }
+
   async create(userId: string, templateId: string, name?: string) {
     // Check portfolio limit
     const existingPortfolios = await this.findAllByUserId(userId);
