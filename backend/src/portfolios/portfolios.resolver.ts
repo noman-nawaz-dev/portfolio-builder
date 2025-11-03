@@ -42,6 +42,11 @@ export class PortfoliosResolver {
     return this.portfoliosService.findByUsername(username);
   }
 
+  @Query(() => Portfolio, { nullable: true })
+  async publicPortfolioById(@Args('portfolioId') portfolioId: string) {
+    return this.portfoliosService.findPublicById(portfolioId);
+  }
+
   @Mutation(() => Portfolio)
   @UseGuards(GqlAuthGuard)
   async createPortfolio(

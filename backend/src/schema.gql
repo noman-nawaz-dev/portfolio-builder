@@ -105,6 +105,7 @@ type Query {
   portfolioSection(id: String!): PortfolioSection
   portfolioSections(portfolioId: String!): [PortfolioSection!]!
   publicPortfolio(username: String!): Portfolio!
+  publicPortfolioById(portfolioId: String!): Portfolio
   sectionCategories: [String!]!
   sectionType(id: String!): SectionType
   sectionTypes(category: String): [SectionType!]!
