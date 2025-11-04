@@ -26,8 +26,6 @@ model User {
   updatedAt       DateTime         @updatedAt
   
   portfolios      Portfolio[]
-  customThemes    Theme[]
-  customSections  CustomSection[]
 }
 
 // ============================================
@@ -64,18 +62,10 @@ model Portfolio {
   viewCount       Int                @default(0)
   analyticsId     String?
   
-  // Legacy content (for backward compatibility - will be migrated)
-  heroData        Json?
-  aboutData       Json?
-  skillsData      Json?
-  projectsData    Json?
-  contactData     Json?
-  
   createdAt       DateTime           @default(now())
   updatedAt       DateTime           @updatedAt
   
   sections        PortfolioSection[]
-  assets          Asset[]
   views           PortfolioView[]
   
   @@index([userId])
@@ -106,7 +96,6 @@ model Template {
   updatedAt       DateTime           @updatedAt
   
   portfolios      Portfolio[]
-  sections        TemplateSection[]
   
   @@index([category])
 }
@@ -136,27 +125,7 @@ model SectionType {
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
   
-  templateSections  TemplateSection[]
   portfolioSections PortfolioSection[]
-  customSections    CustomSection[]
-}
-
-model TemplateSection {
-  id              String      @id @default(uuid())
-  templateId      String
-  template        Template    @relation(fields: [templateId], references: [id], onDelete: Cascade)
-  
-  sectionTypeId   String
-  sectionType     SectionType @relation(fields: [sectionTypeId], references: [id])
-  
-  order           Int
-  isRequired      Boolean     @default(false)
-  isVisible       Boolean     @default(true)
-  
-  config          Json?
-  
-  @@unique([templateId, sectionTypeId])
-  @@index([templateId])
 }
 
 model PortfolioSection {
@@ -183,28 +152,6 @@ model PortfolioSection {
   @@index([portfolioId, order])
 }
 
-model CustomSection {
-  id              String      @id @default(uuid())
-  userId          String
-  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  sectionTypeId   String
-  sectionType     SectionType @relation(fields: [sectionTypeId], references: [id])
-  
-  name            String
-  description     String?
-  
-  code            String      @db.Text
-  styles          String      @db.Text
-  
-  isPublic        Boolean     @default(false)
-  
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
-  
-  @@index([userId])
-}
-
 // ============================================
 // THEME SYSTEM
 // ============================================
@@ -213,9 +160,6 @@ model Theme {
   id              String      @id @default(uuid())
   name            String
   description     String?
-  
-  userId          String?
-  user            User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   colors          Json
   fonts           Json
@@ -244,37 +188,6 @@ model Theme {
   
   portfolios      Portfolio[]
   templates       Template[]
-  
-  @@index([userId])
-}
-
-// ============================================
-// ASSET MANAGEMENT
-// ============================================
-
-model Asset {
-  id              String      @id @default(uuid())
-  userId          String
-  portfolioId     String?
-  portfolio       Portfolio?  @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
-  
-  type            String
-  url             String
-  filename        String
-  mimeType        String
-  size            Int
-  
-  width           Int?
-  height          Int?
-  alt             String?
-  
-  folder          String?
-  tags            String[]
-  
-  createdAt       DateTime    @default(now())
-  
-  @@index([userId])
-  @@index([portfolioId])
 }
 
 // ============================================
