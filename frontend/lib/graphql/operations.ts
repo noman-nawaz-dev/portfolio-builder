@@ -300,56 +300,6 @@ export const CREATE_PORTFOLIO = gql`
   }
 `;
 
-export const UPDATE_PORTFOLIO_HERO = gql`
-  mutation UpdatePortfolioHero($portfolioId: String!, $data: JSONObject!) {
-    updatePortfolioHero(portfolioId: $portfolioId, data: $data) {
-      id
-      heroData
-      updatedAt
-    }
-  }
-`;
-
-export const UPDATE_PORTFOLIO_ABOUT = gql`
-  mutation UpdatePortfolioAbout($portfolioId: String!, $data: JSONObject!) {
-    updatePortfolioAbout(portfolioId: $portfolioId, data: $data) {
-      id
-      aboutData
-      updatedAt
-    }
-  }
-`;
-
-export const UPDATE_PORTFOLIO_SKILLS = gql`
-  mutation UpdatePortfolioSkills($portfolioId: String!, $data: JSON!) {
-    updatePortfolioSkills(portfolioId: $portfolioId, data: $data) {
-      id
-      skillsData
-      updatedAt
-    }
-  }
-`;
-
-export const UPDATE_PORTFOLIO_PROJECTS = gql`
-  mutation UpdatePortfolioProjects($portfolioId: String!, $data: JSON!) {
-    updatePortfolioProjects(portfolioId: $portfolioId, data: $data) {
-      id
-      projectsData
-      updatedAt
-    }
-  }
-`;
-
-export const UPDATE_PORTFOLIO_CONTACT = gql`
-  mutation UpdatePortfolioContact($portfolioId: String!, $data: JSONObject!) {
-    updatePortfolioContact(portfolioId: $portfolioId, data: $data) {
-      id
-      contactData
-      updatedAt
-    }
-  }
-`;
-
 export const UPDATE_PORTFOLIO_NAME = gql`
   mutation UpdatePortfolioName($portfolioId: String!, $name: String!) {
     updatePortfolioName(portfolioId: $portfolioId, name: $name) {
