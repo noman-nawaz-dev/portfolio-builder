@@ -49,21 +49,6 @@ export class Portfolio {
   @Field(() => GraphQLJSONObject, { nullable: true })
   globalSettings?: any;
 
-  @Field(() => GraphQLJSONObject, { nullable: true })
-  heroData?: any;
-
-  @Field(() => GraphQLJSONObject, { nullable: true })
-  aboutData?: any;
-
-  @Field(() => GraphQLJSON, { nullable: true })
-  skillsData?: any;
-
-  @Field(() => GraphQLJSON, { nullable: true })
-  projectsData?: any;
-
-  @Field(() => GraphQLJSONObject, { nullable: true })
-  contactData?: any;
-
   @Field()
   createdAt: Date;
 

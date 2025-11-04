@@ -59,56 +59,6 @@ export class PortfoliosResolver {
 
   @Mutation(() => Portfolio)
   @UseGuards(GqlAuthGuard)
-  async updatePortfolioHero(
-    @CurrentUser() user: any,
-    @Args('portfolioId') portfolioId: string,
-    @Args('data', { type: () => GraphQLJSONObject }) data: any,
-  ) {
-    return this.portfoliosService.updateHeroData(portfolioId, user.userId, data);
-  }
-
-  @Mutation(() => Portfolio)
-  @UseGuards(GqlAuthGuard)
-  async updatePortfolioAbout(
-    @CurrentUser() user: any,
-    @Args('portfolioId') portfolioId: string,
-    @Args('data', { type: () => GraphQLJSONObject }) data: any,
-  ) {
-    return this.portfoliosService.updateAboutData(portfolioId, user.userId, data);
-  }
-
-  @Mutation(() => Portfolio)
-  @UseGuards(GqlAuthGuard)
-  async updatePortfolioSkills(
-    @CurrentUser() user: any,
-    @Args('portfolioId') portfolioId: string,
-    @Args('data', { type: () => GraphQLJSON }) data: any,
-  ) {
-    return this.portfoliosService.updateSkillsData(portfolioId, user.userId, data);
-  }
-
-  @Mutation(() => Portfolio)
-  @UseGuards(GqlAuthGuard)
-  async updatePortfolioProjects(
-    @CurrentUser() user: any,
-    @Args('portfolioId') portfolioId: string,
-    @Args('data', { type: () => GraphQLJSON }) data: any,
-  ) {
-    return this.portfoliosService.updateProjectsData(portfolioId, user.userId, data);
-  }
-
-  @Mutation(() => Portfolio)
-  @UseGuards(GqlAuthGuard)
-  async updatePortfolioContact(
-    @CurrentUser() user: any,
-    @Args('portfolioId') portfolioId: string,
-    @Args('data', { type: () => GraphQLJSONObject }) data: any,
-  ) {
-    return this.portfoliosService.updateContactData(portfolioId, user.userId, data);
-  }
-
-  @Mutation(() => Portfolio)
-  @UseGuards(GqlAuthGuard)
   async updatePortfolioName(
     @CurrentUser() user: any,
     @Args('portfolioId') portfolioId: string,
