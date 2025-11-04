@@ -165,11 +165,6 @@ export const GET_PORTFOLIO = gql`
         email
         username
       }
-      heroData
-      aboutData
-      skillsData
-      projectsData
-      contactData
       createdAt
       updatedAt
     }
@@ -209,11 +204,6 @@ export const GET_MY_PORTFOLIO = gql`
         name
         category
       }
-      heroData
-      aboutData
-      skillsData
-      projectsData
-      contactData
       updatedAt
       user {
         username
@@ -232,11 +222,6 @@ export const GET_PUBLIC_PORTFOLIO = gql`
         name
         category
       }
-      heroData
-      aboutData
-      skillsData
-      projectsData
-      contactData
       user {
         username
         name
