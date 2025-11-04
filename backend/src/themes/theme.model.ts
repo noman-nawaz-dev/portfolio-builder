@@ -12,9 +12,6 @@ export class Theme {
   @Field({ nullable: true })
   description?: string;
 
-  @Field({ nullable: true })
-  userId?: string;
-
   @Field(() => GraphQLJSON)
   colors: any;
 

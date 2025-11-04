@@ -5,13 +5,10 @@ import { PrismaService } from '../prisma/prisma.service';
 export class ThemesService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(includePrivate = false, userId?: string) {
+  async findAll() {
     return this.prisma.theme.findMany({
       where: {
-        OR: [
-          { isPublic: true },
-          ...(includePrivate && userId ? [{ userId }] : []),
-        ],
+        isPublic: true,
       },
       orderBy: [
         { isDefault: 'desc' },
@@ -30,13 +27,6 @@ export class ThemesService {
   async findDefaultTheme() {
     return this.prisma.theme.findFirst({
       where: { isDefault: true },
-    });
-  }
-
-  async findByUserId(userId: string) {
-    return this.prisma.theme.findMany({
-      where: { userId },
-      orderBy: { createdAt: 'desc' },
     });
   }
 
