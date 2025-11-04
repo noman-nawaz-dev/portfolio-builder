@@ -373,8 +373,8 @@ export const GET_SECTION_CATEGORIES = gql`
 // ============================================
 
 export const GET_THEMES = gql`
-  query GetThemes($includePrivate: Boolean) {
-    themes(includePrivate: $includePrivate) {
+  query GetThemes {
+    themes {
       id
       name
       description
@@ -417,31 +417,6 @@ export const GET_DEFAULT_THEME = gql`
       animations
       breakpoints
       customCSS
-    }
-  }
-`;
-
-export const GET_MY_THEMES = gql`
-  query GetMyThemes {
-    myThemes {
-      id
-      name
-      description
-      colors
-      fonts
-      fontSizes
-      fontWeights
-      lineHeights
-      spacing
-      borderRadius
-      borderWidth
-      shadows
-      animations
-      breakpoints
-      customCSS
-      isDefault
-      isPublic
-      isPremium
     }
   }
 `;
