@@ -45,30 +45,20 @@ type Mutation {
   reorderPortfolioSections(input: ReorderSectionsInput!): [PortfolioSection!]!
   togglePublish(portfolioId: String!): Portfolio!
   updatePortfolio(customDomain: String, id: String!, name: String, themeId: String): Portfolio!
-  updatePortfolioAbout(data: JSONObject!, portfolioId: String!): Portfolio!
-  updatePortfolioContact(data: JSONObject!, portfolioId: String!): Portfolio!
-  updatePortfolioHero(data: JSONObject!, portfolioId: String!): Portfolio!
   updatePortfolioName(name: String!, portfolioId: String!): Portfolio!
-  updatePortfolioProjects(data: JSON!, portfolioId: String!): Portfolio!
   updatePortfolioSection(input: UpdatePortfolioSectionInput!): PortfolioSection!
-  updatePortfolioSkills(data: JSON!, portfolioId: String!): Portfolio!
   updateProfile(data: UpdateProfileInput!): User!
 }
 
 type Portfolio {
-  aboutData: JSONObject
-  contactData: JSONObject
   createdAt: DateTime!
   customDomain: String
   globalSettings: JSONObject
-  heroData: JSONObject
   id: ID!
   isPublished: Boolean!
   name: String!
-  projectsData: JSON
   sections: [PortfolioSection!]
   seo: JSONObject
-  skillsData: JSON
   slug: String
   template: Template!
   theme: Theme
@@ -100,7 +90,6 @@ type Query {
   me: User!
   myPortfolio: Portfolio
   myPortfolios: [Portfolio!]!
-  myThemes: [Theme!]!
   portfolioByUsername(username: String!): Portfolio!
   portfolioSection(id: String!): PortfolioSection
   portfolioSections(portfolioId: String!): [PortfolioSection!]!
@@ -113,7 +102,7 @@ type Query {
   template(id: String!): Template
   templates: [Template!]!
   theme(id: String!): Theme
-  themes(includePrivate: Boolean = false): [Theme!]!
+  themes: [Theme!]!
 }
 
 input ReorderSectionsInput {
@@ -171,7 +160,6 @@ type Theme {
   spacing: JSON!
   updatedAt: DateTime!
   usageCount: Float!
-  userId: String
 }
 
 input UpdatePortfolioSectionInput {
