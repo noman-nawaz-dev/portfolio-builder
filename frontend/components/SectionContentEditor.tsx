@@ -52,7 +52,6 @@ export default function SectionContentEditor({
   const [formData, setFormData] = useState(content || {});
   const [showSkillsPicker, setShowSkillsPicker] = useState(false);
   const [skillSearchQuery, setSkillSearchQuery] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   
   const placeholders = getPlaceholdersByTemplate(templateCategory || 'general');
@@ -60,15 +59,6 @@ export default function SectionContentEditor({
   useEffect(() => {
     setFormData(content || {});
   }, [content]);
-
-  useEffect(() => {
-    // Simulate form rendering delay and set loading to false
-    setIsLoading(true);
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [sectionType]);
 
   const handleChange = (path: string, value: any) => {
     const keys = path.split('.');
@@ -689,15 +679,6 @@ export default function SectionContentEditor({
   );
 
   const renderForm = () => {
-    if (isLoading) {
-      return (
-        <div className="text-center py-12">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-          <p className="mt-4 text-gray-600">Loading form...</p>
-        </div>
-      );
-    }
-
     switch (sectionType) {
       case 'hero-minimal':
         return renderHeroMinimalForm();

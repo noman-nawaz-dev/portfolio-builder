@@ -32,6 +32,10 @@ function SectionEditorContent() {
   const [selectedCategory, setSelectedCategory] = useState<'light' | 'dark' | null>(null);
   const [editingContent, setEditingContent] = useState<any>(null);
   const [deletingSectionId, setDeletingSectionId] = useState<string | null>(null);
+  const [pendingOrder, setPendingOrder] = useState<string[]>([]);
+  const [hasUnsavedOrder, setHasUnsavedOrder] = useState(false);
+  const [changingTheme, setChangingTheme] = useState(false);
+  const [loadingNewSection, setLoadingNewSection] = useState(false);
 
   const { data: portfolioData, loading: portfolioLoading, refetch } = useQuery(GET_PORTFOLIO, {
     variables: { portfolioId },
@@ -45,11 +49,15 @@ function SectionEditorContent() {
     onCompleted: (data) => {
       refetch();
       setShowAddSection(false);
+      setLoadingNewSection(false);
       // Automatically open the newly created section for editing
       if (data?.addPortfolioSection) {
         setSelectedSectionId(data.addPortfolioSection.id);
         setEditingContent(data.addPortfolioSection.content);
       }
+    },
+    onError: () => {
+      setLoadingNewSection(false);
     },
   });
 
@@ -114,6 +122,11 @@ function SectionEditorContent() {
   const themes = themesData?.themes || [];
   const currentTheme = portfolio?.theme || themes[0];
 
+  // Display sections in pending order if available
+  const displaySections = hasUnsavedOrder 
+    ? pendingOrder.map(id => sortedSections.find(s => s.id === id)!).filter(Boolean)
+    : sortedSections;
+
   const handleAddSection = async (sectionTypeId: string) => {
     const sectionType = sectionTypes.find((st: any) => st.id === sectionTypeId);
     if (!sectionType) return;
@@ -121,6 +134,7 @@ function SectionEditorContent() {
     // Default content based on section type
     const defaultContent = getDefaultContent(sectionType.name);
 
+    setLoadingNewSection(true);
     await addSection({
       variables: {
         input: {
@@ -151,35 +165,51 @@ function SectionEditorContent() {
     await deleteSection({ variables: { id: deletingSectionId } });
   };
 
-  const handleMoveSection = async (sectionId: string, direction: 'up' | 'down') => {
-    const currentIndex = sortedSections.findIndex((s) => s.id === sectionId);
+  const handleMoveSection = (sectionId: string, direction: 'up' | 'down') => {
+    const currentOrder = hasUnsavedOrder ? pendingOrder : sortedSections.map(s => s.id);
+    const currentIndex = currentOrder.findIndex((id) => id === sectionId);
     if (currentIndex === -1) return;
     if (direction === 'up' && currentIndex === 0) return;
-    if (direction === 'down' && currentIndex === sortedSections.length - 1) return;
+    if (direction === 'down' && currentIndex === currentOrder.length - 1) return;
 
     const newIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
-    const reorderedSections = [...sortedSections];
-    const [movedSection] = reorderedSections.splice(currentIndex, 1);
-    reorderedSections.splice(newIndex, 0, movedSection);
+    const newOrder = [...currentOrder];
+    const [movedId] = newOrder.splice(currentIndex, 1);
+    newOrder.splice(newIndex, 0, movedId);
 
-    const sectionIds = reorderedSections.map((section) => section.id);
+    setPendingOrder(newOrder);
+    setHasUnsavedOrder(true);
+  };
 
+  const handleSaveOrder = async () => {
     await reorderSections({
       variables: { 
         input: {
           portfolioId, 
-          sectionIds 
+          sectionIds: pendingOrder 
         }
       },
     });
+    setHasUnsavedOrder(false);
+    setPendingOrder([]);
+  };
+
+  const handleCancelOrder = () => {
+    setPendingOrder([]);
+    setHasUnsavedOrder(false);
   };
 
   const handleChangeTheme = async (themeId: string) => {
-    await updatePortfolio({
-      variables: { id: portfolioId, themeId },
-    });
-    setShowThemeSelector(false);
-    setSelectedCategory(null);
+    setChangingTheme(true);
+    try {
+      await updatePortfolio({
+        variables: { id: portfolioId, themeId },
+      });
+      setShowThemeSelector(false);
+      setSelectedCategory(null);
+    } finally {
+      setChangingTheme(false);
+    }
   };
 
   const handlePublish = async () => {
@@ -323,10 +353,17 @@ function SectionEditorContent() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setShowThemeSelector(!showThemeSelector)}
-              disabled={updatingPortfolio || addingSection || deletingSection || updatingSection}
+              disabled={changingTheme || addingSection || deletingSection || updatingSection}
               className="theme-button px-4 py-2 bg-white border rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {updatingPortfolio ? '⏳' : '🎨'} Theme
+              {changingTheme ? (
+                <span className="flex items-center gap-2">
+                  <div className="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-indigo-600"></div>
+                  Theme
+                </span>
+              ) : (
+                <span>🎨 Theme</span>
+              )}
             </button>
             <button
               onClick={() => router.push(`/preview?portfolio=${portfolioId}`)}
@@ -356,6 +393,16 @@ function SectionEditorContent() {
         {/* Theme Selector Dropdown */}
         {showThemeSelector && (
           <div className="theme-selector-popup absolute right-4 top-16 bg-white border rounded-lg shadow-xl p-4 w-96 z-50">
+            {/* Loading Overlay */}
+            {changingTheme && (
+              <div className="absolute inset-0 bg-white/80 rounded-lg flex items-center justify-center z-10">
+                <div className="flex flex-col items-center gap-2">
+                  <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+                  <span className="text-sm text-gray-600 font-medium">Changing theme...</span>
+                </div>
+              </div>
+            )}
+            
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-bold text-lg">Choose Theme</h3>
               <button
@@ -363,7 +410,8 @@ function SectionEditorContent() {
                   setShowThemeSelector(false);
                   setSelectedCategory(null);
                 }}
-                className="text-gray-400 hover:text-gray-600"
+                disabled={changingTheme}
+                className="text-gray-400 hover:text-gray-600 disabled:opacity-50"
               >
                 ✕
               </button>
@@ -375,7 +423,8 @@ function SectionEditorContent() {
                 <p className="text-sm text-gray-600 mb-4">Select a theme category:</p>
                 <button
                   onClick={() => setSelectedCategory('light')}
-                  className="w-full p-4 rounded-lg border-2 border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all text-left group"
+                  disabled={changingTheme}
+                  className="w-full p-4 rounded-lg border-2 border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all text-left group disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -395,7 +444,8 @@ function SectionEditorContent() {
 
                 <button
                   onClick={() => setSelectedCategory('dark')}
-                  className="w-full p-4 rounded-lg border-2 border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all text-left group"
+                  disabled={changingTheme}
+                  className="w-full p-4 rounded-lg border-2 border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all text-left group disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -439,7 +489,7 @@ function SectionEditorContent() {
                       <button
                         key={theme.id}
                         onClick={() => handleChangeTheme(theme.id)}
-                        disabled={updatingSection || addingSection || deletingSection}
+                        disabled={changingTheme || updatingSection || addingSection || deletingSection}
                         className={`w-full p-3 rounded-lg border-2 text-left transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
                           currentTheme?.id === theme.id
                             ? 'border-indigo-600 bg-indigo-50 shadow-md'
@@ -532,12 +582,12 @@ function SectionEditorContent() {
 
               {/* Sections List */}
               <div className="space-y-2">
-                {sortedSections.length === 0 ? (
+                {displaySections.length === 0 ? (
                   <p className="text-gray-500 text-sm text-center py-8">
                     No sections yet. Click "+ Add" to start building!
                   </p>
                 ) : (
-                  sortedSections.map((section: any, index: number) => (
+                  displaySections.map((section: any, index: number) => (
                     <div
                       key={section.id}
                       className={`p-3 border rounded-lg ${
@@ -562,7 +612,7 @@ function SectionEditorContent() {
                           </button>
                           <button
                             onClick={() => handleMoveSection(section.id, 'down')}
-                            disabled={index === sortedSections.length - 1 || addingSection || updatingSection || deletingSection}
+                            disabled={index === displaySections.length - 1 || addingSection || updatingSection || deletingSection}
                             className="p-1 hover:bg-gray-200 rounded disabled:opacity-30 disabled:cursor-not-allowed"
                             title="Move down"
                           >
@@ -593,6 +643,28 @@ function SectionEditorContent() {
                   ))
                 )}
               </div>
+
+              {/* Save Order Button */}
+              <div className="mt-4 pt-4 border-t text-right">
+                <button
+                  onClick={handleSaveOrder}
+                  disabled={!hasUnsavedOrder || reorderingSection}
+                  className={`w-32 px-3 py-1 rounded-lg text-sm font-medium transition ${
+                    hasUnsavedOrder
+                      ? 'bg-indigo-600 text-white hover:bg-indigo-700'
+                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  } disabled:opacity-50`}
+                >
+                  {reorderingSection ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <div className="inline-block animate-spin rounded-full h-3 w-3 border-b-2 border-white"></div>
+                      Saving...
+                    </span>
+                  ) : (
+                    'Save Changes'
+                  )}
+                </button>
+              </div>
             </div>
           </div>
 
@@ -608,7 +680,7 @@ function SectionEditorContent() {
               <div className="max-h-[calc(100vh-200px)] overflow-y-auto">
                 {currentTheme && (
                   <ThemeProvider initialTheme={currentTheme}>
-                    {sortedSections.map((section: any) => {
+                    {displaySections.map((section: any) => {
                       const SectionComponent = getSectionComponent(section.sectionType.name);
                       if (!SectionComponent) return null;
 
@@ -624,7 +696,7 @@ function SectionEditorContent() {
                         />
                       );
                     })}
-                    {sortedSections.length === 0 && (
+                    {displaySections.length === 0 && (
                       <div className="p-12 text-center text-gray-400">
                         <p className="text-lg">No sections yet</p>
                         <p className="text-sm">Add your first section to get started!</p>
@@ -638,43 +710,40 @@ function SectionEditorContent() {
         </div>
       </div>
 
-      {/* Loading Overlay for Reordering */}
-      {reorderingSection && (
-        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-40 pointer-events-none">
-          <div className="bg-white rounded-lg shadow-xl p-6 flex items-center gap-3">
-            <div className="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-indigo-600"></div>
-            <span className="font-medium">Reordering sections...</span>
-          </div>
-        </div>
-      )}
-
       {/* Content Editor Modal */}
-      {selectedSectionId && editingContent && (
+      {(selectedSectionId && editingContent) || loadingNewSection ? (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <SectionContentEditor
-            sectionType={
-              sortedSections.find((s: any) => s.id === selectedSectionId)?.sectionType.name || ''
-            }
-            content={editingContent}
-            templateCategory={portfolio?.template?.category}
-            onSave={async (newContent) => {
-              setEditingContent(newContent);
-              await updateSection({
-                variables: {
-                  input: {
-                    id: selectedSectionId,
-                    content: newContent,
+          {loadingNewSection ? (
+            <div className="bg-white rounded-xl shadow-2xl p-8 flex flex-col items-center gap-4">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+              <span className="text-lg font-medium text-gray-700">Loading section editor...</span>
+            </div>
+          ) : (
+            <SectionContentEditor
+              sectionType={
+                sortedSections.find((s: any) => s.id === selectedSectionId)?.sectionType.name || ''
+              }
+              content={editingContent}
+              templateCategory={portfolio?.template?.category}
+              onSave={async (newContent) => {
+                setEditingContent(newContent);
+                await updateSection({
+                  variables: {
+                    input: {
+                      id: selectedSectionId,
+                      content: newContent,
+                    },
                   },
-                },
-              });
-            }}
-            onCancel={() => {
-              setSelectedSectionId(null);
-              setEditingContent(null);
-            }}
-          />
+                });
+              }}
+              onCancel={() => {
+                setSelectedSectionId(null);
+                setEditingContent(null);
+              }}
+            />
+          )}
         </div>
-      )}
+      ) : null}
 
       {/* Delete Confirmation Modal */}
       {deletingSectionId && (
