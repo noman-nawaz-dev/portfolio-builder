@@ -81,6 +81,17 @@ function PreviewContent() {
             </span>
           </div>
           <div className="flex gap-2 sm:gap-3 w-full sm:w-auto">
+            {portfolio.resumeUrl && (
+              <a
+                href={portfolio.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+                className="flex-1 sm:flex-none bg-white text-yellow-600 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold hover:bg-yellow-50 text-center"
+              >
+                📄 Resume
+              </a>
+            )}
             <Link
               href={`/section-editor?portfolio=${portfolioId}`}
               className="flex-1 sm:flex-none bg-white text-yellow-600 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold hover:bg-yellow-50 text-center"

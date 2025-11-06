@@ -212,7 +212,7 @@ export class PortfoliosService {
     return true;
   }
 
-  async update(portfolioId: string, userId: string, data: { name?: string; themeId?: string; customDomain?: string }) {
+  async update(portfolioId: string, userId: string, data: { name?: string; themeId?: string; customDomain?: string; resumeUrl?: string }) {
     const portfolio = await this.findById(portfolioId);
     
     if (!portfolio || portfolio.userId !== userId) {
@@ -223,6 +223,7 @@ export class PortfoliosService {
     if (data.name !== undefined) updateData.name = data.name;
     if (data.themeId !== undefined) updateData.themeId = data.themeId;
     if (data.customDomain !== undefined) updateData.customDomain = data.customDomain;
+    if (data.resumeUrl !== undefined) updateData.resumeUrl = data.resumeUrl;
 
     return this.prisma.portfolio.update({
       where: { id: portfolioId },

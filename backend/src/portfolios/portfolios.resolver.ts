@@ -84,8 +84,19 @@ export class PortfoliosResolver {
     @Args('name', { nullable: true }) name?: string,
     @Args('themeId', { nullable: true }) themeId?: string,
     @Args('customDomain', { nullable: true }) customDomain?: string,
+    @Args('resumeUrl', { nullable: true }) resumeUrl?: string,
   ) {
-    return this.portfoliosService.update(id, user.userId, { name, themeId, customDomain });
+    return this.portfoliosService.update(id, user.userId, { name, themeId, customDomain, resumeUrl });
+  }
+
+  @Mutation(() => Portfolio)
+  @UseGuards(GqlAuthGuard)
+  async updatePortfolioResume(
+    @CurrentUser() user: any,
+    @Args('portfolioId') portfolioId: string,
+    @Args('resumeUrl', { nullable: true }) resumeUrl?: string,
+  ) {
+    return this.portfoliosService.update(portfolioId, user.userId, { resumeUrl });
   }
 
   @Mutation(() => Portfolio)

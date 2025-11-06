@@ -20,6 +20,7 @@ import {
 } from '@/lib/graphql/operations';
 import { getSectionComponent } from '@/components/sections';
 import SectionContentEditor from '@/components/SectionContentEditor';
+import { ResumeUpload } from '@/components/ResumeUpload';
 
 function SectionEditorContent() {
   const router = useRouter();
@@ -36,6 +37,7 @@ function SectionEditorContent() {
   const [hasUnsavedOrder, setHasUnsavedOrder] = useState(false);
   const [changingTheme, setChangingTheme] = useState(false);
   const [loadingNewSection, setLoadingNewSection] = useState(false);
+  const [showResumeUpload, setShowResumeUpload] = useState(false);
 
   const { data: portfolioData, loading: portfolioLoading, refetch } = useQuery(GET_PORTFOLIO, {
     variables: { portfolioId },
@@ -543,6 +545,43 @@ function SectionEditorContent() {
           {/* Sections List */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl shadow p-6 sticky top-24">
+              {/* Resume Upload Section */}
+              <div className="mb-6 pb-6 border-b">
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="text-lg font-bold">Resume</h2>
+                  <button
+                    onClick={() => setShowResumeUpload(!showResumeUpload)}
+                    className="text-sm text-indigo-600 hover:text-indigo-700 font-medium"
+                  >
+                    {showResumeUpload ? 'Hide' : 'Manage'}
+                  </button>
+                </div>
+                
+                {showResumeUpload && (
+                  <ResumeUpload
+                    portfolioId={portfolioId!}
+                    currentResumeUrl={portfolio?.resumeUrl}
+                    onSuccess={() => {
+                      refetch();
+                      setShowResumeUpload(false);
+                    }}
+                  />
+                )}
+                
+                {!showResumeUpload && portfolio?.resumeUrl && (
+                  <div className="flex items-center gap-2 text-sm text-green-600">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span>Resume uploaded</span>
+                  </div>
+                )}
+                
+                {!showResumeUpload && !portfolio?.resumeUrl && (
+                  <p className="text-sm text-gray-500">No resume uploaded yet</p>
+                )}
+              </div>
+
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-bold">Sections</h2>
                 <button

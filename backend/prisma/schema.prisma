@@ -47,6 +47,9 @@ model Portfolio {
   slug            String?            @unique
   isPublished     Boolean            @default(false)
   
+  // Resume
+  resumeUrl       String?
+  
   // SEO & Meta
   metaTitle       String?
   metaDescription String?

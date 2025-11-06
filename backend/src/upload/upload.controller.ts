@@ -44,6 +44,19 @@ export class UploadController {
     return { urls };
   }
 
+  @Post('resume')
+  @UseInterceptors(FileInterceptor('resume'))
+  async uploadResume(
+    @UploadedFile() file: Express.Multer.File,
+  ): Promise<{ url: string }> {
+    if (!file) {
+      throw new BadRequestException('No resume file uploaded');
+    }
+
+    const url = await this.uploadService.uploadResume(file);
+    return { url };
+  }
+
   @Delete('delete')
   async deleteImage(
     @Body('imageUrl') imageUrl: string,
@@ -54,5 +67,17 @@ export class UploadController {
 
     await this.uploadService.deleteImage(imageUrl);
     return { success: true, message: 'Image deleted successfully' };
+  }
+
+  @Delete('delete-resume')
+  async deleteResume(
+    @Body('resumeUrl') resumeUrl: string,
+  ): Promise<{ success: boolean; message: string }> {
+    if (!resumeUrl) {
+      throw new BadRequestException('Resume URL is required');
+    }
+
+    await this.uploadService.deleteResume(resumeUrl);
+    return { success: true, message: 'Resume deleted successfully' };
   }
 }

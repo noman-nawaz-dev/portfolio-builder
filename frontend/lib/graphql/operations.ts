@@ -58,6 +58,7 @@ export const GET_PORTFOLIO_BY_USERNAME = gql`
       slug
       customDomain
       isPublished
+      resumeUrl
       seo
       theme {
         id
@@ -122,6 +123,7 @@ export const GET_PORTFOLIO = gql`
       id
       name
       isPublished
+      resumeUrl
       template {
         id
         name
@@ -239,6 +241,7 @@ export const GET_PUBLIC_PORTFOLIO_BY_ID = gql`
       slug
       customDomain
       isPublished
+      resumeUrl
       seo
       theme {
         id
@@ -528,10 +531,11 @@ export const DUPLICATE_PORTFOLIO_SECTION = gql`
 `;
 
 export const UPDATE_PORTFOLIO = gql`
-  mutation UpdatePortfolio($id: String!, $name: String, $themeId: String, $customDomain: String) {
-    updatePortfolio(id: $id, name: $name, themeId: $themeId, customDomain: $customDomain) {
+  mutation UpdatePortfolio($id: String!, $name: String, $themeId: String, $customDomain: String, $resumeUrl: String) {
+    updatePortfolio(id: $id, name: $name, themeId: $themeId, customDomain: $customDomain, resumeUrl: $resumeUrl) {
       id
       name
+      resumeUrl
       theme {
         id
         name
@@ -550,6 +554,16 @@ export const UPDATE_PORTFOLIO = gql`
         customCSS
       }
       customDomain
+      updatedAt
+    }
+  }
+`;
+
+export const UPDATE_PORTFOLIO_RESUME = gql`
+  mutation UpdatePortfolioResume($portfolioId: String!, $resumeUrl: String) {
+    updatePortfolioResume(portfolioId: $portfolioId, resumeUrl: $resumeUrl) {
+      id
+      resumeUrl
       updatedAt
     }
   }

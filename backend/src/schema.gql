@@ -44,8 +44,9 @@ type Mutation {
   register(email: String!, name: String!, password: String!, username: String!): AuthPayload!
   reorderPortfolioSections(input: ReorderSectionsInput!): [PortfolioSection!]!
   togglePublish(portfolioId: String!): Portfolio!
-  updatePortfolio(customDomain: String, id: String!, name: String, themeId: String): Portfolio!
+  updatePortfolio(customDomain: String, id: String!, name: String, resumeUrl: String, themeId: String): Portfolio!
   updatePortfolioName(name: String!, portfolioId: String!): Portfolio!
+  updatePortfolioResume(portfolioId: String!, resumeUrl: String): Portfolio!
   updatePortfolioSection(input: UpdatePortfolioSectionInput!): PortfolioSection!
   updateProfile(data: UpdateProfileInput!): User!
 }
@@ -57,6 +58,7 @@ type Portfolio {
   id: ID!
   isPublished: Boolean!
   name: String!
+  resumeUrl: String
   sections: [PortfolioSection!]
   seo: JSONObject
   slug: String

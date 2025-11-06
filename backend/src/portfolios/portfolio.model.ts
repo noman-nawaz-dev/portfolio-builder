@@ -43,6 +43,9 @@ export class Portfolio {
   @Field({ nullable: true })
   customDomain?: string;
 
+  @Field({ nullable: true })
+  resumeUrl?: string;
+
   @Field(() => GraphQLJSONObject, { nullable: true })
   seo?: any;
 

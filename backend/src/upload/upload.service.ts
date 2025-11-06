@@ -99,6 +99,59 @@ export class UploadService {
   }
 
   /**
+ * Upload a PDF resume to Cloudinary
+ * @param file The uploaded PDF file
+ * @returns The Cloudinary secure URL
+ */
+async uploadResume(file: Express.Multer.File): Promise<string> {
+  try {
+    // Validate file type
+    if (file.mimetype !== 'application/pdf') {
+      throw new BadRequestException('Only PDF files are allowed for resume upload');
+    }
+
+    // Validate file size (max 10MB for PDFs)
+    const maxSize = 10 * 1024 * 1024; // 10MB
+    if (file.size > maxSize) {
+      throw new BadRequestException('Resume file size must be less than 10MB');
+    }
+
+    // Extract original filename without extension
+    const originalName = file.originalname.replace(/\.[^/.]+$/, '');
+
+    // Upload to Cloudinary
+    return new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          resource_type: 'image', // Use 'image' for PDFs to enable better viewing
+          folder: 'portfolio-builder/resumes',
+          public_id: originalName, // Use original filename
+          format: 'pdf',
+          access_mode: 'public',
+          type: 'upload',
+          overwrite: true, // Overwrite if file with same name exists
+          unique_filename: true, // Add suffix if name conflicts
+        },
+        (error, result) => {
+          if (error) {
+            reject(new BadRequestException(`Resume upload failed: ${error.message}`));
+          } else {
+            resolve(result.secure_url);
+          }
+        },
+      );
+
+      uploadStream.end(file.buffer);
+    });
+  } catch (error) {
+    if (error instanceof BadRequestException) {
+      throw error;
+    }
+    throw new BadRequestException(`Resume upload failed: ${error.message}`);
+  }
+}
+
+  /**
    * Delete an image from Cloudinary
    * @param imageUrl The Cloudinary URL to delete
    */
@@ -141,6 +194,49 @@ export class UploadService {
     } catch (error) {
       // Log but don't throw - we don't want to block operations if delete fails
       console.error('Failed to delete image from Cloudinary:', error);
+    }
+  }
+
+  /**
+   * Delete a resume (PDF) from Cloudinary
+   * @param resumeUrl The Cloudinary URL to delete
+   */
+  async deleteResume(resumeUrl: string): Promise<void> {
+    try {
+      // Validate URL
+      if (!resumeUrl || !resumeUrl.includes('cloudinary.com')) {
+        console.warn('Invalid Cloudinary URL provided for deletion');
+        return;
+      }
+
+      // Decode URL to handle encoded characters like %20 (space) and %27 (apostrophe)
+      const decodedUrl = decodeURIComponent(resumeUrl);
+      
+      // Extract public_id from URL
+      const urlParts = decodedUrl.split('/');
+      const uploadIndex = urlParts.findIndex(part => part === 'upload');
+      
+      if (uploadIndex === -1 || uploadIndex >= urlParts.length - 1) {
+        console.warn('Unable to extract public_id from URL');
+        return;
+      }
+
+      const pathAfterUpload = urlParts.slice(uploadIndex + 1).join('/');
+      const pathWithoutVersion = pathAfterUpload.replace(/^v\d+\//, '');
+      const publicId = pathWithoutVersion.replace(/\.[^/.]+$/, '');
+
+      console.log(`Deleting resume with public_id: ${publicId}`);
+      
+      // Use resource_type: 'image' since we upload PDFs with resource_type: 'image'
+      const result = await cloudinary.uploader.destroy(publicId, { resource_type: 'image' });
+      
+      if (result.result === 'ok') {
+        console.log('Resume deleted successfully from Cloudinary');
+      } else {
+        console.warn('Resume deletion result:', result);
+      }
+    } catch (error) {
+      console.error('Failed to delete resume from Cloudinary:', error);
     }
   }
 }
