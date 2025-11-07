@@ -1,5 +1,7 @@
+```mermaid
 erDiagram
-    User {
+
+    USER {
         String id PK
         String email
         String password
@@ -11,7 +13,7 @@ erDiagram
         DateTime updatedAt
     }
 
-    Portfolio {
+    PORTFOLIO {
         String id PK
         String userId FK
         String templateId FK
@@ -33,7 +35,7 @@ erDiagram
         DateTime updatedAt
     }
 
-    Template {
+    TEMPLATE {
         String id PK
         String name
         String category
@@ -52,7 +54,7 @@ erDiagram
         DateTime updatedAt
     }
 
-    SectionType {
+    SECTIONTYPE {
         String id PK
         String name
         String displayName
@@ -70,7 +72,7 @@ erDiagram
         DateTime updatedAt
     }
 
-    PortfolioSection {
+    PORTFOLIOSECTION {
         String id PK
         String portfolioId FK
         String sectionTypeId FK
@@ -84,7 +86,7 @@ erDiagram
         DateTime updatedAt
     }
 
-    Theme {
+    THEME {
         String id PK
         String name
         String description
@@ -109,7 +111,7 @@ erDiagram
         DateTime updatedAt
     }
 
-    PortfolioView {
+    PORTFOLIOVIEW {
         String id PK
         String portfolioId FK
         String ipAddress
@@ -122,11 +124,11 @@ erDiagram
         DateTime viewedAt
     }
 
-    %% RELATIONSHIPS
-    User ||--o{ Portfolio : "has many"
-    Portfolio ||--o{ PortfolioSection : "has many"
-    Portfolio ||--o{ PortfolioView : "has many"
-    Template ||--o{ Portfolio : "used by"
-    Theme ||--o{ Portfolio : "applied to"
-    Theme ||--o{ Template : "default theme"
-    SectionType ||--o{ PortfolioSection : "defines"
+    %% Relationships
+    USER ||--o{ PORTFOLIO : "has many"
+    PORTFOLIO }o--|| TEMPLATE : "uses"
+    PORTFOLIO }o--o| THEME : "applies"
+    PORTFOLIO ||--o{ PORTFOLIOSECTION : "contains"
+    SECTIONTYPE ||--o{ PORTFOLIOSECTION : "used by"
+    TEMPLATE }o--o| THEME : "default theme"
+    PORTFOLIO ||--o{ PORTFOLIOVIEW : "tracked by"
