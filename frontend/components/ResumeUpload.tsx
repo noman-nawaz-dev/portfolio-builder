@@ -50,10 +50,6 @@ export const ResumeUpload: React.FC<ResumeUploadProps> = ({
       // Upload to backend
       const formData = new FormData();
       formData.append('resume', file);
-      // Send old resume URL so backend can delete it before uploading new one
-      if (currentResumeUrl) {
-        formData.append('oldResumeUrl', currentResumeUrl);
-      }
 
       const token = localStorage.getItem('token');
       const response = await fetch(`${API_URL}/upload/resume`, {
