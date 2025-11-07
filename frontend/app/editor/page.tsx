@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ProtectedRoute } from '@/lib/ProtectedRoute';
 import AuthLayout from '@/components/AuthLayout';
-import { LoadingScreen } from '@/components/ui';
+import { LoadingScreen, Card, Container, Stack, Heading, Text, Button, Flex } from '@/components/ui';
 import {
   GET_PORTFOLIO,
 } from '@/lib/graphql/operations';
@@ -31,43 +31,51 @@ function EditorContent() {
   const portfolio = data?.getPortfolio;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-      <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-        <div className="p-8 text-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+    <Container maxWidth="4xl" padding="lg" className="px-4 py-8 sm:py-12 md:py-16 lg:py-20">
+      <Card className="shadow-xl md:shadow-2xl">
+        <Stack spacing="lg" align="center" className="p-4 sm:p-6 md:p-8 lg:p-10">
+          <Heading as="h1" size="3xl" align="center" className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl">
             Portfolio Editor
-          </h1>
-          <p className="text-lg text-gray-600 mb-6">
+          </Heading>
+          <Text size="lg" align="center" className="text-base sm:text-lg md:text-xl">
             The portfolio editor has been updated to use a new section-based system.
-          </p>
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
-            <h2 className="text-xl font-semibold text-blue-900 mb-2">
-              What's New
-            </h2>
-            <ul className="text-blue-800 space-y-1 text-left">
-              <li>• Dynamic sections instead of fixed hero/about/skills/projects/contact</li>
-              <li>• Drag-and-drop section reordering</li>
-              <li>• Multiple section types (text, images, forms, etc.)</li>
-              <li>• Customizable layouts and styling</li>
-            </ul>
-          </div>
-          <div className="flex gap-4 justify-center">
-            <button
+          </Text>
+          
+          <Card className="bg-blue-50 border border-blue-200 w-full p-4 sm:p-6 md:p-8">
+            <Stack spacing="md">
+              <Heading as="h2" size="xl" className="text-blue-900 text-lg sm:text-xl md:text-2xl">
+                What&apos;s New
+              </Heading>
+              <ul className="text-blue-800 space-y-1 text-left text-sm sm:text-base md:text-base ml-4">
+                <li>• Dynamic sections instead of fixed hero/about/skills/projects/contact</li>
+                <li>• Drag-and-drop section reordering</li>
+                <li>• Multiple section types (text, images, forms, etc.)</li>
+                <li>• Customizable layouts and styling</li>
+              </ul>
+            </Stack>
+          </Card>
+          
+          <Flex gap="md" justify="center" className="flex-col sm:flex-row w-full sm:w-auto md:gap-lg">
+            <Button
               onClick={() => router.push(`/preview?portfolio=${portfolioId}`)}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+              variant="primary"
+              size="lg"
+              className="w-full sm:w-auto md:w-auto h-12 md:h-14 px-6 md:px-8"
             >
               Preview Portfolio
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => router.push('/dashboard')}
-              className="px-6 py-3 bg-gray-600 text-white rounded-lg font-semibold hover:bg-gray-700 transition-colors"
+              variant="secondary"
+              size="lg"
+              className="w-full sm:w-auto md:w-auto h-12 md:h-14 px-6 md:px-8"
             >
               Back to Dashboard
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Button>
+          </Flex>
+        </Stack>
+      </Card>
+    </Container>
   );
 }
 

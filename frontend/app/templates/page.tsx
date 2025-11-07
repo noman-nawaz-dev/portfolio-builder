@@ -8,7 +8,7 @@ import AuthLayout from '@/components/AuthLayout';
 import { useEffect, useState } from 'react';
 import { usePortfolio } from '@/lib/PortfolioContext';
 import { PageContainer } from '@/components/layout';
-import { Card, CardHeader, CardBody, Button, Modal, ModalFooter, Input, LoadingScreen, Alert } from '@/components/ui';
+import { Card, CardHeader, CardBody, Button, Modal, ModalFooter, Input, LoadingScreen, Alert, Heading, Text, Container, Grid, Stack } from '@/components/ui';
 
 const MAX_PORTFOLIOS = 3;
 
@@ -73,52 +73,57 @@ function TemplatesContent() {
 
   return (
     <>
-      <PageContainer>
+      <PageContainer className="px-4 md:px-6">
         {/* Header */}
-        <div className="text-center mb-8 sm:mb-12">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Choose Your Template
-          </h1>
-          <p className="text-base sm:text-lg text-gray-600">
-            Select a template that best represents your profession
-          </p>
-        </div>
+        <Container maxWidth="4xl" padding="none" className="mb-8 sm:mb-12 md:mb-16">
+          <Stack spacing="md" align="center">
+            <Heading as="h1" size="4xl" align="center" className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl">
+              Choose Your Template
+            </Heading>
+            <Text size="lg" align="center" className="text-base sm:text-lg md:text-xl lg:text-xl px-4 md:px-0">
+              Select a template that best represents your profession
+            </Text>
+          </Stack>
+        </Container>
 
         {/* Templates Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <Grid cols={1} smCols={2} mdCols={2} lgCols={3} gap="lg" className="md:gap-xl mb-8 md:mb-12">
           {data?.templates?.map((template: any) => (
-            <Card key={template.id} padding="none" hoverable>
-              <div className="h-48 bg-gradient-to-br from-blue-400 to-indigo-600 relative overflow-hidden">
+            <Card key={template.id} padding="none" hoverable className="shadow-lg md:shadow-xl">
+              <div className="h-40 sm:h-48 md:h-52 bg-gradient-to-br from-blue-400 to-indigo-600 relative overflow-hidden">
                 <img
                   src={template.previewImage}
                   alt={template.name}
                   className="w-full h-full object-cover"
                 />
               </div>
-              <CardBody>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {template.name}
-                </h3>
-                <p className="text-gray-600 mb-6 min-h-[60px]">
-                  {template.description}
-                </p>
-                <Button
-                  onClick={() => handleSelectTemplate(template.id)}
-                  variant="primary"
-                  fullWidth
-                  size="lg"
-                  loading={creating}
-                >
-                  Select Template
-                </Button>
+              <CardBody className="p-4 sm:p-6 md:p-8">
+                <Stack spacing="md">
+                  <Heading as="h3" size="xl" className="text-lg sm:text-xl md:text-2xl">
+                    {template.name}
+                  </Heading>
+                  <Text className="min-h-[60px] text-sm sm:text-base md:text-base leading-relaxed">
+                    {template.description}
+                  </Text>
+                  <Button
+                    onClick={() => handleSelectTemplate(template.id)}
+                    variant="primary"
+                    fullWidth
+                    size="lg"
+                    loading={creating}
+                    className="text-sm sm:text-base md:text-base h-12 md:h-14 mt-2 md:mt-4"
+                  >
+                    Select Template
+                  </Button>
+                </Stack>
               </CardBody>
             </Card>
           ))}
-        </div>
+        </Grid>
 
         {/* Portfolio Count Warning */}
         {!canCreateMore && (
-          <Alert variant="warning" className="mt-8 max-w-2xl mx-auto text-center">
+          <Alert variant="warning" className="mt-8 max-w-2xl mx-auto text-center text-sm sm:text-base md:text-base px-4 md:px-6 py-4 md:py-6">
             You have reached the maximum limit of {MAX_PORTFOLIOS} portfolios.
             Please delete an existing portfolio to create a new one.
           </Alert>
@@ -144,6 +149,7 @@ function TemplatesContent() {
           placeholder="e.g., My Design Portfolio"
           helperText={`Portfolio ${portfolios.length + 1} of ${MAX_PORTFOLIOS}`}
           autoFocus
+          className="mb-4 md:mb-6"
           onKeyDown={(e: any) => {
             if (e.key === 'Enter') {
               handleCreatePortfolio();
@@ -151,7 +157,7 @@ function TemplatesContent() {
           }}
         />
         
-        <ModalFooter>
+        <ModalFooter className="gap-3 md:gap-4">
           <Button
             onClick={() => {
               setShowNameModal(false);
@@ -160,6 +166,7 @@ function TemplatesContent() {
             variant="secondary"
             fullWidth
             disabled={creating}
+            className="h-12 md:h-14"
           >
             Cancel
           </Button>
@@ -168,6 +175,7 @@ function TemplatesContent() {
             variant="primary"
             fullWidth
             loading={creating}
+            className="h-12 md:h-14"
           >
             Create Portfolio
           </Button>

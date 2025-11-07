@@ -1,9 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Card } from '@/components/ui';
-import { Input } from '@/components/ui';
-import { Button } from '@/components/ui';
-import { Alert } from '@/components/ui';
+import { Card, Button, Alert, Heading, Text, Stack } from '@/components/ui';
 
 interface AuthFormProps {
   title: string;
@@ -29,39 +26,46 @@ export const AuthForm: React.FC<AuthFormProps> = ({
   footerLinkHref,
 }) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
-      <Card className="max-w-md w-full" padding="lg">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
-          <p className="text-gray-600 mt-2">{subtitle}</p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4 py-8 sm:py-12 md:py-16">
+      <Card className="max-w-md w-full shadow-2xl md:max-w-lg" padding="md">
+        <Stack spacing="lg" align="center" className="mb-6 sm:mb-8">
+          <Heading as="h1" size="3xl" align="center" className="text-2xl sm:text-3xl md:text-4xl">
+            {title}
+          </Heading>
+          <Text align="center" className="text-sm sm:text-base">
+            {subtitle}
+          </Text>
+        </Stack>
 
         {error && (
-          <Alert variant="error" className="mb-4">
+          <Alert variant="error" className="mb-4 text-sm sm:text-base">
             {error}
           </Alert>
         )}
 
-        <form onSubmit={onSubmit} className="space-y-6">
-          {children}
-          
-          <Button
-            type="submit"
-            variant="primary"
-            size="lg"
-            fullWidth
-            loading={loading}
-          >
-            {loading ? 'Processing...' : title}
-          </Button>
+        <form onSubmit={onSubmit}>
+          <Stack spacing="lg">
+            {children}
+            
+            <Button
+              type="submit"
+              variant="primary"
+              size="lg"
+              fullWidth
+              loading={loading}
+              className="mt-2"
+            >
+              {loading ? 'Processing...' : title}
+            </Button>
+          </Stack>
         </form>
 
-        <p className="text-center mt-6 text-gray-600">
+        <Text align="center" className="mt-6 md:mt-8 text-sm sm:text-base">
           {footerText}{' '}
           <Link href={footerLinkHref} className="text-indigo-600 hover:text-indigo-700 font-semibold">
             {footerLinkText}
           </Link>
-        </p>
+        </Text>
       </Card>
     </div>
   );

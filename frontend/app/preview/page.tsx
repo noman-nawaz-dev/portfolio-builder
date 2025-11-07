@@ -7,8 +7,7 @@ import { ProtectedRoute } from '@/lib/ProtectedRoute';
 import { usePortfolio } from '@/lib/PortfolioContext';
 import { getSectionComponent } from '@/components/sections';
 import AuthLayout from '@/components/AuthLayout';
-import Link from 'next/link';
-import { LoadingScreen } from '@/components/ui';
+import { LoadingScreen, Heading, Text, Link, Button, Container, Stack, Flex, Box, Badge } from '@/components/ui';
 
 function PreviewContent() {
   const searchParams = useSearchParams();
@@ -29,18 +28,17 @@ function PreviewContent() {
 
   if (error || !data?.getPortfolio) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)]">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">No Portfolio Found</h1>
-            <p className="text-gray-600 mb-6">You haven&apos;t created a portfolio yet.</p>
-            <Link
-              href="/templates"
-              className="inline-block bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all"
-            >
+      <Container maxWidth="4xl" className="py-16 sm:py-20 lg:py-24 px-4">
+        <Stack spacing="lg" align="center">
+          <Heading as="h1" size="4xl" align="center" className="text-3xl sm:text-4xl">No Portfolio Found</Heading>
+          <Text size="lg" align="center" className="text-base sm:text-lg">You haven&apos;t created a portfolio yet.</Text>
+          <Link href="/templates" className="w-full sm:w-auto">
+            <Button variant="primary" size="lg" className="w-full sm:w-auto">
               Choose a Template
-            </Link>
-          </div>
-      </div>
+            </Button>
+          </Link>
+        </Stack>
+      </Container>
     );
   }
 
@@ -68,49 +66,53 @@ function PreviewContent() {
   return (
     <div className="relative">
       {/* Preview Banner */}
-      <div className="fixed top-0 left-0 right-0 bg-yellow-500 text-white py-3 px-4 z-50 shadow-md">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <span className="font-semibold text-sm sm:text-base whitespace-nowrap">
-              {portfolio.isPublished ? '👁️ Preview Mode' : '📝 Draft Preview'}
-            </span>
-            <span className="text-xs sm:text-sm hidden sm:inline">
-              {portfolio.isPublished 
-                ? 'This is how your published portfolio looks'
-                : 'Your portfolio is not published yet'}
-            </span>
-          </div>
-          <div className="flex gap-2 sm:gap-3 w-full sm:w-auto">
-            {portfolio.resumeUrl && (
-              <a
-                href={portfolio.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                download
-                className="flex-1 sm:flex-none bg-white text-yellow-600 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold hover:bg-yellow-50 text-center"
-              >
-                📄 Resume
-              </a>
-            )}
-            <Link
-              href={`/section-editor?portfolio=${portfolioId}`}
-              className="flex-1 sm:flex-none bg-white text-yellow-600 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold hover:bg-yellow-50 text-center"
-            >
-              Edit
-            </Link>
-            <Link
-              href="/dashboard"
-              className="flex-1 sm:flex-none bg-yellow-600 text-white px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold hover:bg-yellow-700 text-center"
-            >
-              Dashboard
-            </Link>
-          </div>
-        </div>
-      </div>
+      <Box className="fixed top-0 left-0 right-0 bg-yellow-500 text-white z-50 shadow-md py-2 sm:py-3 px-4">
+        <Container maxWidth="7xl" padding="none">
+          <Flex direction="col" align="start" justify="between" gap="sm" className="sm:flex-row sm:items-center">
+            <Stack direction="horizontal" spacing="sm" align="center" className="flex-wrap sm:flex-nowrap">
+              <Badge className="bg-transparent border-0 p-0">
+                <Text as="span" weight="semibold" className="text-white whitespace-nowrap text-sm sm:text-base">
+                  {portfolio.isPublished ? '👁️ Preview Mode' : '📝 Draft Preview'}
+                </Text>
+              </Badge>
+              <Text size="sm" className="text-white hidden lg:inline text-xs sm:text-sm">
+                {portfolio.isPublished 
+                  ? 'This is how your published portfolio looks'
+                  : 'Your portfolio is not published yet'}
+              </Text>
+            </Stack>
+            
+            <Flex gap="xs" className="w-full sm:w-auto flex-shrink-0">
+              {portfolio.resumeUrl && (
+                <a
+                  href={portfolio.resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download
+                >
+                  <Button variant="outline" size="sm" className="bg-white text-yellow-600 hover:bg-yellow-50 text-xs sm:text-sm whitespace-nowrap h-8">
+                    📄 <span className="hidden sm:inline ml-1">Resume</span>
+                  </Button>
+                </a>
+              )}
+              <Link href={`/section-editor?portfolio=${portfolioId}`}>
+                <Button variant="outline" size="sm" className="bg-white text-yellow-600 hover:bg-yellow-50 text-xs sm:text-sm whitespace-nowrap h-8">
+                  ✏️ Edit
+                </Button>
+              </Link>
+              <Link href="/dashboard">
+                <Button variant="primary" size="sm" className="bg-yellow-600 text-white hover:bg-yellow-700 text-xs sm:text-sm whitespace-nowrap h-8">
+                  🏠 <span className="hidden sm:inline ml-1">Dashboard</span>
+                </Button>
+              </Link>
+            </Flex>
+          </Flex>
+        </Container>
+      </Box>
 
       {/* Portfolio Content with top padding to account for banner */}
       <div 
-        className="pt-20 sm:pt-16 min-h-screen"
+        className="pt-24 sm:pt-20 lg:pt-16 min-h-screen"
         style={{
           backgroundColor: currentTheme.colors.background.primary,
           color: currentTheme.colors.text.primary,
@@ -141,20 +143,19 @@ function PreviewContent() {
 
         {/* Empty State */}
         {sortedSections.length === 0 && (
-          <div className="flex items-center justify-center min-h-[calc(100vh-5rem)]">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold mb-4">Portfolio Under Construction</h2>
-              <p className="text-gray-600 mb-6">
+          <Container maxWidth="4xl" className="py-20 sm:py-28 lg:py-32 px-4">
+            <Stack spacing="lg" align="center">
+              <Heading as="h2" size="3xl" align="center" className="text-2xl sm:text-3xl lg:text-4xl">Portfolio Under Construction</Heading>
+              <Text size="lg" align="center" className="text-base sm:text-lg">
                 Your portfolio doesn&apos;t have any sections yet.
-              </p>
-              <Link
-                href={`/section-editor?portfolio=${portfolioId}`}
-                className="inline-block bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all"
-              >
-                Add Sections
+              </Text>
+              <Link href={`/section-editor?portfolio=${portfolioId}`} className="w-full sm:w-auto">
+                <Button variant="primary" size="lg" className="w-full sm:w-auto">
+                  Add Sections
+                </Button>
               </Link>
-            </div>
-          </div>
+            </Stack>
+          </Container>
         )}
       </div>
     </div>

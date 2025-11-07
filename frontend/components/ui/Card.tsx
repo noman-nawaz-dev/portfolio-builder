@@ -9,9 +9,9 @@ interface CardProps {
 
 const paddingStyles = {
   none: '',
-  sm: 'p-4',
-  md: 'p-6',
-  lg: 'p-8',
+  sm: 'p-3 md:p-4',
+  md: 'p-4 md:p-6',
+  lg: 'p-6 md:p-8',
 };
 
 export const Card: React.FC<CardProps> = ({
@@ -44,7 +44,7 @@ export const CardHeader: React.FC<CardHeaderProps> = ({
 }) => {
   return (
     <div
-      className={`px-6 py-4 ${
+      className={`px-4 py-3 md:px-6 md:py-4 ${
         gradient ? 'bg-gradient-to-r from-indigo-600 to-purple-600' : 'bg-gray-50 border-b border-gray-200'
       } ${className}`}
     >
@@ -62,5 +62,5 @@ export const CardBody: React.FC<CardBodyProps> = ({
   children,
   className = '',
 }) => {
-  return <div className={`p-6 ${className}`}>{children}</div>;
+  return <div className={`p-4 md:p-6 ${className}`}>{children}</div>;
 };

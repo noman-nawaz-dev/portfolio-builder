@@ -11,7 +11,7 @@ import {
   ADD_PORTFOLIO_SECTION,
 } from '@/lib/graphql/operations';
 import { HeroMinimal, AboutText, SkillsCards, PortfolioGrid, ContactForm, ExperienceTimeline } from '@/components/sections';
-import { LoadingSpinner } from '@/components/ui/Loading';
+import { LoadingScreen, Heading, Text, Button, Card, Container, Grid, Stack, Select, Box } from '@/components/ui';
 import Link from 'next/link';
 
 export default function SectionBuilderPage() {
@@ -32,23 +32,23 @@ export default function SectionBuilderPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold mb-4">Please Login</h1>
-          <Link href="/login" className="text-indigo-600 hover:underline">
-            Go to Login
-          </Link>
-        </div>
-      </div>
+      <Box className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+        <Card className="text-center max-w-md w-full">
+          <Stack spacing="lg" align="center">
+            <Heading as="h1" size="3xl">Please Login</Heading>
+            <Link href="/login">
+              <Button variant="primary" size="lg">
+                Go to Login
+              </Button>
+            </Link>
+          </Stack>
+        </Card>
+      </Box>
     );
   }
 
   if (userLoading || sectionTypesLoading || themesLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
+    return <LoadingScreen message="Loading section builder..." />;
   }
 
   const portfolios = userData?.me?.portfolios || [];
@@ -211,77 +211,94 @@ export default function SectionBuilderPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">🎨 Section Builder (Test Page)</h1>
-          <p className="text-gray-600">
+    <Box className="min-h-screen bg-gray-50 py-6 sm:py-8">
+      <Container maxWidth="7xl">
+        <Stack spacing="md" className="mb-6 sm:mb-8 px-4 sm:px-0">
+          <Heading as="h1" size="4xl" className="text-3xl sm:text-4xl">
+            🎨 Section Builder (Test Page)
+          </Heading>
+          <Text className="text-sm sm:text-base">
             Test the new section-based system. Add sections to your portfolio and preview them with different themes.
-          </p>
-        </div>
+          </Text>
+        </Stack>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <Grid cols={1} lgCols={2} gap="lg" className="px-4 sm:px-0">
           {/* Controls */}
-          <div className="space-y-6">
+          <Stack spacing="lg">
             {/* Portfolio Selector */}
-            <div className="bg-white p-6 rounded-xl shadow">
-              <h2 className="text-xl font-bold mb-4">1. Select Portfolio</h2>
-              <select
-                value={selectedPortfolioId}
-                onChange={(e) => setSelectedPortfolioId(e.target.value)}
-                className="w-full px-4 py-2 border rounded-lg"
-              >
-                <option value="">Choose a portfolio...</option>
-                {portfolios.map((p: any) => (
-                  <option key={p.id} value={p.id}>
-                    {p.name} ({p.template.name})
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Card>
+              <Stack spacing="md">
+                <Heading as="h2" size="xl" className="text-lg sm:text-xl">
+                  1. Select Portfolio
+                </Heading>
+                <Select
+                  value={selectedPortfolioId}
+                  onChange={(value) => setSelectedPortfolioId(value)}
+                  options={[
+                    { value: '', label: 'Choose a portfolio...' },
+                    ...portfolios.map((p: any) => ({
+                      value: p.id,
+                      label: `${p.name} (${p.template.name})`,
+                    })),
+                  ]}
+                  placeholder="Choose a portfolio..."
+                />
+              </Stack>
+            </Card>
 
             {/* Theme Selector */}
-            <div className="bg-white p-6 rounded-xl shadow">
-              <h2 className="text-xl font-bold mb-4">2. Select Theme</h2>
-              <div className="grid grid-cols-1 gap-3">
-                {themes.map((theme: any) => (
-                  <button
-                    key={theme.id}
-                    onClick={() => setSelectedTheme(theme)}
-                    className={`p-4 rounded-lg border-2 text-left transition ${
-                      selectedTheme?.id === theme.id
-                        ? 'border-indigo-600 bg-indigo-50'
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
-                  >
-                    <div className="font-semibold">{theme.name}</div>
-                    <div className="text-sm text-gray-600">{theme.description}</div>
-                    <div className="flex gap-2 mt-2">
-                      <div
-                        className="w-8 h-8 rounded"
-                        style={{ backgroundColor: theme.colors.primary }}
-                      />
-                      <div
-                        className="w-8 h-8 rounded"
-                        style={{ backgroundColor: theme.colors.secondary }}
-                      />
-                      <div
-                        className="w-8 h-8 rounded"
-                        style={{ backgroundColor: theme.colors.accent }}
-                      />
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
+            <Card>
+              <Stack spacing="md">
+                <Heading as="h2" size="xl" className="text-lg sm:text-xl">
+                  2. Select Theme
+                </Heading>
+                <Stack spacing="sm">
+                  {themes.map((theme: any) => (
+                    <button
+                      key={theme.id}
+                      onClick={() => setSelectedTheme(theme)}
+                      className={`p-3 sm:p-4 rounded-lg border-2 text-left transition ${
+                        selectedTheme?.id === theme.id
+                          ? 'border-indigo-600 bg-indigo-50'
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
+                      <Heading as="h3" size="md" weight="semibold" className="text-sm sm:text-base">
+                        {theme.name}
+                      </Heading>
+                      <Text size="sm" className="text-xs sm:text-sm text-gray-600 mt-1">
+                        {theme.description}
+                      </Text>
+                      <div className="flex gap-2 mt-2">
+                        <div
+                          className="w-6 h-6 sm:w-8 sm:h-8 rounded"
+                          style={{ backgroundColor: theme.colors.primary }}
+                        />
+                        <div
+                          className="w-6 h-6 sm:w-8 sm:h-8 rounded"
+                          style={{ backgroundColor: theme.colors.secondary }}
+                        />
+                        <div
+                          className="w-6 h-6 sm:w-8 sm:h-8 rounded"
+                          style={{ backgroundColor: theme.colors.accent }}
+                        />
+                      </div>
+                    </button>
+                  ))}
+                </Stack>
+              </Stack>
+            </Card>
 
             {/* Section Types */}
-            <div className="bg-white p-6 rounded-xl shadow">
-              <h2 className="text-xl font-bold mb-4">3. Select Section Type</h2>
-              <div className="space-y-2">
-                {sectionTypes.map((sectionType: any) => (
-                  <div key={sectionType.id} className="flex gap-2">
+            <Card>
+              <Stack spacing="md">
+                <Heading as="h2" size="xl" className="text-lg sm:text-xl">
+                  3. Select Section Type
+                </Heading>
+                <Stack spacing="sm">
+                  {sectionTypes.map((sectionType: any) => (
                     <button
+                      key={sectionType.id}
                       onClick={() => {
                         setSelectedSectionType(sectionType.id);
                         handlePreview(sectionType);
@@ -292,48 +309,60 @@ export default function SectionBuilderPage() {
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
-                      <div className="font-semibold">{sectionType.displayName}</div>
-                      <div className="text-sm text-gray-600">{sectionType.description}</div>
+                      <Heading as="h3" size="md" weight="semibold" className="text-sm sm:text-base">
+                        {sectionType.displayName}
+                      </Heading>
+                      <Text size="sm" className="text-xs sm:text-sm text-gray-600 mt-1">
+                        {sectionType.description}
+                      </Text>
                     </button>
-                  </div>
-                ))}
-              </div>
-            </div>
+                  ))}
+                </Stack>
+              </Stack>
+            </Card>
 
             {/* Add Button */}
-            <button
+            <Button
               onClick={handleAddSection}
               disabled={addingSection || !selectedPortfolioId || !selectedSectionType}
-              className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              variant="primary"
+              size="lg"
+              fullWidth
+              loading={addingSection}
+              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:shadow-lg transform hover:scale-105 transition-all disabled:transform-none text-sm sm:text-base"
             >
               {addingSection ? 'Adding Section...' : '+ Add Section to Portfolio'}
-            </button>
-          </div>
+            </Button>
+          </Stack>
 
           {/* Preview */}
-          <div className="bg-white rounded-xl shadow overflow-hidden">
-            <div className="bg-gray-800 text-white px-6 py-4">
-              <h2 className="text-xl font-bold">Live Preview</h2>
-              <p className="text-sm text-gray-300">
+          <Card padding="none" className="overflow-hidden sticky top-4">
+            <Box className="bg-gray-800 text-white px-4 sm:px-6 py-3 sm:py-4">
+              <Heading as="h2" size="xl" className="text-white text-lg sm:text-xl mb-1">
+                Live Preview
+              </Heading>
+              <Text size="sm" className="text-gray-300 text-xs sm:text-sm">
                 {previewContent
                   ? `${previewContent.sectionType.displayName} with ${selectedTheme?.name || 'no theme'}`
                   : 'Select a section and theme to preview'}
-              </p>
-            </div>
-            <div className="max-h-[800px] overflow-y-auto">
+              </Text>
+            </Box>
+            <Box className="max-h-[600px] sm:max-h-[800px] overflow-y-auto">
               {selectedTheme && previewContent ? (
                 <ThemeProvider initialTheme={selectedTheme}>
                   {renderPreviewComponent()}
                 </ThemeProvider>
               ) : (
-                <div className="p-12 text-center text-gray-400">
-                  <p className="text-lg">Select a theme and section type to see preview</p>
-                </div>
+                <Stack spacing="md" align="center" className="p-8 sm:p-12 text-center">
+                  <Text className="text-base sm:text-lg text-gray-400">
+                    Select a theme and section type to see preview
+                  </Text>
+                </Stack>
               )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Box>
+          </Card>
+        </Grid>
+      </Container>
+    </Box>
   );
 }

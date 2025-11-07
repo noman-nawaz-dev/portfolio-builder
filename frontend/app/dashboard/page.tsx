@@ -10,7 +10,7 @@ import { ProtectedRoute } from '@/lib/ProtectedRoute';
 import AuthLayout from '@/components/AuthLayout';
 import { usePortfolio } from '@/lib/PortfolioContext';
 import { PageContainer, PageHeader } from '@/components/layout';
-import { Button, Modal, ModalFooter, Input, LoadingScreen, Alert } from '@/components/ui';
+import { Button, Modal, ModalFooter, Input, LoadingScreen, Alert, Grid, Stack, Flex, Icon } from '@/components/ui';
 import { PortfolioCard } from '@/components/PortfolioCard';
 import { EmptyState } from '@/components/EmptyState';
 
@@ -63,7 +63,7 @@ function DashboardContent() {
 
   if (portfolios.length === 0) {
     return (
-      <PageContainer maxWidth="4xl" className="py-16 sm:py-24">
+      <PageContainer maxWidth="4xl" className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 md:px-6">
         <EmptyState
           icon="🎨"
           title={`Welcome, ${user?.name}!`}
@@ -106,7 +106,7 @@ function DashboardContent() {
 
   return (
     <>
-      <PageContainer>
+      <PageContainer className="px-4 md:px-6">
         {/* Page Header */}
         <PageHeader
           title={`Welcome back, ${user.name}!`}
@@ -114,10 +114,11 @@ function DashboardContent() {
           subtitle={`${portfolios.length} of ${MAX_PORTFOLIOS} portfolios created`}
           action={
             canCreateMore ? (
-              <Link href="/templates">
-                <Button variant="primary" size="md">
+              <Link href="/templates" className="w-full sm:w-auto md:w-auto">
+                <Button variant="primary" size="md" className="w-full sm:w-auto md:w-auto whitespace-nowrap px-4 md:px-6 py-2 md:py-3">
                   <span>➕</span>
-                  Create New Portfolio
+                  <span className="hidden sm:inline md:inline">Create New Portfolio</span>
+                  <span className="sm:hidden md:hidden">New Portfolio</span>
                 </Button>
               </Link>
             ) : (
@@ -125,56 +126,62 @@ function DashboardContent() {
                 variant="primary"
                 size="md"
                 disabled
+                className="w-full sm:w-auto md:w-auto whitespace-nowrap px-4 md:px-6 py-2 md:py-3"
                 onClick={(e) => {
                   e.preventDefault();
                   alert('You have reached the maximum limit of 3 portfolios');
                 }}
               >
                 <span>➕</span>
-                Create New Portfolio
+                <span className="hidden sm:inline md:inline">Create New Portfolio</span>
+                <span className="sm:hidden md:hidden">New Portfolio</span>
               </Button>
             )
           }
         />
 
         {/* Portfolios Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl">
+        <Grid cols={1} smCols={2} mdCols={2} lgCols={3} gap="lg" className="md:gap-xl max-w-6xl mb-8 md:mb-12">
           {portfolios.map((portfolio: any) => {
             if (editingPortfolioId === portfolio.id) {
               // Show inline edit form
               return (
-                <div key={portfolio.id} className="bg-white rounded-2xl shadow-xl p-6">
-                  <Input
-                    value={editedName}
-                    onChange={(e) => setEditedName(e.target.value)}
-                    label="Portfolio Name"
-                    autoFocus
-                    onKeyDown={(e: any) => {
-                      if (e.key === 'Enter') handleSaveName();
-                      if (e.key === 'Escape') setEditingPortfolioId(null);
-                    }}
-                  />
-                  <div className="flex gap-2 mt-4">
-                    <Button
-                      onClick={handleSaveName}
-                      variant="primary"
-                      size="sm"
-                      fullWidth
-                      disabled={updatingName || !editedName.trim()}
-                      loading={updatingName}
-                    >
-                      Save
-                    </Button>
-                    <Button
-                      onClick={() => setEditingPortfolioId(null)}
-                      variant="secondary"
-                      size="sm"
-                      fullWidth
-                      disabled={updatingName}
-                    >
-                      Cancel
-                    </Button>
-                  </div>
+                <div key={portfolio.id} className="bg-white rounded-2xl shadow-xl p-4 md:p-6">
+                  <Stack spacing="md">
+                    <Input
+                      value={editedName}
+                      onChange={(e) => setEditedName(e.target.value)}
+                      label="Portfolio Name"
+                      autoFocus
+                      onKeyDown={(e: any) => {
+                        if (e.key === 'Enter') handleSaveName();
+                        if (e.key === 'Escape') setEditingPortfolioId(null);
+                      }}
+                    />
+                    <Flex gap="sm" className="md:gap-md">
+                      <Button
+                        onClick={handleSaveName}
+                        variant="primary"
+                        size="sm"
+                        fullWidth
+                        disabled={updatingName || !editedName.trim()}
+                        loading={updatingName}
+                        className="h-10 md:h-12"
+                      >
+                        Save
+                      </Button>
+                      <Button
+                        onClick={() => setEditingPortfolioId(null)}
+                        variant="secondary"
+                        size="sm"
+                        fullWidth
+                        disabled={updatingName}
+                        className="h-10 md:h-12"
+                      >
+                        Cancel
+                      </Button>
+                    </Flex>
+                  </Stack>
                 </div>
               );
             }
@@ -191,7 +198,7 @@ function DashboardContent() {
               />
             );
           })}
-        </div>
+        </Grid>
       </PageContainer>
 
       {/* Delete Modal */}
@@ -203,12 +210,15 @@ function DashboardContent() {
         }}
         title="Delete Portfolio?"
         description="This action cannot be undone. All your portfolio data will be permanently deleted."
+        size="md"
       >
-        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <span className="text-3xl">⚠️</span>
-        </div>
+        <Stack spacing="md" align="center" className="py-4 md:py-6">
+          <Flex justify="center" align="center" className="w-16 h-16 md:w-20 md:h-20 bg-red-100 rounded-full">
+            <Icon emoji="⚠️" size="xl" className="md:text-2xl" />
+          </Flex>
+        </Stack>
         
-        <ModalFooter>
+        <ModalFooter className="gap-3 md:gap-4">
           <Button
             onClick={() => {
               setShowDeleteModal(false);
@@ -217,6 +227,7 @@ function DashboardContent() {
             variant="secondary"
             fullWidth
             disabled={deleting}
+            className="h-12 md:h-14"
           >
             Cancel
           </Button>
@@ -225,6 +236,7 @@ function DashboardContent() {
             variant="danger"
             fullWidth
             loading={deleting}
+            className="h-12 md:h-14"
           >
             Delete
           </Button>

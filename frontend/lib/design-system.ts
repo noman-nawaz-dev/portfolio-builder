@@ -114,8 +114,8 @@ export const gradients = {
 export const commonStyles = {
   pageContainer: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12',
   cardBase: 'bg-white rounded-2xl shadow-xl overflow-hidden',
-  inputBase: 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition',
-  buttonBase: 'px-6 py-3 rounded-xl font-semibold transition-all',
-  gradientButton: 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all',
-  outlineButton: 'bg-white text-gray-800 px-6 py-3 rounded-xl font-semibold border-2 border-gray-200 hover:border-indigo-600 hover:shadow-lg transition-all',
+  inputBase: 'w-full px-4 py-2 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition',
+  buttonBase: 'px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold transition-all',
+  gradientButton: 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all',
+  outlineButton: 'bg-white text-gray-800 px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold border-2 border-gray-200 hover:border-indigo-600 hover:shadow-lg transition-all',
 };

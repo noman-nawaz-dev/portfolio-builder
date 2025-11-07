@@ -8,7 +8,7 @@ import AuthLayout from '@/components/AuthLayout';
 import { GET_ME, UPDATE_PROFILE } from '@/lib/graphql/operations';
 import { useAuth } from '@/lib/AuthContext';
 import { PageContainer, PageHeader } from '@/components/layout';
-import { Card, CardHeader, CardBody, Button, Input, Alert, LoadingScreen } from '@/components/ui';
+import { Card, CardHeader, CardBody, Button, Input, Alert, LoadingScreen, Heading, Text, Stack, Flex } from '@/components/ui';
 
 function SettingsContent() {
   const router = useRouter();
@@ -66,29 +66,32 @@ function SettingsContent() {
   const user = data?.me;
 
   return (
-    <PageContainer maxWidth="4xl">
+    <PageContainer maxWidth="4xl" className="px-4 md:px-6">
       {/* Page Header */}
       <PageHeader
         title="Profile Settings"
         icon="⚙️"
         subtitle="Manage your account information"
+        className="mb-8 md:mb-12"
       />
 
       {/* Settings Card */}
-      <Card padding="none">
-        <CardHeader gradient className="text-white">
-          <h2 className="text-2xl font-bold">Account Information</h2>
-          <p className="text-indigo-100 text-sm mt-1">Update your profile details</p>
+      <Card padding="none" className="shadow-xl md:shadow-2xl">
+        <CardHeader gradient className="text-white p-6 sm:p-8 md:p-10 lg:p-12">
+          <Heading as="h2" size="2xl" className="text-white m-0 text-xl sm:text-2xl md:text-3xl">Account Information</Heading>
+          <Text className="text-indigo-100 mt-1 text-sm sm:text-base md:text-lg">Update your profile details</Text>
         </CardHeader>
 
         {/* Form */}
         <form onSubmit={handleSubmit}>
-          <CardBody className="space-y-6">
+          <CardBody className="p-6 sm:p-8 md:p-10 lg:p-12">
+            <Stack spacing="lg" className="md:spacing-xl">
             {/* Success/Error Message */}
             {message && (
               <Alert
                 variant={message.type}
                 onClose={() => setMessage(null)}
+                className="text-sm sm:text-base md:text-base"
               >
                 {message.text}
               </Alert>
@@ -101,7 +104,7 @@ function SettingsContent() {
               value={user?.email || ''}
               disabled
               helperText="Email cannot be changed"
-              className="bg-gray-100 text-gray-600 cursor-not-allowed"
+              className="bg-gray-100 text-gray-600 cursor-not-allowed text-sm sm:text-base md:text-base"
             />
 
             {/* Name */}
@@ -112,6 +115,7 @@ function SettingsContent() {
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               placeholder="Enter your full name"
               required
+              className="text-sm sm:text-base md:text-base"
             />
 
             {/* Username */}
@@ -124,16 +128,18 @@ function SettingsContent() {
               required
               leftIcon={<span className="font-medium">@</span>}
               helperText={`Your portfolio will be available at: ${typeof window !== 'undefined' ? window.location.origin : ''}/${formData.username || 'username'}`}
+              className="text-sm sm:text-base md:text-base"
             />
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 pt-4">
+            <Flex direction="col" gap="md" className="sm:flex-row md:gap-lg pt-4 md:pt-6">
               <Button
                 type="submit"
                 variant="primary"
                 size="lg"
                 fullWidth
                 loading={updating}
+                className="order-1 h-12 md:h-14 text-sm md:text-base"
               >
                 Save Changes
               </Button>
@@ -143,24 +149,26 @@ function SettingsContent() {
                 size="lg"
                 fullWidth
                 onClick={() => router.push('/dashboard')}
+                className="order-2 h-12 md:h-14 text-sm md:text-base"
               >
                 Cancel
               </Button>
-            </div>
+            </Flex>
+          </Stack>
           </CardBody>
         </form>
       </Card>
 
       {/* Additional Info Card */}
-      <Alert variant="info" className="mt-6">
-        <div>
-          <h3 className="font-semibold mb-2">💡 Important Notes</h3>
-          <ul className="text-sm space-y-1">
+      <Alert variant="info" className="mt-6 md:mt-8 max-w-4xl">
+        <Stack spacing="sm">
+          <Heading as="h3" size="md" weight="semibold" className="m-0 text-base sm:text-lg md:text-xl">💡 Important Notes</Heading>
+          <ul className="text-xs sm:text-sm md:text-base space-y-1 ml-4">
             <li>• Changing your username will update your portfolio URL</li>
             <li>• Username can only contain lowercase letters, numbers, and underscores</li>
             <li>• Your email address is used for authentication and cannot be changed</li>
           </ul>
-        </div>
+        </Stack>
       </Alert>
     </PageContainer>
   );

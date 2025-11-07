@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Card, CardHeader, CardBody, Button, Badge } from '@/components/ui';
+import { Card, CardHeader, CardBody, Button, Badge, Heading, Text, Stack, Flex } from '@/components/ui';
 
 interface PortfolioCardProps {
   portfolio: {
@@ -48,67 +48,72 @@ export const PortfolioCard: React.FC<PortfolioCardProps> = ({
   };
 
   return (
-    <Card padding="none" hoverable className="h-full flex flex-col">
+    <Card padding="none" hoverable className="h-full flex flex-col shadow-lg">
       {/* Header */}
-      <CardHeader gradient className="text-white flex-shrink-0">
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex-1 flex items-center gap-2 min-w-0">
-            <h3 className="text-lg font-bold truncate">{portfolio.name}</h3>
+      <CardHeader gradient className="text-white flex-shrink-0 p-4 sm:p-6">
+        <Flex justify="between" align="center" gap="sm" className="mb-1">
+          <Flex align="center" gap="sm" className="flex-1 min-w-0">
+            <Heading as="h3" size="lg" className="text-base sm:text-lg text-white m-0 truncate">
+              {portfolio.name}
+            </Heading>
             <button
               onClick={() => onEditName(portfolio.id, portfolio.name)}
               className="flex-shrink-0 p-1.5 hover:bg-white/20 rounded-lg transition"
               title="Edit portfolio name"
+              aria-label="Edit portfolio name"
             >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
               </svg>
             </button>
-          </div>
-          <Badge variant={portfolio.isPublished ? 'success' : 'warning'}>
+          </Flex>
+          <Badge variant={portfolio.isPublished ? 'success' : 'warning'} className="whitespace-nowrap text-xs">
             {portfolio.isPublished ? '✓ Live' : 'Draft'}
           </Badge>
-        </div>
-        <p className="text-indigo-100 text-xs mt-1">{portfolio.template.name}</p>
+        </Flex>
+        <Text className="text-indigo-100 text-xs sm:text-sm">{portfolio.template.name}</Text>
       </CardHeader>
 
       {/* Body */}
-      <CardBody className="flex-1 flex flex-col">
+      <CardBody className="flex-1 flex flex-col p-4 sm:p-6">
         {/* Published/Unpublished Notice */}
         {portfolio.isPublished ? (
-          <div className="mb-3 p-2.5 bg-green-50 border border-green-200 rounded-lg flex-shrink-0">
-            <p className="text-xs font-medium text-green-800 mb-1.5">Portfolio is live</p>
-            <div className="flex items-center gap-2">
+          <div className="mb-3 p-2.5 sm:p-3 bg-green-50 border border-green-200 rounded-lg flex-shrink-0">
+            <Text className="text-xs sm:text-sm font-medium text-green-800 mb-1.5">Portfolio is live</Text>
+            <Flex gap="sm" align="center" className="flex-wrap">
               <button
                 onClick={handleCopyLink}
-                className="text-xs text-green-700 hover:text-green-900 font-medium"
+                className="text-xs sm:text-sm text-green-700 hover:text-green-900 font-medium whitespace-nowrap"
+                aria-label="Copy portfolio link"
               >
                 📋 Copy Link
               </button>
-              <span className="text-green-300">•</span>
+              <span className="text-green-300 hidden sm:inline">•</span>
               <button
                 onClick={handleViewLive}
-                className="text-xs text-green-700 hover:text-green-900 font-medium"
+                className="text-xs sm:text-sm text-green-700 hover:text-green-900 font-medium whitespace-nowrap"
+                aria-label="View live portfolio"
               >
                 🌐 View Live
               </button>
-            </div>
+            </Flex>
           </div>
         ) : (
-          <div className="mb-3 p-2.5 bg-yellow-50 border border-yellow-200 rounded-lg flex-shrink-0">
-            <p className="text-xs font-medium text-yellow-800 mb-1.5">Portfolio is not published</p>
-            <p className="text-xs text-yellow-700">Click "Publish" to make it live</p>
+          <div className="mb-3 p-2.5 sm:p-3 bg-yellow-50 border border-yellow-200 rounded-lg flex-shrink-0">
+            <Text className="text-xs sm:text-sm font-medium text-yellow-800 mb-1.5">Portfolio is not published</Text>
+            <Text className="text-xs sm:text-sm text-yellow-700">Click "Publish" to make it live</Text>
           </div>
         )}
 
         {/* Action Buttons */}
-        <div className="space-y-2 flex-1 flex flex-col justify-end">
-          <Button onClick={handleEdit} variant="primary" fullWidth size="sm">
-            <span className="text-sm">✏️</span>
-            <span className="text-sm">Edit Portfolio</span>
+        <Stack spacing="sm" className="flex-1 justify-end">
+          <Button onClick={handleEdit} variant="primary" fullWidth size="sm" className="text-xs sm:text-sm">
+            <span>✏️</span>
+            <span>Edit Portfolio</span>
           </Button>
-          <Button onClick={handlePreview} variant="secondary" fullWidth size="sm">
-            <span className="text-sm">👁️</span>
-            <span className="text-sm">Preview</span>
+          <Button onClick={handlePreview} variant="secondary" fullWidth size="sm" className="text-xs sm:text-sm">
+            <span>👁️</span>
+            <span>Preview</span>
           </Button>
           <Button
             onClick={() => onTogglePublish(portfolio.id)}
@@ -116,10 +121,10 @@ export const PortfolioCard: React.FC<PortfolioCardProps> = ({
             fullWidth
             size="sm"
             disabled={publishing}
-            className="!bg-blue-100 !text-blue-700 hover:!bg-blue-200 disabled:!bg-gray-200 disabled:!text-gray-500"
+            className="!bg-blue-100 !text-blue-700 hover:!bg-blue-200 disabled:!bg-gray-200 disabled:!text-gray-500 text-xs sm:text-sm"
           >
-            <span className="text-sm">{portfolio.isPublished ? '🔒' : '🚀'}</span>
-            <span className="text-sm">{portfolio.isPublished ? 'Unpublish' : 'Publish'}</span>
+            <span>{portfolio.isPublished ? '🔒' : '🚀'}</span>
+            <span>{portfolio.isPublished ? 'Unpublish' : 'Publish'}</span>
           </Button>
           
           {/* Delete Button */}
@@ -128,11 +133,12 @@ export const PortfolioCard: React.FC<PortfolioCardProps> = ({
             variant="ghost"
             fullWidth
             size="sm"
-            className="!bg-red-100 !text-red-600 hover:!bg-red-200"
+            className="!bg-red-100 !text-red-600 hover:!bg-red-200 text-xs sm:text-sm"
+            aria-label="Delete portfolio"
           >
-            <span className="text-sm">🗑️ Delete</span>
+            <span>🗑️ Delete</span>
           </Button>
-        </div>
+        </Stack>
       </CardBody>
     </Card>
   );

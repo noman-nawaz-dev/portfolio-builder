@@ -1,4 +1,5 @@
 import React from 'react';
+import { Heading, Text, Flex, Stack } from '@/components/ui';
 
 interface PageHeaderProps {
   title: string;
@@ -16,15 +17,15 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   className = '',
 }) => {
   return (
-    <div className={`mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 ${className}`}>
-      <div>
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2 flex items-center gap-2">
-          {icon && <span>{icon}</span>}
+    <Flex justify="between" align="start" className={`mb-8 sm:mb-12 flex-col sm:flex-row gap-4 ${className}`}>
+      <Stack spacing="sm" className="flex-1">
+        <Heading as="h1" size="4xl" className="text-2xl sm:text-3xl lg:text-4xl flex items-center gap-2">
+          {icon && <span className="text-2xl sm:text-3xl lg:text-4xl">{icon}</span>}
           {title}
-        </h1>
-        {subtitle && <p className="text-gray-600">{subtitle}</p>}
-      </div>
-      {action && <div className="flex-shrink-0">{action}</div>}
-    </div>
+        </Heading>
+        {subtitle && <Text className="text-gray-600 text-sm sm:text-base">{subtitle}</Text>}
+      </Stack>
+      {action && <div className="flex-shrink-0 w-full sm:w-auto">{action}</div>}
+    </Flex>
   );
 };
