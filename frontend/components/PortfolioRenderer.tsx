@@ -4,6 +4,7 @@ import { GET_PORTFOLIO_BY_USERNAME, GET_PUBLIC_PORTFOLIO_BY_ID } from '@/lib/gra
 import { useTheme, ThemeConfig } from '@/lib/ThemeContext';
 import { getSectionComponent } from './sections';
 import { LoadingSpinner } from './ui/Loading';
+import { PortfolioNavbar } from './portfolio/PortfolioNavbar';
 
 interface PortfolioRendererProps {
   username: string;
@@ -119,70 +120,50 @@ export const PortfolioRenderer: React.FC<PortfolioRendererProps> = ({ username, 
         </head>
       )}
 
-      {/* Floating Resume Download Button */}
-      {portfolio.resumeUrl && (
-        <div className="fixed bottom-6 right-6 z-40">
-          <a
-            href={portfolio.resumeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            download
-            className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all font-semibold"
-            style={{
-              backgroundColor: currentTheme.colors.primary,
-            }}
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+      {/* Navigation Bar */}
+      <PortfolioNavbar 
+        sections={sortedSections}
+        resumeUrl={portfolio.resumeUrl}
+        theme={currentTheme}
+      />
+
+      {/* Main Content with padding for fixed navbar */}
+      <div className="pt-16 md:pt-20">
+        {/* Render Portfolio Sections */}
+        {sortedSections.map((section) => {
+          const SectionComponent = getSectionComponent(section.sectionType.name);
+          
+          if (!SectionComponent) {
+            console.warn(`No component found for section type: ${section.sectionType.name}`);
+            return null;
+          }
+
+          return (
+            <div key={section.id} id={`section-${section.id}`}>
+              <SectionComponent
+                id={section.id}
+                content={section.content}
+                styles={section.styles}
+                layout={section.layout}
+                theme={currentTheme}
+                isEditing={false}
               />
-            </svg>
-            <span>Download Resume</span>
-          </a>
-        </div>
-      )}
+            </div>
+          );
+        })}
 
-      {/* Render Portfolio Sections */}
-      {sortedSections.map((section) => {
-        const SectionComponent = getSectionComponent(section.sectionType.name);
-        
-        if (!SectionComponent) {
-          console.warn(`No component found for section type: ${section.sectionType.name}`);
-          return null;
-        }
-
-        return (
-          <SectionComponent
-            key={section.id}
-            id={section.id}
-            content={section.content}
-            styles={section.styles}
-            layout={section.layout}
-            theme={currentTheme}
-            isEditing={false}
-          />
-        );
-      })}
-
-      {/* Empty State */}
-      {sortedSections.length === 0 && (
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold mb-4">Portfolio Under Construction</h2>
-            <p className="text-gray-600">
-              This portfolio doesn't have any sections yet.
-            </p>
+        {/* Empty State */}
+        {sortedSections.length === 0 && (
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold mb-4">Portfolio Under Construction</h2>
+              <p className="text-gray-600">
+                This portfolio doesn't have any sections yet.
+              </p>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

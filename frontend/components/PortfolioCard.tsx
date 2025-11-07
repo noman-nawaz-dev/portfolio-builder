@@ -107,11 +107,11 @@ export const PortfolioCard: React.FC<PortfolioCardProps> = ({
 
         {/* Action Buttons */}
         <Stack spacing="sm" className="flex-1 justify-end">
-          <Button onClick={handleEdit} variant="primary" fullWidth size="sm" className="text-xs sm:text-sm">
+          <Button onClick={handleEdit} variant="primary" fullWidth size="md" className="text-xs sm:text-sm">
             <span>✏️</span>
             <span>Edit Portfolio</span>
           </Button>
-          <Button onClick={handlePreview} variant="secondary" fullWidth size="sm" className="text-xs sm:text-sm">
+          <Button onClick={handlePreview} variant="secondary" fullWidth size="md" className="text-xs sm:text-sm">
             <span>👁️</span>
             <span>Preview</span>
           </Button>
@@ -119,7 +119,7 @@ export const PortfolioCard: React.FC<PortfolioCardProps> = ({
             onClick={() => onTogglePublish(portfolio.id)}
             variant="ghost"
             fullWidth
-            size="sm"
+            size="md"
             disabled={publishing}
             className="!bg-blue-100 !text-blue-700 hover:!bg-blue-200 disabled:!bg-gray-200 disabled:!text-gray-500 text-xs sm:text-sm"
           >
@@ -132,7 +132,7 @@ export const PortfolioCard: React.FC<PortfolioCardProps> = ({
             onClick={() => onDelete(portfolio.id)}
             variant="ghost"
             fullWidth
-            size="sm"
+            size="md"
             className="!bg-red-100 !text-red-600 hover:!bg-red-200 text-xs sm:text-sm"
             aria-label="Delete portfolio"
           >

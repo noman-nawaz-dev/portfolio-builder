@@ -60,10 +60,10 @@ export const ExperienceTimeline: React.FC<SectionProps> = ({
         )}
 
         <div className={layout === 'horizontal' ? 'flex overflow-x-auto pb-4 gap-6' : 'relative'}>
-          {/* Vertical timeline line */}
+          {/* Vertical timeline line - hidden on mobile */}
           {layout === 'vertical' && (
             <div
-              className="absolute left-8 top-0 bottom-0 w-0.5"
+              className="hidden md:block absolute left-8 top-0 bottom-0 w-0.5"
               style={{ backgroundColor: theme.colors.border }}
             />
           )}
@@ -74,13 +74,13 @@ export const ExperienceTimeline: React.FC<SectionProps> = ({
               className={
                 layout === 'horizontal'
                   ? 'min-w-[350px] flex-shrink-0'
-                  : 'relative pl-20 pb-12 last:pb-0'
+                  : 'relative md:pl-20 pb-12 last:pb-0'
               }
             >
-              {/* Timeline dot */}
+              {/* Timeline dot - hidden on mobile */}
               {layout === 'vertical' && (
                 <div
-                  className="absolute left-6 w-5 h-5 rounded-full border-4"
+                  className="hidden md:block absolute left-6 w-5 h-5 rounded-full border-4"
                   style={{
                     backgroundColor: theme.colors.primary,
                     borderColor: theme.colors.background.primary,

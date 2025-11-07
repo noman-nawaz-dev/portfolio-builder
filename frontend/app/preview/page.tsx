@@ -6,7 +6,6 @@ import { GET_PORTFOLIO } from '@/lib/graphql/operations';
 import { ProtectedRoute } from '@/lib/ProtectedRoute';
 import { usePortfolio } from '@/lib/PortfolioContext';
 import { getSectionComponent } from '@/components/sections';
-import AuthLayout from '@/components/AuthLayout';
 import { LoadingScreen, Heading, Text, Link, Button, Container, Stack, Flex, Box, Badge } from '@/components/ui';
 
 function PreviewContent() {
@@ -91,7 +90,7 @@ function PreviewContent() {
                   download
                 >
                   <Button variant="outline" size="sm" className="bg-white text-yellow-600 hover:bg-yellow-50 text-xs sm:text-sm whitespace-nowrap h-8">
-                    📄 <span className="hidden sm:inline ml-1">Resume</span>
+                    📄 <span className=" ml-1">Resume</span>
                   </Button>
                 </a>
               )}
@@ -102,7 +101,7 @@ function PreviewContent() {
               </Link>
               <Link href="/dashboard">
                 <Button variant="primary" size="sm" className="bg-yellow-600 text-white hover:bg-yellow-700 text-xs sm:text-sm whitespace-nowrap h-8">
-                  🏠 <span className="hidden sm:inline ml-1">Dashboard</span>
+                  🏠 <span className=" ml-1">Dashboard</span>
                 </Button>
               </Link>
             </Flex>
@@ -165,9 +164,7 @@ function PreviewContent() {
 export default function PreviewPage() {
   return (
     <ProtectedRoute>
-      <AuthLayout>
-        <PreviewContent />
-      </AuthLayout>
+      <PreviewContent />
     </ProtectedRoute>
   );
 }
