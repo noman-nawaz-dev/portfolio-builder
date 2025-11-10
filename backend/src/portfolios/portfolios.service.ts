@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -219,10 +220,10 @@ export class PortfoliosService {
       throw new NotFoundException('Portfolio not found');
     }
 
-    const updateData: any = {};
+    const updateData: Partial<Prisma.PortfolioUncheckedUpdateInput> = {};
     if (data.name !== undefined) updateData.name = data.name;
     if (data.themeId !== undefined) updateData.themeId = data.themeId;
-    if (data.customDomain !== undefined) updateData.customDomain = data.customDomain;
+    // Note: customDomain is not in the schema, so we skip it
     if (data.resumeUrl !== undefined) updateData.resumeUrl = data.resumeUrl;
 
     return this.prisma.portfolio.update({

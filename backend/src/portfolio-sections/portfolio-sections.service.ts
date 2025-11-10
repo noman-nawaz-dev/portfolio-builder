@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { AddPortfolioSectionInput, UpdatePortfolioSectionInput } from './portfolio-section.dto';
 
@@ -39,10 +40,10 @@ export class PortfolioSectionsService {
       data: {
         portfolioId: input.portfolioId,
         sectionTypeId: input.sectionTypeId,
-        content: input.content,
+        content: input.content as Prisma.InputJsonValue,
         layout: input.layout,
-        styles: input.styles,
-        animations: input.animations,
+        styles: input.styles as Prisma.InputJsonValue,
+        animations: input.animations as Prisma.InputJsonValue,
         order,
       },
       include: { sectionType: true },
@@ -63,11 +64,11 @@ export class PortfolioSectionsService {
       throw new ForbiddenException('You do not have permission to modify this section');
     }
 
-    const updateData: any = {};
-    if (input.content !== undefined) updateData.content = input.content;
+    const updateData: Prisma.PortfolioSectionUpdateInput = {};
+    if (input.content !== undefined) updateData.content = input.content as Prisma.InputJsonValue;
     if (input.layout !== undefined) updateData.layout = input.layout;
-    if (input.styles !== undefined) updateData.styles = input.styles;
-    if (input.animations !== undefined) updateData.animations = input.animations;
+    if (input.styles !== undefined) updateData.styles = input.styles as Prisma.InputJsonValue;
+    if (input.animations !== undefined) updateData.animations = input.animations as Prisma.InputJsonValue;
     if (input.isVisible !== undefined) updateData.isVisible = input.isVisible;
 
     return this.prisma.portfolioSection.update({
@@ -147,10 +148,10 @@ export class PortfolioSectionsService {
       data: {
         portfolioId: section.portfolioId,
         sectionTypeId: section.sectionTypeId,
-        content: section.content,
+        content: section.content as Prisma.InputJsonValue,
         layout: section.layout,
-        styles: section.styles,
-        animations: section.animations,
+        styles: section.styles as Prisma.InputJsonValue,
+        animations: section.animations as Prisma.InputJsonValue,
         order: sectionsCount,
         isVisible: section.isVisible,
       },

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Button, Input, Textarea } from './ui';
+import { Button, Input, Textarea, LoadingSpinner } from './ui';
 import ImageUpload from './ImageUpload';
 import { getSkillsByTemplate, searchSkills, type Skill } from '@/lib/skills-library';
 import { getCategoryColors } from '@/lib/category-colors';
@@ -694,9 +694,9 @@ export default function SectionContentEditor({
         return renderExperienceTimelineForm();
       default:
         return (
-          <div className="text-center py-8 text-gray-500">
-            <p>No form editor available for this section type.</p>
-            <p className="text-sm mt-2">Please edit the JSON directly.</p>
+          <div className="text-center py-8">
+            <LoadingSpinner size="lg" className="text-indigo-600 mx-auto mb-4" />
+            <p className="text-gray-500">Loading form editor...</p>
           </div>
         );
     }

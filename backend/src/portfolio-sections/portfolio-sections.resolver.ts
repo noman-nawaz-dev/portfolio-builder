@@ -9,6 +9,7 @@ import {
   UpdatePortfolioSectionInput,
   ReorderSectionsInput,
 } from './portfolio-section.dto';
+import { AuthenticatedUser } from '@/common/types';
 
 @Resolver(() => PortfolioSection)
 export class PortfolioSectionsResolver {
@@ -27,7 +28,7 @@ export class PortfolioSectionsResolver {
   @Mutation(() => PortfolioSection)
   @UseGuards(GqlAuthGuard)
   async addPortfolioSection(
-    @CurrentUser() user: any,
+    @CurrentUser() user: AuthenticatedUser,
     @Args('input') input: AddPortfolioSectionInput,
   ) {
     return this.portfolioSectionsService.add(user.userId, input);
@@ -36,7 +37,7 @@ export class PortfolioSectionsResolver {
   @Mutation(() => PortfolioSection)
   @UseGuards(GqlAuthGuard)
   async updatePortfolioSection(
-    @CurrentUser() user: any,
+    @CurrentUser() user: AuthenticatedUser,
     @Args('input') input: UpdatePortfolioSectionInput,
   ) {
     return this.portfolioSectionsService.update(user.userId, input);
@@ -45,7 +46,7 @@ export class PortfolioSectionsResolver {
   @Mutation(() => Boolean)
   @UseGuards(GqlAuthGuard)
   async deletePortfolioSection(
-    @CurrentUser() user: any,
+    @CurrentUser() user: AuthenticatedUser,
     @Args('id') id: string,
   ) {
     return this.portfolioSectionsService.delete(user.userId, id);
@@ -54,7 +55,7 @@ export class PortfolioSectionsResolver {
   @Mutation(() => [PortfolioSection])
   @UseGuards(GqlAuthGuard)
   async reorderPortfolioSections(
-    @CurrentUser() user: any,
+    @CurrentUser() user: AuthenticatedUser,
     @Args('input') input: ReorderSectionsInput,
   ) {
     return this.portfolioSectionsService.reorder(
@@ -67,7 +68,7 @@ export class PortfolioSectionsResolver {
   @Mutation(() => PortfolioSection)
   @UseGuards(GqlAuthGuard)
   async duplicatePortfolioSection(
-    @CurrentUser() user: any,
+    @CurrentUser() user: AuthenticatedUser,
     @Args('id') id: string,
   ) {
     return this.portfolioSectionsService.duplicate(user.userId, id);

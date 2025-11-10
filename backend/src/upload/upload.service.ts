@@ -1,10 +1,11 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { v2 as cloudinary } from 'cloudinary';
 import * as sharp from 'sharp';
+import { LoggerService } from '../common/logger';
 
 @Injectable()
 export class UploadService {
-  constructor() {
+  constructor(private readonly logger: LoggerService) {
     // Configure Cloudinary
     cloudinary.config({
       cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -159,7 +160,7 @@ async uploadResume(file: Express.Multer.File): Promise<string> {
     try {
       // Validate URL
       if (!imageUrl || !imageUrl.includes('cloudinary.com')) {
-        console.warn('Invalid Cloudinary URL provided for deletion');
+        this.logger.warn('Invalid Cloudinary URL provided for deletion', 'UploadService');
         return;
       }
 
@@ -169,7 +170,7 @@ async uploadResume(file: Express.Multer.File): Promise<string> {
       const uploadIndex = urlParts.findIndex(part => part === 'upload');
       
       if (uploadIndex === -1 || uploadIndex >= urlParts.length - 1) {
-        console.warn('Unable to extract public_id from URL');
+        this.logger.warn('Unable to extract public_id from URL', 'UploadService');
         return;
       }
 
@@ -182,18 +183,18 @@ async uploadResume(file: Express.Multer.File): Promise<string> {
       // Remove file extension
       const publicId = pathWithoutVersion.replace(/\.[^/.]+$/, '');
 
-      console.log(`Deleting image with public_id: ${publicId}`);
+      this.logger.debug(`Deleting image with public_id: ${publicId}`, 'UploadService');
       
       const result = await cloudinary.uploader.destroy(publicId);
       
       if (result.result === 'ok') {
-        console.log('Image deleted successfully from Cloudinary');
+        this.logger.info('Image deleted successfully from Cloudinary', 'UploadService');
       } else {
-        console.warn('Image deletion result:', result);
+        this.logger.warn(`Image deletion result: ${JSON.stringify(result)}`, 'UploadService');
       }
     } catch (error) {
       // Log but don't throw - we don't want to block operations if delete fails
-      console.error('Failed to delete image from Cloudinary:', error);
+      this.logger.error('Failed to delete image from Cloudinary', error.stack, 'UploadService');
     }
   }
 
@@ -205,7 +206,7 @@ async uploadResume(file: Express.Multer.File): Promise<string> {
     try {
       // Validate URL
       if (!resumeUrl || !resumeUrl.includes('cloudinary.com')) {
-        console.warn('Invalid Cloudinary URL provided for deletion');
+        this.logger.warn('Invalid Cloudinary URL provided for deletion', 'UploadService');
         return;
       }
 
@@ -217,7 +218,7 @@ async uploadResume(file: Express.Multer.File): Promise<string> {
       const uploadIndex = urlParts.findIndex(part => part === 'upload');
       
       if (uploadIndex === -1 || uploadIndex >= urlParts.length - 1) {
-        console.warn('Unable to extract public_id from URL');
+        this.logger.warn('Unable to extract public_id from URL', 'UploadService');
         return;
       }
 
@@ -225,18 +226,18 @@ async uploadResume(file: Express.Multer.File): Promise<string> {
       const pathWithoutVersion = pathAfterUpload.replace(/^v\d+\//, '');
       const publicId = pathWithoutVersion.replace(/\.[^/.]+$/, '');
 
-      console.log(`Deleting resume with public_id: ${publicId}`);
+      this.logger.debug(`Deleting resume with public_id: ${publicId}`, 'UploadService');
       
       // Use resource_type: 'image' since we upload PDFs with resource_type: 'image'
       const result = await cloudinary.uploader.destroy(publicId, { resource_type: 'image' });
       
       if (result.result === 'ok') {
-        console.log('Resume deleted successfully from Cloudinary');
+        this.logger.info('Resume deleted successfully from Cloudinary', 'UploadService');
       } else {
-        console.warn('Resume deletion result:', result);
+        this.logger.warn(`Resume deletion result: ${JSON.stringify(result)}`, 'UploadService');
       }
     } catch (error) {
-      console.error('Failed to delete resume from Cloudinary:', error);
+      this.logger.error('Failed to delete resume from Cloudinary', error.stack, 'UploadService');
     }
   }
 }

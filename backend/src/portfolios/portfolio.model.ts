@@ -4,6 +4,7 @@ import { Template } from '../templates/template.model';
 import { Theme } from '../themes/theme.model';
 import { PortfolioSection } from '../portfolio-sections/portfolio-section.model';
 import { GraphQLJSON, GraphQLJSONObject } from 'graphql-type-json';
+import { PortfolioSEO, PortfolioGlobalSettings } from '@/common/types';
 
 @ObjectType()
 export class Portfolio {
@@ -47,10 +48,10 @@ export class Portfolio {
   resumeUrl?: string;
 
   @Field(() => GraphQLJSONObject, { nullable: true })
-  seo?: any;
+  seo?: PortfolioSEO;
 
   @Field(() => GraphQLJSONObject, { nullable: true })
-  globalSettings?: any;
+  globalSettings?: PortfolioGlobalSettings;
 
   @Field()
   createdAt: Date;

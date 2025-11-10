@@ -5,6 +5,7 @@ import { UsersService } from './users.service';
 import { GqlAuthGuard } from '@/auth/gql-auth.guard';
 import { CurrentUser } from '@/auth/current-user.decorator';
 import { UpdateProfileInput } from './dto/update-profile.input';
+import { AuthenticatedUser } from '@/common/types';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -12,14 +13,14 @@ export class UsersResolver {
 
   @Query(() => User)
   @UseGuards(GqlAuthGuard)
-  async me(@CurrentUser() user: any) {
+  async me(@CurrentUser() user: AuthenticatedUser) {
     return this.usersService.findById(user.userId);
   }
 
   @Mutation(() => User)
   @UseGuards(GqlAuthGuard)
   async updateProfile(
-    @CurrentUser() user: any,
+    @CurrentUser() user: AuthenticatedUser,
     @Args('data') data: UpdateProfileInput,
   ) {
     return this.usersService.updateProfile(user.userId, data);

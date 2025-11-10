@@ -1,6 +1,7 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import GraphQLJSON from 'graphql-type-json';
 import { SectionType } from '../section-types/section-type.model';
+import { SectionContent, SectionStyles, AnimationConfig } from '@/common/types';
 
 @ObjectType()
 export class PortfolioSection {
@@ -23,16 +24,16 @@ export class PortfolioSection {
   isVisible: boolean;
 
   @Field(() => GraphQLJSON)
-  content: any;
+  content: SectionContent;
 
   @Field(() => GraphQLJSON, { nullable: true })
-  styles?: any;
+  styles?: SectionStyles;
 
   @Field({ nullable: true })
   layout?: string;
 
   @Field(() => GraphQLJSON, { nullable: true })
-  animations?: any;
+  animations?: AnimationConfig;
 
   @Field()
   createdAt: Date;

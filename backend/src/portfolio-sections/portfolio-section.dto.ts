@@ -1,5 +1,6 @@
 import { InputType, Field } from '@nestjs/graphql';
 import GraphQLJSON from 'graphql-type-json';
+import { SectionContent, SectionStyles, AnimationConfig } from '@/common/types';
 
 @InputType()
 export class AddPortfolioSectionInput {
@@ -10,16 +11,16 @@ export class AddPortfolioSectionInput {
   sectionTypeId: string;
 
   @Field(() => GraphQLJSON)
-  content: any;
+  content: SectionContent;
 
   @Field({ nullable: true })
   layout?: string;
 
   @Field(() => GraphQLJSON, { nullable: true })
-  styles?: any;
+  styles?: SectionStyles;
 
   @Field(() => GraphQLJSON, { nullable: true })
-  animations?: any;
+  animations?: AnimationConfig;
 
   @Field({ nullable: true })
   order?: number;
@@ -31,16 +32,16 @@ export class UpdatePortfolioSectionInput {
   id: string;
 
   @Field(() => GraphQLJSON, { nullable: true })
-  content?: any;
+  content?: SectionContent;
 
   @Field({ nullable: true })
   layout?: string;
 
   @Field(() => GraphQLJSON, { nullable: true })
-  styles?: any;
+  styles?: SectionStyles;
 
   @Field(() => GraphQLJSON, { nullable: true })
-  animations?: any;
+  animations?: AnimationConfig;
 
   @Field({ nullable: true })
   isVisible?: boolean;

@@ -1,5 +1,11 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import GraphQLJSON from 'graphql-type-json';
+import {
+  SectionTypeSchema,
+  SectionTypeDefaultData,
+  SectionTypeStyleOptions,
+  SectionTypeLayoutVariants,
+} from '@/common/types';
 
 @ObjectType()
 export class SectionType {
@@ -25,16 +31,16 @@ export class SectionType {
   componentName: string;
 
   @Field(() => GraphQLJSON)
-  schema: any;
+  schema: SectionTypeSchema;
 
   @Field(() => GraphQLJSON, { nullable: true })
-  defaultData?: any;
+  defaultData?: SectionTypeDefaultData;
 
   @Field(() => GraphQLJSON, { nullable: true })
-  styleOptions?: any;
+  styleOptions?: SectionTypeStyleOptions;
 
   @Field(() => GraphQLJSON, { nullable: true })
-  layoutVariants?: any;
+  layoutVariants?: SectionTypeLayoutVariants;
 
   @Field()
   isActive: boolean;

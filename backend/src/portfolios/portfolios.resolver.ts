@@ -5,6 +5,7 @@ import { Portfolio } from './portfolio.model';
 import { PortfoliosService } from './portfolios.service';
 import { GqlAuthGuard } from '../auth/gql-auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
+import { AuthenticatedUser } from '@/common/types';
 
 @Resolver(() => Portfolio)
 export class PortfoliosResolver {
@@ -12,19 +13,19 @@ export class PortfoliosResolver {
 
   @Query(() => [Portfolio])
   @UseGuards(GqlAuthGuard)
-  async myPortfolios(@CurrentUser() user: any) {
+  async myPortfolios(@CurrentUser() user: AuthenticatedUser) {
     return this.portfoliosService.findAllByUserId(user.userId);
   }
 
   @Query(() => Portfolio, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  async myPortfolio(@CurrentUser() user: any) {
+  async myPortfolio(@CurrentUser() user: AuthenticatedUser) {
     return this.portfoliosService.findByUserId(user.userId);
   }
 
   @Query(() => Portfolio, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  async getPortfolio(@CurrentUser() user: any, @Args('portfolioId') portfolioId: string) {
+  async getPortfolio(@CurrentUser() user: AuthenticatedUser, @Args('portfolioId') portfolioId: string) {
     const portfolio = await this.portfoliosService.findById(portfolioId);
     if (!portfolio || portfolio.userId !== user.userId) {
       return null;
@@ -50,7 +51,7 @@ export class PortfoliosResolver {
   @Mutation(() => Portfolio)
   @UseGuards(GqlAuthGuard)
   async createPortfolio(
-    @CurrentUser() user: any,
+    @CurrentUser() user: AuthenticatedUser,
     @Args('templateId') templateId: string,
     @Args('name', { nullable: true }) name?: string,
   ) {
@@ -60,7 +61,7 @@ export class PortfoliosResolver {
   @Mutation(() => Portfolio)
   @UseGuards(GqlAuthGuard)
   async updatePortfolioName(
-    @CurrentUser() user: any,
+    @CurrentUser() user: AuthenticatedUser,
     @Args('portfolioId') portfolioId: string,
     @Args('name') name: string,
   ) {
@@ -70,7 +71,7 @@ export class PortfoliosResolver {
   @Mutation(() => Portfolio)
   @UseGuards(GqlAuthGuard)
   async togglePublish(
-    @CurrentUser() user: any,
+    @CurrentUser() user: AuthenticatedUser,
     @Args('portfolioId') portfolioId: string,
   ) {
     return this.portfoliosService.togglePublish(portfolioId, user.userId);
@@ -79,7 +80,7 @@ export class PortfoliosResolver {
   @Mutation(() => Portfolio)
   @UseGuards(GqlAuthGuard)
   async updatePortfolio(
-    @CurrentUser() user: any,
+    @CurrentUser() user: AuthenticatedUser,
     @Args('id') id: string,
     @Args('name', { nullable: true }) name?: string,
     @Args('themeId', { nullable: true }) themeId?: string,
@@ -92,7 +93,7 @@ export class PortfoliosResolver {
   @Mutation(() => Portfolio)
   @UseGuards(GqlAuthGuard)
   async updatePortfolioResume(
-    @CurrentUser() user: any,
+    @CurrentUser() user: AuthenticatedUser,
     @Args('portfolioId') portfolioId: string,
     @Args('resumeUrl', { nullable: true }) resumeUrl?: string,
   ) {
@@ -102,7 +103,7 @@ export class PortfoliosResolver {
   @Mutation(() => Portfolio)
   @UseGuards(GqlAuthGuard)
   async publishPortfolio(
-    @CurrentUser() user: any,
+    @CurrentUser() user: AuthenticatedUser,
     @Args('portfolioId') portfolioId: string,
     @Args('publish') publish: boolean,
   ) {
@@ -112,7 +113,7 @@ export class PortfoliosResolver {
   @Mutation(() => Portfolio)
   @UseGuards(GqlAuthGuard)
   async changeTemplate(
-    @CurrentUser() user: any,
+    @CurrentUser() user: AuthenticatedUser,
     @Args('portfolioId') portfolioId: string,
     @Args('templateId') templateId: string,
   ) {
@@ -122,7 +123,7 @@ export class PortfoliosResolver {
   @Mutation(() => Boolean)
   @UseGuards(GqlAuthGuard)
   async deletePortfolio(
-    @CurrentUser() user: any,
+    @CurrentUser() user: AuthenticatedUser,
     @Args('portfolioId') portfolioId: string,
   ) {
     return this.portfoliosService.delete(portfolioId, user.userId);

@@ -1,5 +1,18 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import GraphQLJSON from 'graphql-type-json';
+import {
+  ThemeColors,
+  ThemeFonts,
+  ThemeFontSizes,
+  ThemeFontWeights,
+  ThemeLineHeights,
+  ThemeSpacing,
+  ThemeBorderRadius,
+  ThemeBorderWidth,
+  ThemeShadows,
+  ThemeAnimations,
+  ThemeBreakpoints,
+} from '@/common/types';
 
 @ObjectType()
 export class Theme {
@@ -13,37 +26,37 @@ export class Theme {
   description?: string;
 
   @Field(() => GraphQLJSON)
-  colors: any;
+  colors: ThemeColors;
 
   @Field(() => GraphQLJSON)
-  fonts: any;
+  fonts: ThemeFonts;
 
   @Field(() => GraphQLJSON)
-  fontSizes: any;
+  fontSizes: ThemeFontSizes;
 
   @Field(() => GraphQLJSON)
-  fontWeights: any;
+  fontWeights: ThemeFontWeights;
 
   @Field(() => GraphQLJSON)
-  lineHeights: any;
+  lineHeights: ThemeLineHeights;
 
   @Field(() => GraphQLJSON)
-  spacing: any;
+  spacing: ThemeSpacing;
 
   @Field(() => GraphQLJSON)
-  borderRadius: any;
+  borderRadius: ThemeBorderRadius;
 
   @Field(() => GraphQLJSON)
-  borderWidth: any;
+  borderWidth: ThemeBorderWidth;
 
   @Field(() => GraphQLJSON)
-  shadows: any;
+  shadows: ThemeShadows;
 
   @Field(() => GraphQLJSON)
-  animations: any;
+  animations: ThemeAnimations;
 
   @Field(() => GraphQLJSON)
-  breakpoints: any;
+  breakpoints: ThemeBreakpoints;
 
   @Field({ nullable: true })
   customCSS?: string;

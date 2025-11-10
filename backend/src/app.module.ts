@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
@@ -11,6 +11,8 @@ import { UploadModule } from './upload/upload.module';
 import { SectionTypesModule } from './section-types/section-types.module';
 import { ThemesModule } from './themes/themes.module';
 import { PortfolioSectionsModule } from './portfolio-sections/portfolio-sections.module';
+import { LoggerModule } from './common/logger/logger.module';
+import { HttpLoggerMiddleware } from './common/middleware/http-logger.middleware';
 import { GraphQLJSON, GraphQLJSONObject } from 'graphql-type-json';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 
@@ -26,6 +28,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
       context: ({ req }) => ({ req }),
     }),
     PrismaModule,
+    LoggerModule,
     AuthModule,
     UsersModule,
     TemplatesModule,
@@ -37,4 +40,8 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
   ],
   providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(HttpLoggerMiddleware).forRoutes('*');
+  }
+}
