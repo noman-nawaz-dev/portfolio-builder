@@ -10,7 +10,7 @@ import {
   GET_THEMES,
   ADD_PORTFOLIO_SECTION,
 } from '@/lib/graphql/operations';
-import { HeroMinimal, AboutText, SkillsCards, PortfolioGrid, ContactForm, ExperienceTimeline } from '@/components/sections';
+import { HeroMinimal, AboutText, SkillsCards, PortfolioGrid, ContactForm, ExperienceTimeline, EducationTimeline } from '@/components/sections';
 import { LoadingScreen, Heading, Text, Button, Card, Container, Grid, Stack, Select, Box } from '@/components/ui';
 import Link from 'next/link';
 
@@ -145,6 +145,44 @@ export default function SectionBuilderPage() {
             },
           ],
         };
+      case 'education-timeline':
+        return {
+          title: 'Education',
+          items: [
+            {
+              degree: 'Master of Science',
+              field: 'Computer Science',
+              institution: 'Stanford University',
+              startDate: '2018',
+              endDate: '2020',
+              location: 'Stanford, CA',
+              grade: '3.9 GPA',
+              description: 'Specialized in Machine Learning and Artificial Intelligence',
+              achievements: [
+                'Dean\'s List all semesters',
+                'Graduate Research Assistant',
+                'Published 2 research papers',
+              ],
+              current: false,
+            },
+            {
+              degree: 'Bachelor of Science',
+              field: 'Software Engineering',
+              institution: 'MIT',
+              startDate: '2014',
+              endDate: '2018',
+              location: 'Cambridge, MA',
+              grade: 'Summa Cum Laude',
+              description: 'Focus on software architecture and distributed systems',
+              achievements: [
+                'Valedictorian',
+                'ACM Programming Competition Winner',
+                'Presidential Scholarship',
+              ],
+              current: false,
+            },
+          ],
+        };
       default:
         return {};
     }
@@ -205,6 +243,8 @@ export default function SectionBuilderPage() {
         return <ContactForm {...props} />;
       case 'experience-timeline':
         return <ExperienceTimeline {...props} />;
+      case 'education-timeline':
+        return <EducationTimeline {...props} />;
       default:
         return null;
     }

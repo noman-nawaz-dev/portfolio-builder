@@ -194,8 +194,8 @@ async function main() {
     create: {
       name: 'experience-timeline',
       displayName: 'Experience - Timeline',
-      description: 'Timeline of work experience and education',
-      icon: '📅',
+      description: 'Timeline of work experience',
+      icon: '�',
       category: 'experience',
       componentName: 'ExperienceTimeline',
       schema: {
@@ -229,20 +229,64 @@ async function main() {
     },
   });
 
+  const educationTimeline = await prisma.sectionType.upsert({
+    where: { name: 'education-timeline' },
+    update: {},
+    create: {
+      name: 'education-timeline',
+      displayName: 'Education - Timeline',
+      description: 'Timeline of educational background and certifications',
+      icon: '🎓',
+      category: 'education',
+      componentName: 'EducationTimeline',
+      schema: {
+        type: 'object',
+        properties: {
+          title: { type: 'string' },
+          items: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                id: { type: 'string' },
+                degree: { type: 'string' },
+                institution: { type: 'string' },
+                field: { type: 'string' },
+                location: { type: 'string' },
+                startDate: { type: 'string' },
+                endDate: { type: 'string' },
+                grade: { type: 'string' },
+                description: { type: 'string' },
+                achievements: {
+                  type: 'array',
+                  items: { type: 'string' },
+                },
+                current: { type: 'boolean' },
+              },
+            },
+          },
+        },
+      },
+      defaultData: {
+        title: 'Education',
+        items: [],
+      },
+      layoutVariants: ['vertical', 'horizontal', 'cards'],
+      styleOptions: ['all'],
+    },
+  });
+
   console.log('✅ Section types created');
 
   // ============================================
   // THEMES
   // ============================================
   console.log('🎨 Creating themes...');
-  
-  // Delete all existing themes first
-  console.log('🗑️  Deleting existing themes...');
-  await prisma.theme.deleteMany({});
-  console.log('✅ Existing themes deleted');
 
-  const modernMinimal = await prisma.theme.create({
-    data: {
+  const modernMinimal = await prisma.theme.upsert({
+    where: { id: 'modern-minimal-theme' },
+    update: {},
+    create: {
       id: 'modern-minimal-theme',
       name: 'Modern Minimal',
       description: 'Clean and minimal design with black and white aesthetics',
@@ -356,8 +400,10 @@ async function main() {
     },
   });
 
-  const darkProfessional = await prisma.theme.create({
-    data: {
+  const darkProfessional = await prisma.theme.upsert({
+    where: { id: 'dark-professional-theme' },
+    update: {},
+    create: {
       id: 'dark-professional-theme',
       name: 'Dark Professional',
       description: 'Professional dark theme with vibrant accents',
@@ -471,8 +517,10 @@ async function main() {
     },
   });
 
-  const vibrantGradient = await prisma.theme.create({
-    data: {
+  const vibrantGradient = await prisma.theme.upsert({
+    where: { id: 'vibrant-gradient-theme' },
+    update: {},
+    create: {
       id: 'vibrant-gradient-theme',
       name: 'Vibrant Gradient',
       description: 'Bold and colorful with gradient accents',
@@ -586,8 +634,10 @@ async function main() {
     },
   });
 
-  const sunsetWarmth = await prisma.theme.create({
-    data: {
+  const sunsetWarmth = await prisma.theme.upsert({
+    where: { id: 'sunset-warmth-theme' },
+    update: {},
+    create: {
       id: 'sunset-warmth-theme',
       name: 'Sunset Warmth',
       description: 'Warm and inviting theme with sunset-inspired coral and orange tones',
@@ -701,8 +751,10 @@ async function main() {
     },
   });
 
-  const oceanBreeze = await prisma.theme.create({
-    data: {
+  const oceanBreeze = await prisma.theme.upsert({
+    where: { id: 'ocean-breeze-theme' },
+    update: {},
+    create: {
       id: 'ocean-breeze-theme',
       name: 'Ocean Breeze',
       description: 'Calm and professional theme inspired by ocean waves with blue and teal colors',
@@ -816,8 +868,10 @@ async function main() {
     },
   });
 
-  const neonCyber = await prisma.theme.create({
-    data: {
+  const neonCyber = await prisma.theme.upsert({
+    where: { id: 'neon-cyber-theme' },
+    update: {},
+    create: {
       id: 'neon-cyber-theme',
       name: 'Neon Cyber',
       description: 'Futuristic cyberpunk theme with neon accents and dark background',
@@ -961,8 +1015,10 @@ async function main() {
     },
   });
 
-  const royalPurple = await prisma.theme.create({
-    data: {
+  const royalPurple = await prisma.theme.upsert({
+    where: { id: 'royal-purple-theme' },
+    update: {},
+    create: {
       id: 'royal-purple-theme',
       name: 'Royal Purple',
       description: 'Elegant dark theme with rich purple and gold accents',
@@ -1076,8 +1132,10 @@ async function main() {
     },
   });
 
-  const forestGreen = await prisma.theme.create({
-    data: {
+  const forestGreen = await prisma.theme.upsert({
+    where: { id: 'forest-green-theme' },
+    update: {},
+    create: {
       id: 'forest-green-theme',
       name: 'Forest Green',
       description: 'Natural and calming theme with earthy green tones',
@@ -1191,8 +1249,10 @@ async function main() {
     },
   });
 
-  const midnightBlue = await prisma.theme.create({
-    data: {
+  const midnightBlue = await prisma.theme.upsert({
+    where: { id: 'midnight-blue-theme' },
+    update: {},
+    create: {
       id: 'midnight-blue-theme',
       name: 'Midnight Blue',
       description: 'Deep blue professional theme perfect for corporate portfolios',
@@ -1306,8 +1366,10 @@ async function main() {
     },
   });
 
-  const peachCream = await prisma.theme.create({
-    data: {
+  const peachCream = await prisma.theme.upsert({
+    where: { id: 'peach-cream-theme' },
+    update: {},
+    create: {
       id: 'peach-cream-theme',
       name: 'Peach Cream',
       description: 'Soft and modern light theme with peachy cream tones',
@@ -1418,6 +1480,311 @@ async function main() {
         xl: '1280px',
         '2xl': '1536px',
       },
+    },
+  });
+
+  const crimsonNoir = await prisma.theme.upsert({
+    where: { id: 'crimson-noir-theme' },
+    update: {},
+    create: {
+      id: 'crimson-noir-theme',
+      name: 'Crimson Noir',
+      description: 'Sophisticated dark theme with deep red and black aesthetics for bold portfolios',
+      category: 'dark',
+      isDefault: false,
+      isPublic: true,
+      isPremium: true,
+      colors: {
+        primary: '#DC2626',
+        secondary: '#EF4444',
+        accent: '#F87171',
+        background: {
+          primary: '#0A0A0A',
+          secondary: '#1A1A1A',
+          tertiary: '#2A2A2A',
+        },
+        text: {
+          primary: '#FAFAFA',
+          secondary: '#E5E5E5',
+          tertiary: '#A3A3A3',
+          inverse: '#0A0A0A',
+        },
+        success: '#22C55E',
+        warning: '#F59E0B',
+        error: '#DC2626',
+        info: '#EF4444',
+        border: '#3A3A3A',
+        divider: '#2A2A2A',
+      },
+      fonts: {
+        heading: 'Montserrat, sans-serif',
+        body: 'Roboto, sans-serif',
+        mono: 'Fira Code, monospace',
+      },
+      fontSizes: {
+        xs: '0.75rem',
+        sm: '0.875rem',
+        md: '1rem',
+        lg: '1.125rem',
+        xl: '1.25rem',
+        '2xl': '1.5rem',
+        '3xl': '1.875rem',
+        '4xl': '2.25rem',
+        '5xl': '3rem',
+      },
+      fontWeights: {
+        light: 300,
+        normal: 400,
+        medium: 500,
+        semibold: 600,
+        bold: 700,
+        extrabold: 800,
+      },
+      lineHeights: {
+        tight: 1.25,
+        normal: 1.5,
+        relaxed: 1.75,
+        loose: 2,
+      },
+      spacing: {
+        xs: '0.5rem',
+        sm: '1rem',
+        md: '1.5rem',
+        lg: '2rem',
+        xl: '3rem',
+        '2xl': '4rem',
+        '3xl': '6rem',
+        '4xl': '8rem',
+      },
+      borderRadius: {
+        none: '0',
+        sm: '0.25rem',
+        md: '0.5rem',
+        lg: '0.75rem',
+        xl: '1rem',
+        full: '9999px',
+      },
+      borderWidth: {
+        none: '0',
+        thin: '1px',
+        medium: '2px',
+        thick: '4px',
+      },
+      shadows: {
+        sm: '0 2px 4px 0 rgb(220 38 38 / 0.3)',
+        md: '0 4px 8px -1px rgb(220 38 38 / 0.4)',
+        lg: '0 10px 20px -3px rgb(220 38 38 / 0.5)',
+        xl: '0 20px 30px -5px rgb(220 38 38 / 0.6)',
+        '2xl': '0 30px 60px -12px rgb(220 38 38 / 0.7)',
+        none: 'none',
+      },
+      animations: {
+        durations: {
+          fast: '150ms',
+          normal: '300ms',
+          slow: '500ms',
+        },
+        easings: {
+          linear: 'linear',
+          easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
+          easeOut: 'cubic-bezier(0, 0, 0.2, 1)',
+          easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        },
+      },
+      breakpoints: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+      },
+      customCSS: `
+        .crimson-glow {
+          box-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
+          transition: box-shadow 0.3s ease;
+        }
+        
+        .crimson-glow:hover {
+          box-shadow: 0 0 30px rgba(220, 38, 38, 0.5);
+        }
+        
+        .accent-border {
+          border-image: linear-gradient(135deg, #DC2626, #EF4444) 1;
+        }
+        
+        .fade-in-up {
+          animation: fadeInUp 0.6s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `,
+    },
+  });
+
+  const emeraldDusk = await prisma.theme.upsert({
+    where: { id: 'emerald-dusk-theme' },
+    update: {},
+    create: {
+      id: 'emerald-dusk-theme',
+      name: 'Emerald Dusk',
+      description: 'Premium dark theme with luxurious emerald green and gold accents',
+      category: 'dark',
+      isDefault: false,
+      isPublic: true,
+      isPremium: true,
+      colors: {
+        primary: '#10B981',
+        secondary: '#34D399',
+        accent: '#FCD34D',
+        background: {
+          primary: '#0C1713',
+          secondary: '#1A2921',
+          tertiary: '#2D3E37',
+        },
+        text: {
+          primary: '#F0FDF4',
+          secondary: '#D1FAE5',
+          tertiary: '#A7F3D0',
+          inverse: '#0C1713',
+        },
+        success: '#10B981',
+        warning: '#FCD34D',
+        error: '#EF4444',
+        info: '#34D399',
+        border: '#3D5449',
+        divider: '#2D3E37',
+      },
+      fonts: {
+        heading: 'Cinzel, serif',
+        body: 'Lato, sans-serif',
+        mono: 'JetBrains Mono, monospace',
+      },
+      fontSizes: {
+        xs: '0.75rem',
+        sm: '0.875rem',
+        md: '1rem',
+        lg: '1.125rem',
+        xl: '1.25rem',
+        '2xl': '1.5rem',
+        '3xl': '1.875rem',
+        '4xl': '2.25rem',
+        '5xl': '3rem',
+      },
+      fontWeights: {
+        light: 300,
+        normal: 400,
+        medium: 500,
+        semibold: 600,
+        bold: 700,
+        extrabold: 800,
+      },
+      lineHeights: {
+        tight: 1.25,
+        normal: 1.5,
+        relaxed: 1.75,
+        loose: 2,
+      },
+      spacing: {
+        xs: '0.5rem',
+        sm: '1rem',
+        md: '1.5rem',
+        lg: '2rem',
+        xl: '3rem',
+        '2xl': '4rem',
+        '3xl': '6rem',
+        '4xl': '8rem',
+      },
+      borderRadius: {
+        none: '0',
+        sm: '0.25rem',
+        md: '0.5rem',
+        lg: '0.75rem',
+        xl: '1rem',
+        full: '9999px',
+      },
+      borderWidth: {
+        none: '0',
+        thin: '1px',
+        medium: '2px',
+        thick: '4px',
+      },
+      shadows: {
+        sm: '0 2px 4px 0 rgb(16 185 129 / 0.25)',
+        md: '0 4px 8px -1px rgb(16 185 129 / 0.35)',
+        lg: '0 12px 20px -3px rgb(16 185 129 / 0.4)',
+        xl: '0 20px 30px -5px rgb(16 185 129 / 0.5)',
+        '2xl': '0 30px 60px -12px rgb(16 185 129 / 0.6)',
+        none: 'none',
+      },
+      animations: {
+        durations: {
+          fast: '150ms',
+          normal: '300ms',
+          slow: '500ms',
+        },
+        easings: {
+          linear: 'linear',
+          easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
+          easeOut: 'cubic-bezier(0, 0, 0.2, 1)',
+          easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        },
+      },
+      breakpoints: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+      },
+      customCSS: `
+        .emerald-shimmer {
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .emerald-shimmer::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(16, 185, 129, 0.2),
+            transparent
+          );
+          animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+          to {
+            left: 100%;
+          }
+        }
+        
+        .gold-accent {
+          background: linear-gradient(135deg, #10B981, #FCD34D);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        
+        .luxury-border {
+          border: 2px solid;
+          border-image: linear-gradient(135deg, #10B981, #FCD34D, #34D399) 1;
+        }
+      `,
     },
   });
 

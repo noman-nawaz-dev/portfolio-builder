@@ -192,6 +192,24 @@ function SectionEditorContent() {
             },
           ],
         };
+      case 'education-timeline':
+        return {
+          title: 'Education',
+          items: [
+            {
+              degree: 'Bachelor of Science',
+              field: 'Computer Science',
+              institution: 'University Name',
+              startDate: '2018',
+              endDate: '2022',
+              location: 'City, State',
+              grade: '3.8 GPA',
+              description: 'Brief description of your studies...',
+              achievements: ['Dean\'s List', 'Scholarship'],
+              current: false,
+            },
+          ],
+        };
       default:
         return {};
     }

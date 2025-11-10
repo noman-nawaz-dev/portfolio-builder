@@ -678,6 +678,202 @@ export default function SectionContentEditor({
     </div>
   );
 
+  const renderEducationTimelineForm = () => (
+    <div className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium mb-2">Title</label>
+        <Input
+          value={formData.title || ''}
+          onChange={(e) => handleChange('title', e.target.value)}
+          placeholder="Education"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-2">Education Items</label>
+        {(formData.items || []).map((item: any, index: number) => (
+          <div key={index} className="border rounded-lg p-4 mb-3">
+            <div className="space-y-3">
+              <div>
+                <label className="block text-xs font-medium mb-1">Degree</label>
+                <Input
+                  value={item.degree || ''}
+                  onChange={(e) => {
+                    const newItem = { ...item, degree: e.target.value };
+                    handleArrayChange('items', index, newItem);
+                  }}
+                  placeholder="Bachelor of Science"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium mb-1">Field of Study</label>
+                <Input
+                  value={item.field || ''}
+                  onChange={(e) => {
+                    const newItem = { ...item, field: e.target.value };
+                    handleArrayChange('items', index, newItem);
+                  }}
+                  placeholder="Computer Science"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium mb-1">Institution</label>
+                <Input
+                  value={item.institution || ''}
+                  onChange={(e) => {
+                    const newItem = { ...item, institution: e.target.value };
+                    handleArrayChange('items', index, newItem);
+                  }}
+                  placeholder="University Name"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-xs font-medium mb-1">Start Date</label>
+                  <Input
+                    value={item.startDate || ''}
+                    onChange={(e) => {
+                      const newItem = { ...item, startDate: e.target.value };
+                      handleArrayChange('items', index, newItem);
+                    }}
+                    placeholder="2018"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium mb-1">End Date</label>
+                  <Input
+                    value={item.endDate || ''}
+                    onChange={(e) => {
+                      const newItem = { ...item, endDate: e.target.value };
+                      handleArrayChange('items', index, newItem);
+                    }}
+                    placeholder="2022"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-xs font-medium mb-1">Location</label>
+                  <Input
+                    value={item.location || ''}
+                    onChange={(e) => {
+                      const newItem = { ...item, location: e.target.value };
+                      handleArrayChange('items', index, newItem);
+                    }}
+                    placeholder="San Francisco, CA"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium mb-1">Grade/GPA</label>
+                  <Input
+                    value={item.grade || ''}
+                    onChange={(e) => {
+                      const newItem = { ...item, grade: e.target.value };
+                      handleArrayChange('items', index, newItem);
+                    }}
+                    placeholder="3.8 GPA"
+                  />
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id={`current-${index}`}
+                  checked={item.current || false}
+                  onChange={(e) => {
+                    const newItem = { ...item, current: e.target.checked };
+                    handleArrayChange('items', index, newItem);
+                  }}
+                  className="rounded"
+                />
+                <label htmlFor={`current-${index}`} className="text-xs font-medium">
+                  Currently studying
+                </label>
+              </div>
+              <div>
+                <label className="block text-xs font-medium mb-1">Description</label>
+                <Textarea
+                  value={item.description || ''}
+                  onChange={(e) => {
+                    const newItem = { ...item, description: e.target.value };
+                    handleArrayChange('items', index, newItem);
+                  }}
+                  placeholder="Brief description of your studies..."
+                  rows={3}
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium mb-1">Achievements & Honors</label>
+                {(item.achievements || []).map((achievement: string, achIndex: number) => (
+                  <div key={achIndex} className="flex gap-2 mb-2">
+                    <Input
+                      value={achievement}
+                      onChange={(e) => {
+                        const newAchievements = [...(item.achievements || [])];
+                        newAchievements[achIndex] = e.target.value;
+                        const newItem = { ...item, achievements: newAchievements };
+                        handleArrayChange('items', index, newItem);
+                      }}
+                      placeholder="Dean's List, Scholarship, etc."
+                    />
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        const newAchievements = [...(item.achievements || [])];
+                        newAchievements.splice(achIndex, 1);
+                        const newItem = { ...item, achievements: newAchievements };
+                        handleArrayChange('items', index, newItem);
+                      }}
+                    >
+                      ✕
+                    </Button>
+                  </div>
+                ))}
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    const newAchievements = [...(item.achievements || []), ''];
+                    const newItem = { ...item, achievements: newAchievements };
+                    handleArrayChange('items', index, newItem);
+                  }}
+                  className="w-full mt-2"
+                >
+                  + Add Achievement
+                </Button>
+              </div>
+              <Button
+                variant="outline"
+                onClick={() => removeArrayItem('items', index)}
+                className="w-full"
+              >
+                Remove Education
+              </Button>
+            </div>
+          </div>
+        ))}
+        <Button
+          variant="outline"
+          onClick={() =>
+            addArrayItem('items', {
+              degree: '',
+              field: '',
+              institution: '',
+              startDate: '',
+              endDate: '',
+              location: '',
+              grade: '',
+              description: '',
+              achievements: [],
+              current: false,
+            })
+          }
+          className="w-full"
+        >
+          + Add Education
+        </Button>
+      </div>
+    </div>
+  );
+
   const renderForm = () => {
     switch (sectionType) {
       case 'hero-minimal':
@@ -692,6 +888,8 @@ export default function SectionContentEditor({
         return renderContactFormForm();
       case 'experience-timeline':
         return renderExperienceTimelineForm();
+      case 'education-timeline':
+        return renderEducationTimelineForm();
       default:
         return (
           <div className="text-center py-8">

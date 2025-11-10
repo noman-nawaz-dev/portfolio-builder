@@ -5,6 +5,7 @@ import { SkillsCards } from './SkillsCards';
 import { PortfolioGrid } from './PortfolioGrid';
 import { ContactForm } from './ContactForm';
 import { ExperienceTimeline } from './ExperienceTimeline';
+import { EducationTimeline } from './EducationTimeline';
 import { SectionProps } from './types';
 
 // Section Registry - maps section type names to React components
@@ -15,6 +16,7 @@ export const SECTION_REGISTRY: Record<string, React.FC<SectionProps>> = {
   'portfolio-grid': PortfolioGrid,
   'contact-form': ContactForm,
   'experience-timeline': ExperienceTimeline,
+  'education-timeline': EducationTimeline,
 };
 
 // Helper function to get a section component by name
@@ -30,4 +32,5 @@ export {
   PortfolioGrid,
   ContactForm,
   ExperienceTimeline,
+  EducationTimeline,
 };
