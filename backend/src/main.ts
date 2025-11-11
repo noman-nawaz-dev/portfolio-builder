@@ -11,53 +11,65 @@ async function bootstrap() {
   const logger = app.get(LoggerService);
   app.useLogger(logger);
   
-  // Enable Helmet with Content Security Policy
-  app.use(helmet.default({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: [
-          "'self'",
-          "'unsafe-inline'", // Required for Apollo Playground/GraphQL IDE
-          "'unsafe-eval'", // Required for Apollo Playground/GraphQL IDE
-          "https://embeddable-sandbox.cdn.apollographql.com",
-          "https://cdn.jsdelivr.net",
-        ],
-        styleSrc: [
-          "'self'",
-          "'unsafe-inline'", // Required for Apollo Playground/GraphQL IDE
-          "https://embeddable-sandbox.cdn.apollographql.com",
-          "https://fonts.googleapis.com",
-        ],
-        fontSrc: [
-          "'self'",
-          "https://fonts.gstatic.com",
-          "https://embeddable-sandbox.cdn.apollographql.com",
-        ],
-        imgSrc: [
-          "'self'",
-          "data:",
-          "https:",
-          "https://res.cloudinary.com", // Cloudinary for image uploads
-          "https://apollo-server-landing-page.cdn.apollographql.com",
-        ],
-        connectSrc: [
-          "'self'",
-          "https://portfolio-builder.noman-nawaz.dev",
-          "http://localhost:3000",
-          "http://localhost:4000",
-        ],
-        frameSrc: [
-          "'self'",
-          "https://embeddable-sandbox.cdn.apollographql.com",
-        ],
-        objectSrc: ["'none'"],
-        upgradeInsecureRequests: process.env.NODE_ENV === 'production' ? [] : null,
+  // Apply Helmet but exclude /graphql in development
+  app.use((req, res, next) => {
+    // Skip Helmet for /graphql in development to allow Apollo Sandbox
+    if (process.env.NODE_ENV === 'development' && req.path === '/graphql') {
+      return next();
+    }
+    
+    helmet.default({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: [
+            "'self'",
+            "'unsafe-inline'",
+            "'unsafe-eval'",
+            "https://embeddable-sandbox.cdn.apollographql.com",
+            "https://apollo-server-landing-page.cdn.apollographql.com",
+            "https://cdn.jsdelivr.net",
+          ],
+          styleSrc: [
+            "'self'",
+            "'unsafe-inline'",
+            "https://embeddable-sandbox.cdn.apollographql.com",
+            "https://apollo-server-landing-page.cdn.apollographql.com",
+            "https://fonts.googleapis.com",
+          ],
+          fontSrc: [
+            "'self'",
+            "https://fonts.gstatic.com",
+            "https://embeddable-sandbox.cdn.apollographql.com",
+          ],
+          imgSrc: [
+            "'self'",
+            "data:",
+            "https:",
+            "https://res.cloudinary.com",
+            "https://apollo-server-landing-page.cdn.apollographql.com",
+          ],
+          connectSrc: [
+            "'self'",
+            "https://portfolio-builder.noman-nawaz.dev",
+            "http://localhost:3000",
+            "http://localhost:4000",
+          ],
+          frameSrc: [
+            "'self'",
+            "https://embeddable-sandbox.cdn.apollographql.com",
+          ],
+          childSrc: ["'self'", "https://embeddable-sandbox.cdn.apollographql.com"],
+          workerSrc: ["'self'", "blob:"],
+          manifestSrc: ["'self'", "https://embeddable-sandbox.cdn.apollographql.com"],
+          objectSrc: ["'none'"],
+          upgradeInsecureRequests: process.env.NODE_ENV === 'production' ? [] : null,
+        },
       },
-    },
-    crossOriginEmbedderPolicy: false, // Required for GraphQL Playground
-    crossOriginResourcePolicy: { policy: "cross-origin" }, // Allow cross-origin requests
-  }));
+      crossOriginEmbedderPolicy: false,
+      crossOriginResourcePolicy: { policy: "cross-origin" },
+    })(req, res, next);
+  });
   
   // Enable CORS with specific origins
   app.enableCors({
