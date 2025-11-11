@@ -38,7 +38,6 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
     ThemesModule,
     PortfolioSectionsModule,
   ],
-  providers: [],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
