@@ -1,12 +1,14 @@
 'use client';
 
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { useSearchParams } from 'next/navigation';
-import { GET_PORTFOLIO } from '@/lib/graphql/operations';
+import { useState, useEffect, useRef } from 'react';
+import { GET_PORTFOLIO, GET_THEMES, UPDATE_PORTFOLIO } from '@/lib/graphql/operations';
 import { ProtectedRoute } from '@/lib/ProtectedRoute';
 import { usePortfolio } from '@/lib/PortfolioContext';
 import { getSectionComponent } from '@/components/sections';
-import { LoadingScreen, Heading, Text, Link, Button, Container, Stack, Flex, Box, Badge } from '@/components/ui';
+import { LoadingScreen, Heading, Text, Link, Button, Container, Stack, Flex, Box, Badge, Alert } from '@/components/ui';
+import { ThemeSelector } from '@/components/section-editor/ThemeSelector';
 
 function PreviewContent() {
   const searchParams = useSearchParams();
@@ -16,10 +18,61 @@ function PreviewContent() {
   // Use URL parameter first, then fall back to context
   const portfolioId = urlPortfolioId || currentPortfolioId;
   
-  const { data, loading, error } = useQuery(GET_PORTFOLIO, {
+  const [showThemeSelector, setShowThemeSelector] = useState(false);
+  const [changingTheme, setChangingTheme] = useState(false);
+  const [themeError, setThemeError] = useState<string | null>(null);
+  const themeSelectorRef = useRef<HTMLDivElement>(null);
+  
+  const { data, loading, error, refetch } = useQuery(GET_PORTFOLIO, {
     variables: { portfolioId },
     skip: !portfolioId,
   });
+
+  const { data: themesData, loading: themesLoading } = useQuery(GET_THEMES);
+
+  const [updatePortfolio] = useMutation(UPDATE_PORTFOLIO);
+
+  // Close theme selector when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (themeSelectorRef.current && !themeSelectorRef.current.contains(event.target as Node)) {
+        setShowThemeSelector(false);
+      }
+    };
+
+    if (showThemeSelector) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showThemeSelector]);
+
+  const handleThemeChange = async (themeId: string) => {
+    if (!portfolioId) return;
+    
+    setChangingTheme(true);
+    setThemeError(null);
+    
+    try {
+      await updatePortfolio({
+        variables: {
+          id: portfolioId,
+          themeId,
+        },
+      });
+      
+      // Refetch portfolio to get updated theme
+      await refetch();
+      setShowThemeSelector(false);
+    } catch (err: any) {
+      console.error('Error changing theme:', err);
+      setThemeError(err.message || 'Failed to change theme');
+    } finally {
+      setChangingTheme(false);
+    }
+  };
 
   if (loading) {
     return <LoadingScreen message="Loading preview..." />;
@@ -66,7 +119,7 @@ function PreviewContent() {
     <div className="relative">
       {/* Preview Banner */}
       <Box className="fixed top-0 left-0 right-0 bg-yellow-500 text-white z-50 shadow-md py-2 sm:py-3 px-4">
-        <Container maxWidth="7xl" padding="none">
+        <Container padding="none">
           <Flex direction="col" align="start" justify="between" gap="sm" className="sm:flex-row sm:items-center">
             <Stack direction="horizontal" spacing="sm" align="center" className="flex-wrap sm:flex-nowrap">
               <Badge className="bg-transparent border-0 p-0">
@@ -82,32 +135,51 @@ function PreviewContent() {
             </Stack>
             
             <Flex gap="xs" className="w-full sm:w-auto flex-shrink-0">
-              {portfolio.resumeUrl && (
-                <a
-                  href={portfolio.resumeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  download
-                >
-                  <Button variant="outline" size="sm" className="bg-white text-yellow-600 hover:bg-yellow-50 text-xs sm:text-sm whitespace-nowrap h-8">
-                    📄 <span className=" ml-1">Resume</span>
-                  </Button>
-                </a>
-              )}
-              <Link href={`/section-editor?portfolio=${portfolioId}`}>
-                <Button variant="outline" size="sm" className="bg-white text-yellow-600 hover:bg-yellow-50 text-xs sm:text-sm whitespace-nowrap h-8">
-                  ✏️ Edit
-                </Button>
-              </Link>
               <Link href="/dashboard">
                 <Button variant="primary" size="sm" className="bg-yellow-600 text-white hover:bg-yellow-700 text-xs sm:text-sm whitespace-nowrap h-8">
                   🏠 <span className=" ml-1">Dashboard</span>
                 </Button>
               </Link>
+              <Link href={`/section-editor?portfolio=${portfolioId}`}>
+                <Button variant="outline" size="sm" className="bg-white text-yellow-600 hover:bg-yellow-50 text-xs sm:text-sm whitespace-nowrap h-8">
+                  ✏️ Edit
+                </Button>
+              </Link>
+              <div ref={themeSelectorRef} className="relative">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setShowThemeSelector(!showThemeSelector)}
+                  disabled={themesLoading}
+                  className="bg-white text-yellow-600 hover:bg-yellow-50 text-xs sm:text-sm whitespace-nowrap h-8"
+                >
+                  🎨 <span className="ml-1">Theme</span>
+                </Button>
+                
+                {/* Theme Selector Popup */}
+                {showThemeSelector && themesData?.themes && (
+                  <ThemeSelector
+                    themes={themesData.themes}
+                    currentThemeId={portfolio.theme?.id || ''}
+                    changingTheme={changingTheme}
+                    onThemeSelect={handleThemeChange}
+                    onClose={() => setShowThemeSelector(false)}
+                  />
+                )}
+              </div>
             </Flex>
           </Flex>
         </Container>
       </Box>
+
+      {/* Error Alert */}
+      {themeError && (
+        <Box className="fixed top-20 left-1/2 transform -translate-x-1/2 z-40 w-11/12 max-w-md">
+          <Alert variant="error" onClose={() => setThemeError(null)}>
+            {themeError}
+          </Alert>
+        </Box>
+      )}
 
       {/* Portfolio Content with top padding to account for banner */}
       <div 
