@@ -1788,6 +1788,1282 @@ async function main() {
     },
   });
 
+  // Premium Dark Theme 1: Aurora Night
+  const auroraNight = await prisma.theme.upsert({
+    where: { id: 'aurora-night-theme' },
+    update: {},
+    create: {
+      id: 'aurora-night-theme',
+      name: 'Aurora Night',
+      description: 'Mesmerizing dark theme with northern lights-inspired gradient effects and ethereal glow',
+      category: 'dark',
+      isDefault: false,
+      isPublic: true,
+      isPremium: true,
+      colors: {
+        primary: '#8B5CF6',
+        secondary: '#06B6D4',
+        accent: '#EC4899',
+        background: {
+          primary: '#0F0A1E',
+          secondary: '#1A1229',
+          tertiary: '#2A1F3D',
+        },
+        text: {
+          primary: '#F5F3FF',
+          secondary: '#DDD6FE',
+          tertiary: '#C4B5FD',
+          inverse: '#0F0A1E',
+        },
+        success: '#34D399',
+        warning: '#FBBF24',
+        error: '#F87171',
+        info: '#06B6D4',
+        border: '#3B2F5A',
+        divider: '#2A1F3D',
+      },
+      fonts: {
+        heading: 'Space Grotesk, sans-serif',
+        body: 'Inter, sans-serif',
+        mono: 'JetBrains Mono, monospace',
+      },
+      fontSizes: {
+        xs: '0.75rem',
+        sm: '0.875rem',
+        md: '1rem',
+        lg: '1.125rem',
+        xl: '1.25rem',
+        '2xl': '1.5rem',
+        '3xl': '1.875rem',
+        '4xl': '2.25rem',
+        '5xl': '3rem',
+      },
+      fontWeights: {
+        light: 300,
+        normal: 400,
+        medium: 500,
+        semibold: 600,
+        bold: 700,
+        extrabold: 800,
+      },
+      lineHeights: {
+        tight: 1.25,
+        normal: 1.5,
+        relaxed: 1.75,
+        loose: 2,
+      },
+      spacing: {
+        xs: '0.5rem',
+        sm: '1rem',
+        md: '1.5rem',
+        lg: '2rem',
+        xl: '3rem',
+        '2xl': '4rem',
+        '3xl': '6rem',
+        '4xl': '8rem',
+      },
+      borderRadius: {
+        none: '0',
+        sm: '0.375rem',
+        md: '0.75rem',
+        lg: '1rem',
+        xl: '1.5rem',
+        full: '9999px',
+      },
+      borderWidth: {
+        none: '0',
+        thin: '1px',
+        medium: '2px',
+        thick: '3px',
+      },
+      shadows: {
+        sm: '0 0 10px rgba(139, 92, 246, 0.2)',
+        md: '0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(6, 182, 212, 0.2)',
+        lg: '0 0 30px rgba(139, 92, 246, 0.4), 0 0 60px rgba(6, 182, 212, 0.3)',
+        xl: '0 0 40px rgba(139, 92, 246, 0.5), 0 0 80px rgba(236, 72, 153, 0.3)',
+        '2xl': '0 0 60px rgba(139, 92, 246, 0.6), 0 0 100px rgba(6, 182, 212, 0.4), 0 0 140px rgba(236, 72, 153, 0.3)',
+        none: 'none',
+      },
+      animations: {
+        durations: {
+          fast: '200ms',
+          normal: '400ms',
+          slow: '600ms',
+        },
+        easings: {
+          linear: 'linear',
+          easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
+          easeOut: 'cubic-bezier(0, 0, 0.2, 1)',
+          easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        },
+      },
+      breakpoints: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+      },
+      customCSS: `
+        @keyframes aurora {
+          0%, 100% { 
+            background-position: 0% 50%;
+            filter: hue-rotate(0deg);
+          }
+          50% { 
+            background-position: 100% 50%;
+            filter: hue-rotate(30deg);
+          }
+        }
+        
+        .aurora-bg {
+          background: linear-gradient(135deg, #8B5CF6, #06B6D4, #EC4899);
+          background-size: 200% 200%;
+          animation: aurora 8s ease infinite;
+        }
+        
+        .aurora-glow {
+          box-shadow: 0 0 20px rgba(139, 92, 246, 0.3),
+                      0 0 40px rgba(6, 182, 212, 0.2),
+                      0 0 60px rgba(236, 72, 153, 0.1);
+          transition: box-shadow 0.3s ease;
+        }
+        
+        .aurora-glow:hover {
+          box-shadow: 0 0 30px rgba(139, 92, 246, 0.5),
+                      0 0 60px rgba(6, 182, 212, 0.3),
+                      0 0 90px rgba(236, 72, 153, 0.2);
+        }
+      `,
+    },
+  });
+
+  // Premium Dark Theme 2: Obsidian Luxury
+  const obsidianLuxury = await prisma.theme.upsert({
+    where: { id: 'obsidian-luxury-theme' },
+    update: {},
+    create: {
+      id: 'obsidian-luxury-theme',
+      name: 'Obsidian Luxury',
+      description: 'Ultra-premium dark theme with sleek black, gold, and champagne accents for high-end portfolios',
+      category: 'dark',
+      isDefault: false,
+      isPublic: true,
+      isPremium: true,
+      colors: {
+        primary: '#D4AF37',
+        secondary: '#F7E7CE',
+        accent: '#FFD700',
+        background: {
+          primary: '#0D0D0D',
+          secondary: '#1A1A1A',
+          tertiary: '#262626',
+        },
+        text: {
+          primary: '#FFFFFF',
+          secondary: '#F5F5F5',
+          tertiary: '#D4D4D4',
+          inverse: '#0D0D0D',
+        },
+        success: '#4ADE80',
+        warning: '#FBBF24',
+        error: '#F87171',
+        info: '#60A5FA',
+        border: '#404040',
+        divider: '#333333',
+      },
+      fonts: {
+        heading: 'Cormorant Garamond, serif',
+        body: 'Outfit, sans-serif',
+        mono: 'Source Code Pro, monospace',
+      },
+      fontSizes: {
+        xs: '0.75rem',
+        sm: '0.875rem',
+        md: '1rem',
+        lg: '1.125rem',
+        xl: '1.25rem',
+        '2xl': '1.5rem',
+        '3xl': '1.875rem',
+        '4xl': '2.25rem',
+        '5xl': '3rem',
+      },
+      fontWeights: {
+        light: 300,
+        normal: 400,
+        medium: 500,
+        semibold: 600,
+        bold: 700,
+        extrabold: 800,
+      },
+      lineHeights: {
+        tight: 1.25,
+        normal: 1.5,
+        relaxed: 1.75,
+        loose: 2,
+      },
+      spacing: {
+        xs: '0.5rem',
+        sm: '1rem',
+        md: '1.5rem',
+        lg: '2rem',
+        xl: '3rem',
+        '2xl': '4rem',
+        '3xl': '6rem',
+        '4xl': '8rem',
+      },
+      borderRadius: {
+        none: '0',
+        sm: '0.125rem',
+        md: '0.25rem',
+        lg: '0.5rem',
+        xl: '0.75rem',
+        full: '9999px',
+      },
+      borderWidth: {
+        none: '0',
+        thin: '1px',
+        medium: '2px',
+        thick: '3px',
+      },
+      shadows: {
+        sm: '0 2px 8px rgba(212, 175, 55, 0.15)',
+        md: '0 4px 16px rgba(212, 175, 55, 0.2)',
+        lg: '0 8px 24px rgba(212, 175, 55, 0.25)',
+        xl: '0 12px 32px rgba(212, 175, 55, 0.3)',
+        '2xl': '0 20px 48px rgba(212, 175, 55, 0.35)',
+        none: 'none',
+      },
+      animations: {
+        durations: {
+          fast: '200ms',
+          normal: '400ms',
+          slow: '700ms',
+        },
+        easings: {
+          linear: 'linear',
+          easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
+          easeOut: 'cubic-bezier(0, 0, 0.2, 1)',
+          easeInOut: 'cubic-bezier(0.65, 0, 0.35, 1)',
+        },
+      },
+      breakpoints: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+      },
+      customCSS: `
+        .gold-gradient {
+          background: linear-gradient(135deg, #D4AF37, #FFD700, #F7E7CE);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        
+        .luxury-shine {
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .luxury-shine::after {
+          content: '';
+          position: absolute;
+          top: -50%;
+          right: -50%;
+          bottom: -50%;
+          left: -50%;
+          background: linear-gradient(
+            to bottom,
+            rgba(255, 215, 0, 0),
+            rgba(255, 215, 0, 0.1),
+            rgba(255, 215, 0, 0)
+          );
+          transform: rotate(45deg);
+          animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+          0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+          100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .obsidian-card {
+          background: linear-gradient(145deg, #1A1A1A, #0D0D0D);
+          border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+      `,
+    },
+  });
+
+  // Premium Dark Theme 3: Deep Space
+  const deepSpace = await prisma.theme.upsert({
+    where: { id: 'deep-space-theme' },
+    update: {},
+    create: {
+      id: 'deep-space-theme',
+      name: 'Deep Space',
+      description: 'Cosmic dark theme with stellar blue and purple gradients, perfect for tech and creative portfolios',
+      category: 'dark',
+      isDefault: false,
+      isPublic: true,
+      isPremium: true,
+      colors: {
+        primary: '#5B8DEF',
+        secondary: '#7B68EE',
+        accent: '#00D4FF',
+        background: {
+          primary: '#0B0E1A',
+          secondary: '#151923',
+          tertiary: '#1F2937',
+        },
+        text: {
+          primary: '#E5E7EB',
+          secondary: '#D1D5DB',
+          tertiary: '#9CA3AF',
+          inverse: '#0B0E1A',
+        },
+        success: '#10B981',
+        warning: '#F59E0B',
+        error: '#EF4444',
+        info: '#00D4FF',
+        border: '#374151',
+        divider: '#1F2937',
+      },
+      fonts: {
+        heading: 'Exo 2, sans-serif',
+        body: 'Nunito Sans, sans-serif',
+        mono: 'Roboto Mono, monospace',
+      },
+      fontSizes: {
+        xs: '0.75rem',
+        sm: '0.875rem',
+        md: '1rem',
+        lg: '1.125rem',
+        xl: '1.25rem',
+        '2xl': '1.5rem',
+        '3xl': '1.875rem',
+        '4xl': '2.25rem',
+        '5xl': '3rem',
+      },
+      fontWeights: {
+        light: 300,
+        normal: 400,
+        medium: 500,
+        semibold: 600,
+        bold: 700,
+        extrabold: 800,
+      },
+      lineHeights: {
+        tight: 1.25,
+        normal: 1.5,
+        relaxed: 1.75,
+        loose: 2,
+      },
+      spacing: {
+        xs: '0.5rem',
+        sm: '1rem',
+        md: '1.5rem',
+        lg: '2rem',
+        xl: '3rem',
+        '2xl': '4rem',
+        '3xl': '6rem',
+        '4xl': '8rem',
+      },
+      borderRadius: {
+        none: '0',
+        sm: '0.25rem',
+        md: '0.5rem',
+        lg: '0.75rem',
+        xl: '1rem',
+        full: '9999px',
+      },
+      borderWidth: {
+        none: '0',
+        thin: '1px',
+        medium: '2px',
+        thick: '3px',
+      },
+      shadows: {
+        sm: '0 0 10px rgba(91, 141, 239, 0.2)',
+        md: '0 0 20px rgba(91, 141, 239, 0.3), 0 0 40px rgba(0, 212, 255, 0.15)',
+        lg: '0 0 30px rgba(91, 141, 239, 0.4), 0 0 60px rgba(0, 212, 255, 0.2)',
+        xl: '0 0 40px rgba(91, 141, 239, 0.5), 0 0 80px rgba(123, 104, 238, 0.3)',
+        '2xl': '0 0 60px rgba(91, 141, 239, 0.6), 0 0 100px rgba(0, 212, 255, 0.4)',
+        none: 'none',
+      },
+      animations: {
+        durations: {
+          fast: '150ms',
+          normal: '350ms',
+          slow: '600ms',
+        },
+        easings: {
+          linear: 'linear',
+          easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
+          easeOut: 'cubic-bezier(0, 0, 0.2, 1)',
+          easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        },
+      },
+      breakpoints: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+      },
+      customCSS: `
+        @keyframes stars {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(-2000px); }
+        }
+        
+        .space-background {
+          background: radial-gradient(ellipse at bottom, #1F2937 0%, #0B0E1A 100%);
+          position: relative;
+        }
+        
+        .space-background::before {
+          content: '';
+          position: absolute;
+          width: 2px;
+          height: 2px;
+          background: white;
+          box-shadow: 
+            100px 200px white, 300px 400px white, 500px 100px white,
+            700px 300px white, 900px 500px white, 200px 600px white;
+          animation: stars 50s linear infinite;
+        }
+        
+        .cosmic-glow {
+          box-shadow: 
+            0 0 20px rgba(91, 141, 239, 0.3),
+            0 0 40px rgba(123, 104, 238, 0.2),
+            inset 0 0 20px rgba(0, 212, 255, 0.1);
+        }
+        
+        .stellar-border {
+          border: 2px solid transparent;
+          background: linear-gradient(#0B0E1A, #0B0E1A) padding-box,
+                      linear-gradient(135deg, #5B8DEF, #00D4FF) border-box;
+        }
+      `,
+    },
+  });
+
+  // Premium Dark Theme 4: Midnight Velvet
+  const midnightVelvet = await prisma.theme.upsert({
+    where: { id: 'midnight-velvet-theme' },
+    update: {},
+    create: {
+      id: 'midnight-velvet-theme',
+      name: 'Midnight Velvet',
+      description: 'Sophisticated dark theme with rich velvet textures, burgundy and navy tones for artistic portfolios',
+      category: 'dark',
+      isDefault: false,
+      isPublic: true,
+      isPremium: true,
+      colors: {
+        primary: '#701A75',
+        secondary: '#BE185D',
+        accent: '#D946EF',
+        background: {
+          primary: '#0F0A1A',
+          secondary: '#1A1229',
+          tertiary: '#2D1B3D',
+        },
+        text: {
+          primary: '#FAF5FF',
+          secondary: '#F3E8FF',
+          tertiary: '#E9D5FF',
+          inverse: '#0F0A1A',
+        },
+        success: '#22C55E',
+        warning: '#F59E0B',
+        error: '#DC2626',
+        info: '#A855F7',
+        border: '#4C1D95',
+        divider: '#3B0764',
+      },
+      fonts: {
+        heading: 'Crimson Pro, serif',
+        body: 'Karla, sans-serif',
+        mono: 'Courier Prime, monospace',
+      },
+      fontSizes: {
+        xs: '0.75rem',
+        sm: '0.875rem',
+        md: '1rem',
+        lg: '1.125rem',
+        xl: '1.25rem',
+        '2xl': '1.5rem',
+        '3xl': '1.875rem',
+        '4xl': '2.25rem',
+        '5xl': '3rem',
+      },
+      fontWeights: {
+        light: 300,
+        normal: 400,
+        medium: 500,
+        semibold: 600,
+        bold: 700,
+        extrabold: 800,
+      },
+      lineHeights: {
+        tight: 1.25,
+        normal: 1.5,
+        relaxed: 1.75,
+        loose: 2,
+      },
+      spacing: {
+        xs: '0.5rem',
+        sm: '1rem',
+        md: '1.5rem',
+        lg: '2rem',
+        xl: '3rem',
+        '2xl': '4rem',
+        '3xl': '6rem',
+        '4xl': '8rem',
+      },
+      borderRadius: {
+        none: '0',
+        sm: '0.25rem',
+        md: '0.5rem',
+        lg: '0.75rem',
+        xl: '1rem',
+        full: '9999px',
+      },
+      borderWidth: {
+        none: '0',
+        thin: '1px',
+        medium: '2px',
+        thick: '3px',
+      },
+      shadows: {
+        sm: '0 2px 8px rgba(112, 26, 117, 0.3)',
+        md: '0 4px 16px rgba(190, 24, 93, 0.35)',
+        lg: '0 8px 24px rgba(112, 26, 117, 0.4)',
+        xl: '0 12px 32px rgba(217, 70, 239, 0.45)',
+        '2xl': '0 20px 48px rgba(190, 24, 93, 0.5)',
+        none: 'none',
+      },
+      animations: {
+        durations: {
+          fast: '200ms',
+          normal: '400ms',
+          slow: '800ms',
+        },
+        easings: {
+          linear: 'linear',
+          easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
+          easeOut: 'cubic-bezier(0, 0, 0.2, 1)',
+          easeInOut: 'cubic-bezier(0.65, 0, 0.35, 1)',
+        },
+      },
+      breakpoints: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+      },
+      customCSS: `
+        .velvet-texture {
+          background: linear-gradient(145deg, #1A1229, #0F0A1A);
+          position: relative;
+        }
+        
+        .velvet-texture::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: 
+            repeating-linear-gradient(
+              0deg,
+              rgba(112, 26, 117, 0.03) 0px,
+              transparent 1px,
+              transparent 2px,
+              rgba(112, 26, 117, 0.03) 3px
+            );
+          pointer-events: none;
+        }
+        
+        .velvet-glow {
+          box-shadow: 
+            0 0 20px rgba(190, 24, 93, 0.4),
+            0 0 40px rgba(112, 26, 117, 0.3),
+            inset 0 0 60px rgba(217, 70, 239, 0.1);
+          transition: box-shadow 0.4s ease;
+        }
+        
+        .velvet-glow:hover {
+          box-shadow: 
+            0 0 30px rgba(190, 24, 93, 0.6),
+            0 0 60px rgba(112, 26, 117, 0.4),
+            inset 0 0 80px rgba(217, 70, 239, 0.15);
+        }
+        
+        .artistic-gradient {
+          background: linear-gradient(135deg, #701A75, #BE185D, #D946EF);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+      `,
+    },
+  });
+
+  // Premium Light Theme 1: Crystal Clear
+  const crystalClear = await prisma.theme.upsert({
+    where: { id: 'crystal-clear-theme' },
+    update: {},
+    create: {
+      id: 'crystal-clear-theme',
+      name: 'Crystal Clear',
+      description: 'Ultra-clean premium light theme with crystal-like clarity, subtle gradients, and modern minimalism',
+      category: 'light',
+      isDefault: false,
+      isPublic: true,
+      isPremium: true,
+      colors: {
+        primary: '#2563EB',
+        secondary: '#3B82F6',
+        accent: '#06B6D4',
+        background: {
+          primary: '#FFFFFF',
+          secondary: '#F8FAFC',
+          tertiary: '#F1F5F9',
+        },
+        text: {
+          primary: '#0F172A',
+          secondary: '#334155',
+          tertiary: '#64748B',
+          inverse: '#FFFFFF',
+        },
+        success: '#10B981',
+        warning: '#F59E0B',
+        error: '#EF4444',
+        info: '#06B6D4',
+        border: '#E2E8F0',
+        divider: '#CBD5E1',
+      },
+      fonts: {
+        heading: 'Sora, sans-serif',
+        body: 'Plus Jakarta Sans, sans-serif',
+        mono: 'IBM Plex Mono, monospace',
+      },
+      fontSizes: {
+        xs: '0.75rem',
+        sm: '0.875rem',
+        md: '1rem',
+        lg: '1.125rem',
+        xl: '1.25rem',
+        '2xl': '1.5rem',
+        '3xl': '1.875rem',
+        '4xl': '2.25rem',
+        '5xl': '3rem',
+      },
+      fontWeights: {
+        light: 300,
+        normal: 400,
+        medium: 500,
+        semibold: 600,
+        bold: 700,
+        extrabold: 800,
+      },
+      lineHeights: {
+        tight: 1.25,
+        normal: 1.5,
+        relaxed: 1.75,
+        loose: 2,
+      },
+      spacing: {
+        xs: '0.5rem',
+        sm: '1rem',
+        md: '1.5rem',
+        lg: '2rem',
+        xl: '3rem',
+        '2xl': '4rem',
+        '3xl': '6rem',
+        '4xl': '8rem',
+      },
+      borderRadius: {
+        none: '0',
+        sm: '0.5rem',
+        md: '0.75rem',
+        lg: '1rem',
+        xl: '1.5rem',
+        full: '9999px',
+      },
+      borderWidth: {
+        none: '0',
+        thin: '1px',
+        medium: '2px',
+        thick: '3px',
+      },
+      shadows: {
+        sm: '0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.06)',
+        md: '0 4px 6px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.06)',
+        lg: '0 10px 15px rgba(0, 0, 0, 0.08), 0 4px 6px rgba(0, 0, 0, 0.05)',
+        xl: '0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04)',
+        '2xl': '0 25px 50px rgba(0, 0, 0, 0.15)',
+        none: 'none',
+      },
+      animations: {
+        durations: {
+          fast: '150ms',
+          normal: '300ms',
+          slow: '500ms',
+        },
+        easings: {
+          linear: 'linear',
+          easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
+          easeOut: 'cubic-bezier(0, 0, 0.2, 1)',
+          easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        },
+      },
+      breakpoints: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+      },
+      customCSS: `
+        .glass-effect {
+          background: rgba(255, 255, 255, 0.8);
+          backdrop-filter: blur(20px);
+          border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+        
+        .crystal-shadow {
+          box-shadow: 
+            0 1px 2px rgba(37, 99, 235, 0.05),
+            0 4px 8px rgba(37, 99, 235, 0.08),
+            0 8px 16px rgba(6, 182, 212, 0.06);
+        }
+        
+        .crystal-gradient {
+          background: linear-gradient(135deg, #FFFFFF, #F8FAFC, #F1F5F9);
+        }
+        
+        .shimmer-effect {
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .shimmer-effect::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(37, 99, 235, 0.1),
+            transparent
+          );
+          animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+          to { left: 100%; }
+        }
+      `,
+    },
+  });
+
+  // Premium Light Theme 2: Golden Hour
+  const goldenHour = await prisma.theme.upsert({
+    where: { id: 'golden-hour-theme' },
+    update: {},
+    create: {
+      id: 'golden-hour-theme',
+      name: 'Golden Hour',
+      description: 'Warm and luxurious light theme inspired by golden hour sunlight, perfect for creative portfolios',
+      category: 'light',
+      isDefault: false,
+      isPublic: true,
+      isPremium: true,
+      colors: {
+        primary: '#D97706',
+        secondary: '#F59E0B',
+        accent: '#FBBF24',
+        background: {
+          primary: '#FFFBEB',
+          secondary: '#FEF3C7',
+          tertiary: '#FDE68A',
+        },
+        text: {
+          primary: '#78350F',
+          secondary: '#92400E',
+          tertiary: '#B45309',
+          inverse: '#FFFFFF',
+        },
+        success: '#10B981',
+        warning: '#F59E0B',
+        error: '#EF4444',
+        info: '#3B82F6',
+        border: '#FCD34D',
+        divider: '#FDE68A',
+      },
+      fonts: {
+        heading: 'Libre Baskerville, serif',
+        body: 'Work Sans, sans-serif',
+        mono: 'Monaco, monospace',
+      },
+      fontSizes: {
+        xs: '0.75rem',
+        sm: '0.875rem',
+        md: '1rem',
+        lg: '1.125rem',
+        xl: '1.25rem',
+        '2xl': '1.5rem',
+        '3xl': '1.875rem',
+        '4xl': '2.25rem',
+        '5xl': '3rem',
+      },
+      fontWeights: {
+        light: 300,
+        normal: 400,
+        medium: 500,
+        semibold: 600,
+        bold: 700,
+        extrabold: 800,
+      },
+      lineHeights: {
+        tight: 1.25,
+        normal: 1.5,
+        relaxed: 1.75,
+        loose: 2,
+      },
+      spacing: {
+        xs: '0.5rem',
+        sm: '1rem',
+        md: '1.5rem',
+        lg: '2rem',
+        xl: '3rem',
+        '2xl': '4rem',
+        '3xl': '6rem',
+        '4xl': '8rem',
+      },
+      borderRadius: {
+        none: '0',
+        sm: '0.5rem',
+        md: '1rem',
+        lg: '1.5rem',
+        xl: '2rem',
+        full: '9999px',
+      },
+      borderWidth: {
+        none: '0',
+        thin: '1px',
+        medium: '2px',
+        thick: '3px',
+      },
+      shadows: {
+        sm: '0 2px 4px rgba(217, 119, 6, 0.1)',
+        md: '0 4px 8px rgba(217, 119, 6, 0.15), 0 2px 4px rgba(245, 158, 11, 0.1)',
+        lg: '0 8px 16px rgba(217, 119, 6, 0.2), 0 4px 8px rgba(251, 191, 36, 0.15)',
+        xl: '0 12px 24px rgba(217, 119, 6, 0.25), 0 8px 12px rgba(245, 158, 11, 0.2)',
+        '2xl': '0 20px 40px rgba(217, 119, 6, 0.3), 0 12px 20px rgba(251, 191, 36, 0.25)',
+        none: 'none',
+      },
+      animations: {
+        durations: {
+          fast: '200ms',
+          normal: '400ms',
+          slow: '600ms',
+        },
+        easings: {
+          linear: 'linear',
+          easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
+          easeOut: 'cubic-bezier(0, 0, 0.2, 1)',
+          easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        },
+      },
+      breakpoints: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+      },
+      customCSS: `
+        .golden-glow {
+          box-shadow: 
+            0 0 20px rgba(217, 119, 6, 0.2),
+            0 0 40px rgba(245, 158, 11, 0.15),
+            inset 0 0 60px rgba(251, 191, 36, 0.1);
+        }
+        
+        .golden-gradient {
+          background: linear-gradient(135deg, #FEF3C7, #FBBF24, #F59E0B);
+        }
+        
+        .warm-shimmer {
+          animation: warm-pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes warm-pulse {
+          0%, 100% { 
+            filter: brightness(1);
+          }
+          50% { 
+            filter: brightness(1.1);
+          }
+        }
+        
+        .sunray-effect {
+          background: 
+            radial-gradient(circle at 30% 30%, rgba(251, 191, 36, 0.2), transparent 60%),
+            radial-gradient(circle at 70% 70%, rgba(245, 158, 11, 0.15), transparent 60%);
+        }
+      `,
+    },
+  });
+
+  // Premium Light Theme 3: Lavender Dreams
+  const lavenderDreams = await prisma.theme.upsert({
+    where: { id: 'lavender-dreams-theme' },
+    update: {},
+    create: {
+      id: 'lavender-dreams-theme',
+      name: 'Lavender Dreams',
+      description: 'Elegant light theme with soft lavender and purple tones, perfect for creative and design portfolios',
+      category: 'light',
+      isDefault: false,
+      isPublic: true,
+      isPremium: true,
+      colors: {
+        primary: '#8B5CF6',
+        secondary: '#A78BFA',
+        accent: '#C4B5FD',
+        background: {
+          primary: '#FEFBFF',
+          secondary: '#FAF5FF',
+          tertiary: '#F3E8FF',
+        },
+        text: {
+          primary: '#4C1D95',
+          secondary: '#5B21B6',
+          tertiary: '#7C3AED',
+          inverse: '#FFFFFF',
+        },
+        success: '#10B981',
+        warning: '#F59E0B',
+        error: '#EF4444',
+        info: '#8B5CF6',
+        border: '#DDD6FE',
+        divider: '#E9D5FF',
+      },
+      fonts: {
+        heading: 'Poppins, sans-serif',
+        body: 'Quicksand, sans-serif',
+        mono: 'Fira Code, monospace',
+      },
+      fontSizes: {
+        xs: '0.75rem',
+        sm: '0.875rem',
+        md: '1rem',
+        lg: '1.125rem',
+        xl: '1.25rem',
+        '2xl': '1.5rem',
+        '3xl': '1.875rem',
+        '4xl': '2.25rem',
+        '5xl': '3rem',
+      },
+      fontWeights: {
+        light: 300,
+        normal: 400,
+        medium: 500,
+        semibold: 600,
+        bold: 700,
+        extrabold: 800,
+      },
+      lineHeights: {
+        tight: 1.25,
+        normal: 1.5,
+        relaxed: 1.75,
+        loose: 2,
+      },
+      spacing: {
+        xs: '0.5rem',
+        sm: '1rem',
+        md: '1.5rem',
+        lg: '2rem',
+        xl: '3rem',
+        '2xl': '4rem',
+        '3xl': '6rem',
+        '4xl': '8rem',
+      },
+      borderRadius: {
+        none: '0',
+        sm: '0.75rem',
+        md: '1rem',
+        lg: '1.5rem',
+        xl: '2rem',
+        full: '9999px',
+      },
+      borderWidth: {
+        none: '0',
+        thin: '1px',
+        medium: '2px',
+        thick: '3px',
+      },
+      shadows: {
+        sm: '0 2px 4px rgba(139, 92, 246, 0.08)',
+        md: '0 4px 8px rgba(139, 92, 246, 0.12), 0 2px 4px rgba(167, 139, 250, 0.08)',
+        lg: '0 8px 16px rgba(139, 92, 246, 0.16), 0 4px 8px rgba(196, 181, 253, 0.12)',
+        xl: '0 12px 24px rgba(139, 92, 246, 0.2), 0 8px 12px rgba(167, 139, 250, 0.15)',
+        '2xl': '0 20px 40px rgba(139, 92, 246, 0.25), 0 12px 20px rgba(196, 181, 253, 0.2)',
+        none: 'none',
+      },
+      animations: {
+        durations: {
+          fast: '200ms',
+          normal: '350ms',
+          slow: '600ms',
+        },
+        easings: {
+          linear: 'linear',
+          easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
+          easeOut: 'cubic-bezier(0, 0, 0.2, 1)',
+          easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        },
+      },
+      breakpoints: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+      },
+      customCSS: `
+        .lavender-mist {
+          background: linear-gradient(135deg, #FAF5FF, #F3E8FF, #E9D5FF);
+          backdrop-filter: blur(10px);
+        }
+        
+        .dreamy-glow {
+          box-shadow: 
+            0 0 20px rgba(139, 92, 246, 0.15),
+            0 0 40px rgba(167, 139, 250, 0.1),
+            0 0 60px rgba(196, 181, 253, 0.08);
+        }
+        
+        .lavender-float {
+          animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+          0%, 100% { 
+            transform: translateY(0);
+          }
+          50% { 
+            transform: translateY(-10px);
+          }
+        }
+        
+        .purple-gradient-text {
+          background: linear-gradient(135deg, #8B5CF6, #A78BFA, #C4B5FD);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        
+        .soft-border {
+          border: 2px solid rgba(139, 92, 246, 0.2);
+          box-shadow: inset 0 0 20px rgba(167, 139, 250, 0.1);
+        }
+      `,
+    },
+  });
+
+  // Premium Light Theme 4: Mint Fresh
+  const mintFresh = await prisma.theme.upsert({
+    where: { id: 'mint-fresh-theme' },
+    update: {},
+    create: {
+      id: 'mint-fresh-theme',
+      name: 'Mint Fresh',
+      description: 'Refreshing light theme with minty green and aqua tones, ideal for modern and clean portfolios',
+      category: 'light',
+      isDefault: false,
+      isPublic: true,
+      isPremium: true,
+      colors: {
+        primary: '#14B8A6',
+        secondary: '#2DD4BF',
+        accent: '#5EEAD4',
+        background: {
+          primary: '#F0FDFA',
+          secondary: '#CCFBF1',
+          tertiary: '#99F6E4',
+        },
+        text: {
+          primary: '#134E4A',
+          secondary: '#115E59',
+          tertiary: '#0F766E',
+          inverse: '#FFFFFF',
+        },
+        success: '#10B981',
+        warning: '#F59E0B',
+        error: '#EF4444',
+        info: '#14B8A6',
+        border: '#5EEAD4',
+        divider: '#99F6E4',
+      },
+      fonts: {
+        heading: 'Lexend, sans-serif',
+        body: 'Manrope, sans-serif',
+        mono: 'JetBrains Mono, monospace',
+      },
+      fontSizes: {
+        xs: '0.75rem',
+        sm: '0.875rem',
+        md: '1rem',
+        lg: '1.125rem',
+        xl: '1.25rem',
+        '2xl': '1.5rem',
+        '3xl': '1.875rem',
+        '4xl': '2.25rem',
+        '5xl': '3rem',
+      },
+      fontWeights: {
+        light: 300,
+        normal: 400,
+        medium: 500,
+        semibold: 600,
+        bold: 700,
+        extrabold: 800,
+      },
+      lineHeights: {
+        tight: 1.25,
+        normal: 1.5,
+        relaxed: 1.75,
+        loose: 2,
+      },
+      spacing: {
+        xs: '0.5rem',
+        sm: '1rem',
+        md: '1.5rem',
+        lg: '2rem',
+        xl: '3rem',
+        '2xl': '4rem',
+        '3xl': '6rem',
+        '4xl': '8rem',
+      },
+      borderRadius: {
+        none: '0',
+        sm: '0.5rem',
+        md: '1rem',
+        lg: '1.25rem',
+        xl: '1.75rem',
+        full: '9999px',
+      },
+      borderWidth: {
+        none: '0',
+        thin: '1px',
+        medium: '2px',
+        thick: '3px',
+      },
+      shadows: {
+        sm: '0 2px 4px rgba(20, 184, 166, 0.1)',
+        md: '0 4px 8px rgba(20, 184, 166, 0.15), 0 2px 4px rgba(45, 212, 191, 0.1)',
+        lg: '0 8px 16px rgba(20, 184, 166, 0.2), 0 4px 8px rgba(94, 234, 212, 0.15)',
+        xl: '0 12px 24px rgba(20, 184, 166, 0.25), 0 8px 12px rgba(45, 212, 191, 0.2)',
+        '2xl': '0 20px 40px rgba(20, 184, 166, 0.3), 0 12px 20px rgba(94, 234, 212, 0.25)',
+        none: 'none',
+      },
+      animations: {
+        durations: {
+          fast: '150ms',
+          normal: '300ms',
+          slow: '500ms',
+        },
+        easings: {
+          linear: 'linear',
+          easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
+          easeOut: 'cubic-bezier(0, 0, 0.2, 1)',
+          easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        },
+      },
+      breakpoints: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+      },
+      customCSS: `
+        .mint-gradient {
+          background: linear-gradient(135deg, #CCFBF1, #5EEAD4, #2DD4BF);
+        }
+        
+        .fresh-glow {
+          box-shadow: 
+            0 0 20px rgba(20, 184, 166, 0.2),
+            0 0 40px rgba(45, 212, 191, 0.15),
+            inset 0 0 60px rgba(94, 234, 212, 0.1);
+        }
+        
+        .wave-animation {
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .wave-animation::before {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 200%;
+          height: 100%;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(20, 184, 166, 0.1),
+            transparent
+          );
+          animation: wave 4s linear infinite;
+        }
+        
+        @keyframes wave {
+          0% { transform: translateX(-50%); }
+          100% { transform: translateX(0); }
+        }
+        
+        .mint-text-gradient {
+          background: linear-gradient(135deg, #14B8A6, #2DD4BF, #5EEAD4);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        
+        .bubble-effect {
+          position: relative;
+        }
+        
+        .bubble-effect::after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: radial-gradient(circle, rgba(94, 234, 212, 0.2), transparent);
+          filter: blur(20px);
+          z-index: -1;
+        }
+      `,
+    },
+  });
+
   console.log('✅ Themes created');
 
   // ============================================
