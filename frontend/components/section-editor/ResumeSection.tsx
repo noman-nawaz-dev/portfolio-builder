@@ -41,7 +41,7 @@ export function ResumeSection({
       )}
 
       {!showResumeUpload && currentResumeUrl && (
-        <Flex align="center" gap="sm" className="text-sm text-green-600">
+        <Flex align="center" gap="sm" className="text-sm text-emerald-600">
           <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
             <path
               fillRule="evenodd"
@@ -54,7 +54,7 @@ export function ResumeSection({
       )}
 
       {!showResumeUpload && !currentResumeUrl && (
-        <Text size="sm" className="text-gray-500 text-xs sm:text-sm">
+        <Text size="sm" className="text-neutral-500 text-xs sm:text-sm">
           No resume uploaded yet
         </Text>
       )}

@@ -18,13 +18,13 @@ interface TextProps {
 }
 
 const variantStyles: Record<TextVariant, string> = {
-  body: 'text-gray-600',
-  caption: 'text-gray-500 text-sm',
-  label: 'text-gray-700 font-medium',
-  helper: 'text-gray-500 text-sm',
+  body: 'text-neutral-700',
+  caption: 'text-neutral-600 text-sm',
+  label: 'text-neutral-800 font-medium',
+  helper: 'text-neutral-600 text-sm',
   error: 'text-red-600 text-sm',
-  success: 'text-green-600 text-sm',
-  warning: 'text-yellow-600 text-sm',
+  success: 'text-emerald-600 text-sm',
+  warning: 'text-amber-600 text-sm',
 };
 
 const sizeStyles: Record<TextSize, string> = {

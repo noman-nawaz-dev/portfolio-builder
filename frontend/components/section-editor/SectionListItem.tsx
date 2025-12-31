@@ -40,7 +40,7 @@ export function SectionListItem({
       className={`p-3 border rounded-lg transition-all ${
         isSelected
           ? 'border-indigo-600 bg-indigo-50 shadow-sm'
-          : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
+          : 'border-neutral-200 hover:border-neutral-300 hover:shadow-sm'
       }`}
     >
       <Flex justify="between" align="center" className="gap-2">
@@ -48,7 +48,7 @@ export function SectionListItem({
           <Text weight="medium" size="sm" className="truncate">
             {section.sectionType.displayName}
           </Text>
-          <Text size="xs" className="text-gray-500">
+          <Text size="xs" className="text-neutral-500">
             {section.layout}
           </Text>
         </Stack>
@@ -57,7 +57,7 @@ export function SectionListItem({
           <button
             onClick={() => onMoveUp(section.id)}
             disabled={index === 0 || disabled}
-            className="p-1.5 hover:bg-gray-200 rounded disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            className="p-1.5 hover:bg-neutral-200 rounded disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             title="Move up"
             aria-label="Move section up"
           >
@@ -67,7 +67,7 @@ export function SectionListItem({
           <button
             onClick={() => onMoveDown(section.id)}
             disabled={index === totalSections - 1 || disabled}
-            className="p-1.5 hover:bg-gray-200 rounded disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            className="p-1.5 hover:bg-neutral-200 rounded disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             title="Move down"
             aria-label="Move section down"
           >

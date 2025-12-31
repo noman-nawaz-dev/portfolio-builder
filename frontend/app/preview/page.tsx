@@ -118,7 +118,7 @@ function PreviewContent() {
   return (
     <div className="relative">
       {/* Preview Banner */}
-      <Box className="fixed top-0 left-0 right-0 bg-yellow-500 text-white z-50 shadow-md py-2 sm:py-3 px-4">
+      <Box className="fixed top-0 left-0 right-0 bg-amber-500 text-white z-50 shadow-md py-2 sm:py-3 px-4">
         <Container padding="none">
           <Flex direction="col" align="start" justify="between" gap="sm" className="sm:flex-row sm:items-center">
             <Stack direction="horizontal" spacing="sm" align="center" className="flex-wrap sm:flex-nowrap">
@@ -136,12 +136,12 @@ function PreviewContent() {
             
             <Flex gap="xs" className="w-full sm:w-auto flex-shrink-0">
               <Link href="/dashboard">
-                <Button variant="primary" size="sm" className="bg-yellow-600 text-white hover:bg-yellow-700 text-xs sm:text-sm whitespace-nowrap h-8">
+                <Button variant="primary" size="sm" className="bg-amber-600 text-white hover:bg-amber-700 text-xs sm:text-sm whitespace-nowrap h-8">
                   🏠 <span className=" ml-1">Dashboard</span>
                 </Button>
               </Link>
               <Link href={`/section-editor?portfolio=${portfolioId}`}>
-                <Button variant="outline" size="sm" className="bg-white text-yellow-600 hover:bg-yellow-50 text-xs sm:text-sm whitespace-nowrap h-8">
+                <Button variant="outline" size="sm" className="bg-white text-amber-600 hover:bg-amber-50 text-xs sm:text-sm whitespace-nowrap h-8">
                   ✏️ Edit
                 </Button>
               </Link>
@@ -151,7 +151,7 @@ function PreviewContent() {
                   size="sm" 
                   onClick={() => setShowThemeSelector(!showThemeSelector)}
                   disabled={themesLoading}
-                  className="bg-white text-yellow-600 hover:bg-yellow-50 text-xs sm:text-sm whitespace-nowrap h-8"
+                  className="bg-white text-amber-600 hover:bg-amber-50 text-xs sm:text-sm whitespace-nowrap h-8"
                 >
                   🎨 <span className="ml-1">Theme</span>
                 </Button>

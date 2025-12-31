@@ -15,11 +15,11 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
 }) => {
   return (
     <div className={`${centered ? 'text-center' : ''} mb-12 sm:mb-16 ${className}`}>
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-4">
         {title}
       </h2>
       {subtitle && (
-        <p className={`text-lg sm:text-xl text-gray-600 ${centered ? 'max-w-2xl mx-auto' : ''}`}>
+        <p className={`text-lg sm:text-xl text-neutral-600 ${centered ? 'max-w-2xl mx-auto' : ''}`}>
           {subtitle}
         </p>
       )}

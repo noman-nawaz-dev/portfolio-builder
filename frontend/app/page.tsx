@@ -38,7 +38,7 @@ export default function Home() {
       {isAuthenticated ? (
         <AuthNavbar />
       ) : (
-        <Box as="header" className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+        <Box as="header" className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-neutral-200">
           <Container maxWidth="7xl" padding="sm" className="md:px-6">
             <Flex justify="between" align="center" className="py-2 sm:py-3 md:py-4">
               <Heading as="h1" size="2xl" gradient className="m-0 text-lg sm:text-xl md:text-2xl lg:text-2xl">
@@ -70,17 +70,17 @@ export default function Home() {
 
       {/* Hero Section */}
       <main>
-        <Box as="section" className="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-purple-50 py-16 sm:py-24 md:py-28 lg:py-32">
+        <Box as="section" className="relative overflow-hidden gradient-primary-light py-16 sm:py-24 md:py-28 lg:py-32">
           <Container maxWidth="7xl" className="px-4 md:px-6 lg:px-8">
             <Stack spacing="lg" align="center">
-              <Badge className="bg-indigo-100 text-indigo-800 px-3 py-1 md:px-4 md:py-2 text-sm md:text-base">
+              <Badge variant="info" className="px-3 py-1 md:px-4 md:py-2 text-sm md:text-base">
                 <Icon emoji="✨" size="sm" /> No coding required
               </Badge>
               
               <Heading as="h1" size="5xl" align="center" weight='bold' className="px-6 sm:px-4 md:px-8 lg:px-0">
                 Build Your Dream
                 <br className="" />
-                <Text as="span" weight='bold' className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                <Text as="span" weight='bold' className="text-gradient-primary">
                   Portfolio in Minutes
                 </Text>
               </Heading>
@@ -126,8 +126,8 @@ export default function Home() {
             </Stack>
           </Container>
           {/* Decorative elements */}
-          <div className="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-          <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+          <div className="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-amber-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+          <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-teal-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
         </Box>
 
         {/* Features Section */}
@@ -143,9 +143,9 @@ export default function Home() {
             </Stack>
             
             <Grid cols={1} mdCols={2} lgCols={3} gap="lg" className="md:gap-xl">
-              <Card className="group bg-gradient-to-br from-indigo-50 to-white border border-indigo-100 hover:shadow-xl transition-all p-4 md:p-6">
+              <Card className="group bg-gradient-to-br from-teal-50 to-white border border-teal-100 hover:shadow-xl transition-all p-4 md:p-6">
                 <Stack spacing="md">
-                  <Box className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Box className="w-14 h-14 md:w-16 md:h-16 gradient-primary rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Icon emoji="⚡" size="xl" />
                   </Box>
                   <Heading as="h3" size="2xl" className="text-lg md:text-xl">Lightning Fast</Heading>
@@ -155,9 +155,9 @@ export default function Home() {
                 </Stack>
               </Card>
               
-              <Card className="group bg-gradient-to-br from-purple-50 to-white border border-purple-100 hover:shadow-xl transition-all p-4 md:p-6">
+              <Card className="group bg-gradient-to-br from-amber-50 to-white border border-amber-100 hover:shadow-xl transition-all p-4 md:p-6">
                 <Stack spacing="md">
-                  <Box className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Box className="w-14 h-14 md:w-16 md:h-16 gradient-secondary rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Icon emoji="🎨" size="xl" />
                   </Box>
                   <Heading as="h3" size="2xl" className="text-lg md:text-xl">Beautiful Templates</Heading>
@@ -167,9 +167,9 @@ export default function Home() {
                 </Stack>
               </Card>
               
-              <Card className="group bg-gradient-to-br from-blue-50 to-white border border-blue-100 hover:shadow-xl transition-all p-4 md:p-6">
+              <Card className="group bg-gradient-to-br from-emerald-50 to-white border border-emerald-100 hover:shadow-xl transition-all p-4 md:p-6">
                 <Stack spacing="md">
-                  <Box className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Box className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Icon emoji="🚀" size="xl" />
                   </Box>
                   <Heading as="h3" size="2xl" className="text-lg md:text-xl">Instant Publishing</Heading>
@@ -179,9 +179,9 @@ export default function Home() {
                 </Stack>
               </Card>
               
-              <Card className="group bg-gradient-to-br from-green-50 to-white border border-green-100 hover:shadow-xl transition-all p-4 md:p-6">
+              <Card className="group bg-gradient-to-br from-teal-50 to-white border border-teal-100 hover:shadow-xl transition-all p-4 md:p-6">
                 <Stack spacing="md">
-                  <Box className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-green-600 to-emerald-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Box className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-teal-600 to-emerald-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Icon emoji="📱" size="xl" />
                   </Box>
                   <Heading as="h3" size="2xl" className="text-lg md:text-xl">Mobile Responsive</Heading>
@@ -191,9 +191,9 @@ export default function Home() {
                 </Stack>
               </Card>
               
-              <Card className="group bg-gradient-to-br from-orange-50 to-white border border-orange-100 hover:shadow-xl transition-all p-4 md:p-6">
+              <Card className="group bg-gradient-to-br from-amber-50 to-white border border-amber-100 hover:shadow-xl transition-all p-4 md:p-6">
                 <Stack spacing="md">
-                  <Box className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-orange-600 to-red-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Box className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-amber-600 to-amber-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Icon emoji="✏️" size="xl" />
                   </Box>
                   <Heading as="h3" size="2xl" className="text-lg md:text-xl">Easy Customization</Heading>
@@ -219,7 +219,7 @@ export default function Home() {
         </section>
 
         {/* Templates Preview Section */}
-        <section id="templates" className="py-12 sm:py-20 md:py-24 lg:py-24 bg-gradient-to-br from-gray-50 to-white">
+        <section id="templates" className="py-12 sm:py-20 md:py-24 lg:py-24 bg-gradient-to-br from-neutral-50 to-white">
           <Container maxWidth="7xl" className="px-4 md:px-6 lg:px-8">
             <Stack spacing="xl" align="center" className="mb-12 sm:mb-16 md:mb-20 px-4">
               <Heading as="h2" size="4xl" align="center">
@@ -232,7 +232,7 @@ export default function Home() {
             
             <Grid cols={1} mdCols={3} gap="lg" className="md:gap-xl">
               <Card className="bg-white hover:shadow-2xl transition-all transform hover:-translate-y-2" padding="none">
-                <Box className="h-48 md:h-56 bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                <Box className="h-48 md:h-56 bg-gradient-to-br from-sky-500 to-cyan-500 flex items-center justify-center">
                   <Icon emoji="👨‍💻" size="2xl" className="md:text-4xl" />
                 </Box>
                 <Stack spacing="md" className="p-4 md:p-6">
@@ -243,7 +243,7 @@ export default function Home() {
               </Card>
               
               <Card className="bg-white hover:shadow-2xl transition-all transform hover:-translate-y-2" padding="none">
-                <Box className="h-48 md:h-56 bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                <Box className="h-48 md:h-56 bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center">
                   <Icon emoji="📱" size="2xl" className="md:text-4xl" />
                 </Box>
                 <Stack spacing="md" className="p-4 md:p-6">
@@ -254,7 +254,7 @@ export default function Home() {
               </Card>
               
               <Card className="bg-white hover:shadow-2xl transition-all transform hover:-translate-y-2" padding="none">
-                <Box className="h-48 md:h-56 bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center">
+                <Box className="h-48 md:h-56 bg-gradient-to-br from-emerald-500 to-emerald-500 flex items-center justify-center">
                   <Icon emoji="💼" size="2xl" className="md:text-4xl" />
                 </Box>
                 <Stack spacing="md" className="p-4 md:p-6">
@@ -281,7 +281,7 @@ export default function Home() {
             
             <Grid cols={1} mdCols={3} gap="xl" className="md:gap-2xl">
               <Stack spacing="md" align="center" className="p-4 md:p-6">
-                <Box className="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                <Box className="w-20 h-20 md:w-24 md:h-24 gradient-primary rounded-full flex items-center justify-center shadow-primary">
                   <Text as="span" className="text-white text-3xl md:text-4xl font-bold">1</Text>
                 </Box>
                 <Heading as="h3" size="2xl" align="center" className="text-lg md:text-xl">Choose a Template</Heading>
@@ -291,7 +291,7 @@ export default function Home() {
               </Stack>
               
               <Stack spacing="md" align="center" className="p-4 md:p-6">
-                <Box className="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full flex items-center justify-center shadow-lg">
+                <Box className="w-20 h-20 md:w-24 md:h-24 gradient-secondary rounded-full flex items-center justify-center shadow-secondary">
                   <Text as="span" className="text-white text-3xl md:text-4xl font-bold">2</Text>
                 </Box>
                 <Heading as="h3" size="2xl" align="center" className="text-lg md:text-xl">Customize Your Content</Heading>
@@ -301,7 +301,7 @@ export default function Home() {
               </Stack>
               
               <Stack spacing="md" align="center" className="p-4 md:p-6">
-                <Box className="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-pink-600 to-red-600 rounded-full flex items-center justify-center shadow-lg">
+                <Box className="w-20 h-20 md:w-24 md:h-24 gradient-accent rounded-full flex items-center justify-center shadow-accent">
                   <Text as="span" className="text-white text-3xl md:text-4xl font-bold">3</Text>
                 </Box>
                 <Heading as="h3" size="2xl" align="center" className="text-lg md:text-xl">Publish & Share</Heading>
@@ -314,20 +314,20 @@ export default function Home() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-12 sm:py-20 md:py-24 lg:py-24 bg-gradient-to-r from-indigo-600 to-purple-600">
+        <section className="py-12 sm:py-20 md:py-24 lg:py-24 gradient-primary">
           <Container maxWidth="4xl" className="px-4 md:px-6 lg:px-8">
             <Stack spacing="lg" align="center" className="px-4">
               <Heading as="h2" size="4xl" align="center" className="text-white">
                 {isAuthenticated ? 'Manage Your Portfolios' : 'Ready to Build Your Portfolio?'}
               </Heading>
-              <Text size="xl" align="center" className="text-indigo-100 text-base sm:text-lg md:text-xl lg:text-xl">
+              <Text size="xl" align="center" className="text-teal-50 text-base sm:text-lg md:text-xl lg:text-xl">
                 {isAuthenticated 
                   ? 'Access your dashboard to view, edit, and manage all your portfolios'
                   : 'Join professionals worldwide who are showcasing their work beautifully'
                 }
               </Text>
               <Link href={isAuthenticated ? '/dashboard' : '/register'}>
-                <Button variant="outline" size="lg" className="bg-white text-indigo-600 hover:shadow-2xl px-6 md:px-8 py-3 md:py-4">
+                <Button variant="outline" size="lg" className="bg-white text-teal-700 hover:shadow-2xl hover:bg-teal-50 px-6 md:px-8 py-3 md:py-4">
                   {isAuthenticated ? 'Go to Dashboard' : 'Get Started for Free'}
                 </Button>
               </Link>
@@ -337,14 +337,14 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <Box as="footer" bg="bg-gray-900" className="text-white py-12 sm:py-16 md:py-20 lg:py-20">
+      <Box as="footer" className="bg-neutral-900 text-white py-12 sm:py-16 md:py-20 lg:py-20">
         <Container maxWidth="7xl" className="px-4 md:px-6 lg:px-8">
           <Grid cols={1} smCols={2} mdCols={4} gap="lg" className="md:gap-xl mb-8">
             <Stack spacing="md">
               <Heading as="h3" size="2xl" gradient className="mb-0">
                 Portfolio Builder
               </Heading>
-              <Text className="text-gray-400 text-sm sm:text-base md:text-base">
+              <Text className="text-neutral-400 text-sm sm:text-base md:text-base">
                 Create stunning portfolios in minutes without any coding.
               </Text>
             </Stack>
@@ -376,9 +376,9 @@ export default function Home() {
             </Stack>
           </Grid>
           
-          <Box className="border-t border-gray-800 pt-8 mt-8">
+          <Box className="border-t border-neutral-800 pt-8 mt-8">
             <Flex justify="between" align="center" className="flex-col md:flex-row gap-4">
-              <Text variant="caption" className="text-gray-400 text-center md:text-left">
+              <Text variant="caption" className="text-neutral-400 text-center md:text-left">
                 &copy; 2025 Portfolio Builder. All rights reserved.
               </Text>
               <Flex gap="lg" className="flex-wrap justify-center">

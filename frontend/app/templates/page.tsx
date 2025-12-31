@@ -90,7 +90,7 @@ function TemplatesContent() {
         <Grid cols={1} smCols={2} mdCols={2} lgCols={3} gap="lg" className="md:gap-xl mb-8 md:mb-12">
           {data?.templates?.map((template: any) => (
             <Card key={template.id} padding="none" hoverable className="shadow-lg md:shadow-xl">
-              <div className="h-40 sm:h-48 md:h-52 bg-gradient-to-br from-blue-400 to-indigo-600 relative overflow-hidden">
+              <div className="h-40 sm:h-48 md:h-52 bg-gradient-to-br from-sky-400 to-teal-700 relative overflow-hidden">
                 <img
                   src={template.previewImage}
                   alt={template.name}

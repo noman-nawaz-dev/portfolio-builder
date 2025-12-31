@@ -12,9 +12,9 @@ interface AlertProps {
 
 const variantStyles: Record<AlertVariant, { bg: string; border: string; text: string }> = {
   success: {
-    bg: 'bg-green-50',
-    border: 'border-green-200',
-    text: 'text-green-800',
+    bg: 'bg-emerald-50',
+    border: 'border-emerald-200',
+    text: 'text-emerald-800',
   },
   error: {
     bg: 'bg-red-50',
@@ -22,14 +22,14 @@ const variantStyles: Record<AlertVariant, { bg: string; border: string; text: st
     text: 'text-red-800',
   },
   warning: {
-    bg: 'bg-yellow-50',
-    border: 'border-yellow-200',
-    text: 'text-yellow-800',
+    bg: 'bg-amber-50',
+    border: 'border-amber-200',
+    text: 'text-amber-800',
   },
   info: {
-    bg: 'bg-blue-50',
-    border: 'border-blue-200',
-    text: 'text-blue-800',
+    bg: 'bg-sky-50',
+    border: 'border-sky-200',
+    text: 'text-sky-800',
   },
 };
 
@@ -52,7 +52,7 @@ export const Alert: React.FC<AlertProps> = ({
 
   return (
     <div
-      className={`p-4 rounded-lg border flex items-start gap-3 ${styles.bg} ${styles.border} ${styles.text} ${className}`}
+      className={`p-4 rounded-xl border flex items-start gap-3 ${styles.bg} ${styles.border} ${styles.text} ${className}`}
     >
       {displayIcon && <span className="text-lg flex-shrink-0">{displayIcon}</span>}
       <div className="flex-1 font-medium">{children}</div>

@@ -42,7 +42,7 @@ export function EditorTopBar({
           onClick={onBack}
           variant="ghost"
           size="sm"
-          className="text-gray-600 hover:text-gray-900 p-0 hover:bg-transparent text-sm sm:text-base flex-shrink-0"
+          className="text-neutral-600 hover:text-neutral-900 p-0 hover:bg-transparent text-sm sm:text-base flex-shrink-0"
         >
           ← Back
         </Button>
@@ -50,7 +50,7 @@ export function EditorTopBar({
           <Heading as="h1" size="xl" className="text-base sm:text-xl truncate">
             {portfolioName}
           </Heading>
-          <Text size="sm" className="text-xs sm:text-sm text-gray-500">
+          <Text size="sm" className="text-xs sm:text-sm text-neutral-500">
             {sectionsCount} {sectionsCount === 1 ? 'section' : 'sections'}
           </Text>
         </Stack>
@@ -82,7 +82,7 @@ export function EditorTopBar({
           loading={publishing}
           className={`text-xs whitespace-nowrap px-2 py-1.5 ${
             isPublished
-              ? 'bg-green-600 hover:bg-green-700'
+              ? 'bg-emerald-600 hover:bg-emerald-700'
               : 'bg-indigo-600 hover:bg-indigo-700'
           }`}
         >

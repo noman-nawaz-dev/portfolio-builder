@@ -126,18 +126,18 @@ export const ResumeUpload: React.FC<ResumeUploadProps> = ({
   return (
     <div className="space-y-4">
       <div>
-        <label className="block text-sm font-semibold text-gray-700 mb-2">
+        <label className="block text-sm font-semibold text-neutral-700 mb-2">
           Resume (PDF)
         </label>
-        <p className="text-xs text-gray-500 mb-3">
+        <p className="text-xs text-neutral-500 mb-3">
           Upload your resume so visitors can download it. Maximum file size: 10MB
         </p>
 
         {currentResumeUrl ? (
-          <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-lg">
+          <div className="flex items-center gap-3 p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
             <div className="flex-shrink-0">
               <svg
-                className="w-8 h-8 text-green-600"
+                className="w-8 h-8 text-emerald-600"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -151,15 +151,15 @@ export const ResumeUpload: React.FC<ResumeUploadProps> = ({
               </svg>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-gray-900">Resume uploaded</p>
-              <p className="text-xs text-gray-500 truncate">{currentResumeUrl}</p>
+              <p className="text-sm font-medium text-neutral-900">Resume uploaded</p>
+              <p className="text-xs text-neutral-500 truncate">{currentResumeUrl}</p>
             </div>
             <div className="flex gap-2">
               <a
                 href={currentResumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3 py-1.5 text-sm bg-white border border-green-300 text-green-700 rounded-lg hover:bg-green-50 font-medium"
+                className="px-3 py-1.5 text-sm bg-white border border-emerald-300 text-emerald-700 rounded-lg hover:bg-emerald-50 font-medium"
               >
                 View
               </a>
@@ -187,19 +187,19 @@ export const ResumeUpload: React.FC<ResumeUploadProps> = ({
               htmlFor="resume-upload"
               className={`flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer transition-colors ${
                 uploading
-                  ? 'border-gray-300 bg-gray-50 cursor-not-allowed'
-                  : 'border-gray-300 hover:border-indigo-400 bg-gray-50 hover:bg-indigo-50'
+                  ? 'border-neutral-300 bg-neutral-50 cursor-not-allowed'
+                  : 'border-neutral-300 hover:border-teal-500 bg-neutral-50 hover:bg-teal-50'
               }`}
             >
               {uploading ? (
                 <div className="flex flex-col items-center gap-2">
-                  <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
-                  <span className="text-sm text-gray-600 font-medium">Uploading resume...</span>
+                  <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600"></div>
+                  <span className="text-sm text-neutral-600 font-medium">Uploading resume...</span>
                 </div>
               ) : (
                 <div className="flex flex-col items-center gap-2">
                   <svg
-                    className="w-10 h-10 text-gray-400"
+                    className="w-10 h-10 text-neutral-400"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -212,10 +212,10 @@ export const ResumeUpload: React.FC<ResumeUploadProps> = ({
                     />
                   </svg>
                   <div className="text-center">
-                    <p className="text-sm text-gray-700 font-medium">
+                    <p className="text-sm text-neutral-700 font-medium">
                       Click to upload resume
                     </p>
-                    <p className="text-xs text-gray-500 mt-1">PDF only, up to 10MB</p>
+                    <p className="text-xs text-neutral-500 mt-1">PDF only, up to 10MB</p>
                   </div>
                 </div>
               )}

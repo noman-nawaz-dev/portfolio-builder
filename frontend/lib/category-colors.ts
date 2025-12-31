@@ -249,20 +249,20 @@ export function getCategoryColors(category: string): CategoryColors {
     };
   }
   
-  // Default colors (Indigo)
+  // Default colors (Teal)
   return {
-    bg: 'bg-indigo-100',
-    bgHover: 'hover:bg-indigo-50',
-    border: 'border-indigo-500',
-    borderHover: 'hover:border-indigo-500',
-    text: 'text-indigo-700',
-    textSecondary: 'text-indigo-600',
-    checkBg: 'bg-indigo-600',
-    progressBg: 'bg-indigo-600',
-    progressBgSelected: 'bg-indigo-700',
-    bgHex: '#E0E7FF',
-    borderHex: '#6366F1',
-    textHex: '#4338CA',
+    bg: 'bg-teal-100',
+    bgHover: 'hover:bg-teal-50',
+    border: 'border-teal-500',
+    borderHover: 'hover:border-teal-500',
+    text: 'text-teal-700',
+    textSecondary: 'text-teal-600',
+    checkBg: 'bg-teal-600',
+    progressBg: 'bg-teal-600',
+    progressBgSelected: 'bg-teal-700',
+    bgHex: '#CCFBF1',
+    borderHex: '#14B8A6',
+    textHex: '#0F766E',
     progressHex: '#4F46E5',
   };
 }

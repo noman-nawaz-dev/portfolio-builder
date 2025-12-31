@@ -23,7 +23,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
           {icon && <span className="text-2xl sm:text-3xl lg:text-4xl">{icon}</span>}
           {title}
         </Heading>
-        {subtitle && <Text className="text-gray-600 text-sm sm:text-base">{subtitle}</Text>}
+        {subtitle && <Text className="text-neutral-600 text-sm sm:text-base">{subtitle}</Text>}
       </Stack>
       {action && <div className="flex-shrink-0 w-full sm:w-auto">{action}</div>}
     </Flex>

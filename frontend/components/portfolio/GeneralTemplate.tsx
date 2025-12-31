@@ -2,7 +2,7 @@ export default function GeneralTemplate({ portfolio }: { portfolio: any }) {
   const { heroData, aboutData, skillsData, projectsData, contactData } = portfolio;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-neutral-50">
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700 text-white">
         <div className="text-center px-4 max-w-5xl">
@@ -26,8 +26,8 @@ export default function GeneralTemplate({ portfolio }: { portfolio: any }) {
       {aboutData?.bio && (
         <section className="py-20 px-4 bg-white">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold mb-8 text-center text-gray-900">About</h2>
-            <p className="text-lg text-gray-700 leading-relaxed whitespace-pre-wrap text-center">
+            <h2 className="text-4xl font-bold mb-8 text-center text-neutral-900">About</h2>
+            <p className="text-lg text-neutral-700 leading-relaxed whitespace-pre-wrap text-center">
               {aboutData.bio}
             </p>
           </div>
@@ -36,16 +36,16 @@ export default function GeneralTemplate({ portfolio }: { portfolio: any }) {
 
       {/* Experience/Skills Section */}
       {skillsData?.skills && skillsData.skills.length > 0 && (
-        <section className="py-20 px-4 bg-gray-50">
+        <section className="py-20 px-4 bg-neutral-50">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl font-bold mb-12 text-center text-gray-900">Experience & Skills</h2>
+            <h2 className="text-4xl font-bold mb-12 text-center text-neutral-900">Experience & Skills</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {skillsData.skills.map((skill: string, index: number) => (
                 <div
                   key={index}
                   className="bg-white p-6 rounded-lg shadow-md border-l-4 border-indigo-600 hover:shadow-lg transition"
                 >
-                  <p className="text-lg font-semibold text-gray-900">{skill}</p>
+                  <p className="text-lg font-semibold text-neutral-900">{skill}</p>
                 </div>
               ))}
             </div>
@@ -57,10 +57,10 @@ export default function GeneralTemplate({ portfolio }: { portfolio: any }) {
       {projectsData && projectsData.length > 0 && (
         <section className="py-20 px-4 bg-white">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl font-bold mb-12 text-center text-gray-900">Work</h2>
+            <h2 className="text-4xl font-bold mb-12 text-center text-neutral-900">Work</h2>
             <div className="space-y-12">
               {projectsData.map((project: any, index: number) => (
-                <div key={index} className="bg-gray-50 rounded-xl p-8 shadow-md hover:shadow-lg transition">
+                <div key={index} className="bg-neutral-50 rounded-xl p-8 shadow-md hover:shadow-lg transition">
                   <div className="flex flex-col md:flex-row gap-8">
                     {project.imageUrl && (
                       <div className="md:w-1/3">
@@ -72,14 +72,14 @@ export default function GeneralTemplate({ portfolio }: { portfolio: any }) {
                       </div>
                     )}
                     <div className="flex-1">
-                      <h3 className="text-2xl font-bold mb-4 text-gray-900">{project.title}</h3>
-                      <p className="text-gray-700 mb-6 leading-relaxed">{project.description}</p>
+                      <h3 className="text-2xl font-bold mb-4 text-neutral-900">{project.title}</h3>
+                      <p className="text-neutral-700 mb-6 leading-relaxed">{project.description}</p>
                       {project.link && (
                         <a
                           href={project.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition"
+                          className="inline-block bg-teal-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-teal-800 transition"
                         >
                           View More →
                         </a>
@@ -95,14 +95,14 @@ export default function GeneralTemplate({ portfolio }: { portfolio: any }) {
 
       {/* Contact Section */}
       {contactData && (
-        <section className="py-20 px-4 bg-gray-900 text-white">
+        <section className="py-20 px-4 bg-neutral-900 text-white">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl font-bold mb-12">Get In Touch</h2>
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               {contactData.email && (
                 <a
                   href={`mailto:${contactData.email}`}
-                  className="bg-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition"
+                  className="bg-teal-700 px-8 py-3 rounded-lg font-semibold hover:bg-teal-800 transition"
                 >
                   {contactData.email}
                 </a>
@@ -110,7 +110,7 @@ export default function GeneralTemplate({ portfolio }: { portfolio: any }) {
               {contactData.phone && (
                 <a
                   href={`tel:${contactData.phone}`}
-                  className="bg-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-600 transition"
+                  className="bg-neutral-700 px-8 py-3 rounded-lg font-semibold hover:bg-neutral-600 transition"
                 >
                   {contactData.phone}
                 </a>
@@ -132,7 +132,7 @@ export default function GeneralTemplate({ portfolio }: { portfolio: any }) {
                   href={contactData.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-white font-semibold text-lg"
+                  className="text-neutral-300 hover:text-white font-semibold text-lg"
                 >
                   GitHub
                 </a>

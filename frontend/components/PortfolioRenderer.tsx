@@ -44,7 +44,7 @@ export const PortfolioRenderer: React.FC<PortfolioRendererProps> = ({ username, 
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">Portfolio Not Found</h1>
-          <p className="text-gray-600">
+          <p className="text-neutral-600">
             {error.message || 'Unable to load this portfolio'}
           </p>
         </div>
@@ -58,7 +58,7 @@ export const PortfolioRenderer: React.FC<PortfolioRendererProps> = ({ username, 
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">Portfolio Not Found</h1>
-          <p className="text-gray-600">
+          <p className="text-neutral-600">
             {portfolioId 
               ? `No portfolio found with ID: ${portfolioId}`
               : `No portfolio found for username: ${username}`
@@ -80,10 +80,10 @@ export const PortfolioRenderer: React.FC<PortfolioRendererProps> = ({ username, 
   // If no theme available, show error
   if (!currentTheme) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+      <div className="flex items-center justify-center min-h-screen bg-neutral-50">
         <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4 text-gray-900">Theme Not Found</h1>
-          <p className="text-gray-600">
+          <h1 className="text-4xl font-bold mb-4 text-neutral-900">Theme Not Found</h1>
+          <p className="text-neutral-600">
             This portfolio doesn't have a theme configured yet.
           </p>
         </div>
@@ -157,7 +157,7 @@ export const PortfolioRenderer: React.FC<PortfolioRendererProps> = ({ username, 
           <div className="flex items-center justify-center min-h-screen">
             <div className="text-center">
               <h2 className="text-3xl font-bold mb-4">Portfolio Under Construction</h2>
-              <p className="text-gray-600">
+              <p className="text-neutral-600">
                 This portfolio doesn't have any sections yet.
               </p>
             </div>

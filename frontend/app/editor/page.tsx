@@ -41,12 +41,12 @@ function EditorContent() {
             The portfolio editor has been updated to use a new section-based system.
           </Text>
           
-          <Card className="bg-blue-50 border border-blue-200 w-full p-4 sm:p-6 md:p-8">
+          <Card className="bg-sky-50 border border-sky-200 w-full p-4 sm:p-6 md:p-8">
             <Stack spacing="md">
-              <Heading as="h2" size="xl" className="text-blue-900 text-lg sm:text-xl md:text-2xl">
+              <Heading as="h2" size="xl" className="text-sky-900 text-lg sm:text-xl md:text-2xl">
                 What&apos;s New
               </Heading>
-              <ul className="text-blue-800 space-y-1 text-left text-sm sm:text-base md:text-base ml-4">
+              <ul className="text-sky-800 space-y-1 text-left text-sm sm:text-base md:text-base ml-4">
                 <li>• Dynamic sections instead of fixed hero/about/skills/projects/contact</li>
                 <li>• Drag-and-drop section reordering</li>
                 <li>• Multiple section types (text, images, forms, etc.)</li>

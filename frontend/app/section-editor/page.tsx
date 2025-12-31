@@ -299,7 +299,7 @@ function SectionEditorContent() {
   };
 
   return (
-    <Box className="min-h-screen bg-gray-50">
+    <Box className="min-h-screen bg-neutral-50">
       <Box className="bg-white border-b sticky top-0 z-50">
         <PublishStatusBar
           isPublished={portfolio?.isPublished}

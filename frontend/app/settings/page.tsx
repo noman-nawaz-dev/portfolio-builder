@@ -79,7 +79,7 @@ function SettingsContent() {
       <Card padding="none" className="shadow-xl md:shadow-2xl">
         <CardHeader gradient className="text-white p-6 sm:p-8 md:p-10 lg:p-12">
           <Heading as="h2" size="2xl" className="text-white m-0 text-xl sm:text-2xl md:text-3xl">Account Information</Heading>
-          <Text className="text-indigo-100 mt-1 text-sm sm:text-base md:text-lg">Update your profile details</Text>
+          <Text className="text-teal-100 mt-1 text-sm sm:text-base md:text-lg">Update your profile details</Text>
         </CardHeader>
 
         {/* Form */}
@@ -104,7 +104,7 @@ function SettingsContent() {
               value={user?.email || ''}
               disabled
               helperText="Email cannot be changed"
-              className="bg-gray-100 text-gray-600 cursor-not-allowed text-sm sm:text-base md:text-base"
+              className="bg-neutral-100 text-neutral-600 cursor-not-allowed text-sm sm:text-base md:text-base"
             />
 
             {/* Name */}

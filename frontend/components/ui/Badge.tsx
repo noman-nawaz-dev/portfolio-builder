@@ -9,11 +9,11 @@ interface BadgeProps {
 }
 
 const variantStyles: Record<BadgeVariant, string> = {
-  success: 'bg-green-500 text-white',
-  warning: 'bg-yellow-500 text-white',
-  error: 'bg-red-500 text-white',
-  info: 'bg-blue-500 text-white',
-  neutral: 'bg-gray-200 text-gray-700',
+  success: 'bg-emerald-100 text-emerald-800',
+  warning: 'bg-amber-100 text-amber-800',
+  error: 'bg-red-100 text-red-800',
+  info: 'bg-sky-100 text-sky-800',
+  neutral: 'bg-neutral-200 text-neutral-700',
 };
 
 export const Badge: React.FC<BadgeProps> = ({
@@ -23,7 +23,7 @@ export const Badge: React.FC<BadgeProps> = ({
 }) => {
   return (
     <span
-      className={`px-3 py-1 rounded-full text-xs font-semibold ${variantStyles[variant]} ${className}`}
+      className={`inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm font-medium ${variantStyles[variant]} ${className}`}
     >
       {children}
     </span>

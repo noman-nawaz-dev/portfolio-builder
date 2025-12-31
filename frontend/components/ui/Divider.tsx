@@ -43,11 +43,11 @@ export const Divider: React.FC<DividerProps> = ({
       <div className={`relative ${className}`}>
         <div className="absolute inset-0 flex items-center">
           <div
-            className={`w-full border-gray-200 ${variantStyles[variant]} ${thicknessStyles[orientation][thickness]}`}
+            className={`w-full border-neutral-200 ${variantStyles[variant]} ${thicknessStyles[orientation][thickness]}`}
           />
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="bg-white px-2 text-gray-500">{label}</span>
+          <span className="bg-white px-2 text-neutral-500">{label}</span>
         </div>
       </div>
     );
@@ -57,7 +57,7 @@ export const Divider: React.FC<DividerProps> = ({
 
   return (
     <div
-      className={`border-gray-200 ${orientationClass} ${variantStyles[variant]} ${thicknessStyles[orientation][thickness]} ${className}`}
+      className={`border-neutral-200 ${orientationClass} ${variantStyles[variant]} ${thicknessStyles[orientation][thickness]} ${className}`}
     />
   );
 };

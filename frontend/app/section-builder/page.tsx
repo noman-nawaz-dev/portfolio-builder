@@ -32,7 +32,7 @@ export default function SectionBuilderPage() {
 
   if (!isAuthenticated) {
     return (
-      <Box className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <Box className="min-h-screen flex items-center justify-center bg-neutral-50 px-4">
         <Card className="text-center max-w-md w-full">
           <Stack spacing="lg" align="center">
             <Heading as="h1" size="3xl">Please Login</Heading>
@@ -251,7 +251,7 @@ export default function SectionBuilderPage() {
   };
 
   return (
-    <Box className="min-h-screen bg-gray-50 py-6 sm:py-8">
+    <Box className="min-h-screen bg-neutral-50 py-6 sm:py-8">
       <Container maxWidth="7xl">
         <Stack spacing="md" className="mb-6 sm:mb-8 px-4 sm:px-0">
           <Heading as="h1" size="4xl" className="text-3xl sm:text-4xl">
@@ -299,14 +299,14 @@ export default function SectionBuilderPage() {
                       onClick={() => setSelectedTheme(theme)}
                       className={`p-3 sm:p-4 rounded-lg border-2 text-left transition ${
                         selectedTheme?.id === theme.id
-                          ? 'border-indigo-600 bg-indigo-50'
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-teal-700 bg-teal-50'
+                          : 'border-neutral-200 hover:border-neutral-300'
                       }`}
                     >
                       <Heading as="h3" size="md" weight="semibold" className="text-sm sm:text-base">
                         {theme.name}
                       </Heading>
-                      <Text size="sm" className="text-xs sm:text-sm text-gray-600 mt-1">
+                      <Text size="sm" className="text-xs sm:text-sm text-neutral-600 mt-1">
                         {theme.description}
                       </Text>
                       <div className="flex gap-2 mt-2">
@@ -345,14 +345,14 @@ export default function SectionBuilderPage() {
                       }}
                       className={`flex-1 p-3 rounded-lg border-2 text-left transition ${
                         selectedSectionType === sectionType.id
-                          ? 'border-indigo-600 bg-indigo-50'
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-teal-700 bg-teal-50'
+                          : 'border-neutral-200 hover:border-neutral-300'
                       }`}
                     >
                       <Heading as="h3" size="md" weight="semibold" className="text-sm sm:text-base">
                         {sectionType.displayName}
                       </Heading>
-                      <Text size="sm" className="text-xs sm:text-sm text-gray-600 mt-1">
+                      <Text size="sm" className="text-xs sm:text-sm text-neutral-600 mt-1">
                         {sectionType.description}
                       </Text>
                     </button>
@@ -369,7 +369,7 @@ export default function SectionBuilderPage() {
               size="lg"
               fullWidth
               loading={addingSection}
-              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:shadow-lg transform hover:scale-105 transition-all disabled:transform-none text-sm sm:text-base"
+              className="text-sm sm:text-base"
             >
               {addingSection ? 'Adding Section...' : '+ Add Section to Portfolio'}
             </Button>
@@ -377,11 +377,11 @@ export default function SectionBuilderPage() {
 
           {/* Preview */}
           <Card padding="none" className="overflow-hidden sticky top-4">
-            <Box className="bg-gray-800 text-white px-4 sm:px-6 py-3 sm:py-4">
+            <Box className="bg-neutral-800 text-white px-4 sm:px-6 py-3 sm:py-4">
               <Heading as="h2" size="xl" className="text-white text-lg sm:text-xl mb-1">
                 Live Preview
               </Heading>
-              <Text size="sm" className="text-gray-300 text-xs sm:text-sm">
+              <Text size="sm" className="text-neutral-300 text-xs sm:text-sm">
                 {previewContent
                   ? `${previewContent.sectionType.displayName} with ${selectedTheme?.name || 'no theme'}`
                   : 'Select a section and theme to preview'}
@@ -394,7 +394,7 @@ export default function SectionBuilderPage() {
                 </ThemeProvider>
               ) : (
                 <Stack spacing="md" align="center" className="p-8 sm:p-12 text-center">
-                  <Text className="text-base sm:text-lg text-gray-400">
+                  <Text className="text-base sm:text-lg text-neutral-400">
                     Select a theme and section type to see preview
                   </Text>
                 </Stack>

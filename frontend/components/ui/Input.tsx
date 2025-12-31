@@ -12,22 +12,22 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="w-full">
         {label && (
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-neutral-700 mb-2">
             {label}
           </label>
         )}
         <div className="relative">
           {leftIcon && (
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500">
               {leftIcon}
             </div>
           )}
           <input
             ref={ref}
-            className={`w-full px-4 py-2 md:py-3 border rounded-lg transition focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent ${
+            className={`w-full px-4 py-2 md:py-3 border rounded-xl transition-all duration-200 bg-white text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 hover:border-neutral-400 ${
               leftIcon ? 'pl-10' : ''
             } ${
-              error ? 'border-red-300 focus:ring-red-500' : 'border-gray-300'
+              error ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-neutral-300 focus:ring-teal-500 focus:border-teal-500'
             } ${className}`}
             {...props}
           />
@@ -36,7 +36,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <p className="mt-1 text-sm text-red-600">{error}</p>
         )}
         {helperText && !error && (
-          <p className="mt-1 text-sm text-gray-500">{helperText}</p>
+          <p className="mt-1 text-sm text-neutral-500">{helperText}</p>
         )}
       </div>
     );

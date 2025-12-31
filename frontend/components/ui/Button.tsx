@@ -1,7 +1,7 @@
 import React from 'react';
-import { transitions } from '@/lib/design-system';
+import { transitions, shadows } from '@/lib/design-system';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'accent';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -13,11 +13,12 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:shadow-lg hover:scale-105 disabled:hover:scale-100',
-  secondary: 'bg-gray-200 text-gray-800 hover:bg-gray-300',
-  outline: 'bg-white text-gray-800 border-2 border-gray-200 hover:border-indigo-600 hover:shadow-lg',
-  ghost: 'text-indigo-600',
-  danger: 'bg-red-600 text-white hover:bg-red-700 hover:shadow-lg',
+  primary: 'bg-gradient-to-r from-teal-700 to-emerald-600 text-white hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100 shadow-primary focus:ring-teal-500',
+  secondary: 'bg-gradient-to-r from-amber-500 to-yellow-400 text-white hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100 shadow-secondary focus:ring-amber-500',
+  accent: 'bg-gradient-to-r from-rose-500 to-pink-1000 text-white hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100 shadow-accent focus:ring-rose-500',
+  outline: 'bg-white text-teal-700 border-2 border-teal-700 hover:bg-teal-50 hover:shadow-md focus:ring-teal-500',
+  ghost: 'bg-transparent text-teal-700 hover:bg-teal-50 focus:ring-teal-500',
+  danger: 'bg-red-600 text-white hover:bg-red-700 hover:shadow-lg focus:ring-red-500',
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -36,7 +37,7 @@ export const Button: React.FC<ButtonProps> = ({
   className = '',
   ...props
 }) => {
-  const baseStyles = `rounded-xl font-semibold ${transitions.base} disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2`;
+  const baseStyles = `rounded-xl font-semibold ${transitions.smooth} disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-offset-2`;
   const widthStyles = fullWidth ? 'w-full' : 'w-auto';
   
   return (

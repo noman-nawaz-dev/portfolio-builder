@@ -23,7 +23,7 @@ const sizeStyles: Record<IconSize, string> = {
 const colorStyles: Record<IconColor, string> = {
   default: '',
   primary: 'text-indigo-600',
-  secondary: 'text-gray-600',
+  secondary: 'text-neutral-600',
   success: 'text-green-600',
   warning: 'text-yellow-600',
   error: 'text-red-600',

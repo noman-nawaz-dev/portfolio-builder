@@ -254,7 +254,7 @@ export default function SectionContentEditor({
         <div className="mb-3">
           <Button
             onClick={() => setShowSkillsPicker(true)}
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold shadow-md"
+            className="w-full bg-teal-700 hover:bg-teal-800 text-white font-semibold shadow-md"
           >
             📚 Choose from Library
           </Button>
@@ -262,12 +262,12 @@ export default function SectionContentEditor({
 
         {/* Show empty state if no skills */}
         {(!formData.skills || formData.skills.length === 0) ? (
-          <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+          <div className="border-2 border-dashed border-neutral-300 rounded-lg p-8 text-center">
             <div className="mb-4">
               <span className="text-4xl">💡</span>
             </div>
-            <h4 className="font-semibold text-gray-700 mb-2">No Skills Added Yet</h4>
-            <p className="text-sm text-gray-500 mb-6">
+            <h4 className="font-semibold text-neutral-700 mb-2">No Skills Added Yet</h4>
+            <p className="text-sm text-neutral-500 mb-6">
               Choose from the library above or add a custom skill below
             </p>
             <div className="max-w-md mx-auto">
@@ -291,10 +291,10 @@ export default function SectionContentEditor({
                   <div className="flex items-center gap-3 mb-2">
                     <span className="text-2xl">{skill.icon || '⭐'}</span>
                     <div className="flex-1">
-                      <div className="font-semibold text-gray-900">{skill.name || 'Unnamed Skill'}</div>
-                      <div className="text-sm text-gray-500">{skill.category || 'Uncategorized'}</div>
+                      <div className="font-semibold text-neutral-900">{skill.name || 'Unnamed Skill'}</div>
+                      <div className="text-sm text-neutral-500">{skill.category || 'Uncategorized'}</div>
                     </div>
-                    <div className="text-sm font-medium text-gray-700">{skill.level || 0}%</div>
+                    <div className="text-sm font-medium text-neutral-700">{skill.level || 0}%</div>
                   </div>
                   <div>
                     <label className="block text-xs font-medium mb-1">Skill Name</label>
@@ -344,7 +344,7 @@ export default function SectionContentEditor({
                       }}
                       className="w-full"
                     />
-                    <div className="text-center text-sm text-gray-600">{skill.level || 50}%</div>
+                    <div className="text-center text-sm text-neutral-600">{skill.level || 50}%</div>
                   </div>
                   <Button
                     variant="outline"
@@ -894,7 +894,7 @@ export default function SectionContentEditor({
         return (
           <div className="text-center py-8">
             <LoadingSpinner size="lg" className="text-indigo-600 mx-auto mb-4" />
-            <p className="text-gray-500">Loading form editor...</p>
+            <p className="text-neutral-500">Loading form editor...</p>
           </div>
         );
     }
@@ -949,7 +949,7 @@ export default function SectionContentEditor({
           <h3 className="text-lg font-semibold">Edit Section Content</h3>
           <button
             onClick={onCancel}
-            className="text-gray-500 hover:text-gray-700"
+            className="text-neutral-500 hover:text-neutral-700"
           >
             ✕
           </button>
@@ -986,7 +986,7 @@ export default function SectionContentEditor({
                     setShowSkillsPicker(false);
                     setSkillSearchQuery('');
                   }}
-                  className="text-gray-500 hover:text-gray-700"
+                  className="text-neutral-500 hover:text-neutral-700"
                 >
                   ✕
                 </button>
@@ -998,7 +998,7 @@ export default function SectionContentEditor({
                 className="w-full"
               />
               {templateCategory && (
-                <p className="text-sm text-gray-500 mt-2">
+                <p className="text-sm text-neutral-500 mt-2">
                   Showing skills relevant for: <strong>{templateCategory}</strong> portfolios
                 </p>
               )}
@@ -1015,8 +1015,8 @@ export default function SectionContentEditor({
                           <h4 className={`text-lg font-bold ${categoryColors.text}`}>
                             {category}
                           </h4>
-                          <div className="flex-1 h-px bg-gray-200"></div>
-                          <span className="text-sm text-gray-500">
+                          <div className="flex-1 h-px bg-neutral-200"></div>
+                          <span className="text-sm text-neutral-500">
                             {skills.length} {skills.length === 1 ? 'skill' : 'skills'}
                           </span>
                         </div>
@@ -1072,7 +1072,7 @@ export default function SectionContentEditor({
                                 </div>
                                 <div className="mt-2">
                                   <div className="flex items-center justify-between mb-1">
-                                    <span className="text-xs text-gray-500">Proficiency</span>
+                                    <span className="text-xs text-neutral-500">Proficiency</span>
                                     <span 
                                       className="text-xs font-semibold"
                                       style={{ color: isSelected ? colors.textHex : '#6B7280' }}
@@ -1080,7 +1080,7 @@ export default function SectionContentEditor({
                                       {displayLevel}%
                                     </span>
                                   </div>
-                                  <div className="w-full bg-gray-200 rounded-full h-1.5">
+                                  <div className="w-full bg-neutral-200 rounded-full h-1.5">
                                     <div
                                       className="h-1.5 rounded-full transition-all"
                                       style={{ 
@@ -1099,7 +1099,7 @@ export default function SectionContentEditor({
                   })}
                 </div>
               ) : (
-                <div className="text-center py-12 text-gray-400">
+                <div className="text-center py-12 text-neutral-400">
                   <p>No skills found matching "{skillSearchQuery}"</p>
                 </div>
               )}

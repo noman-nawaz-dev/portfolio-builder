@@ -50,9 +50,9 @@ export const Heading: React.FC<HeadingProps> = ({
   className = '',
   children,
 }) => {
-  const baseStyles = 'text-gray-900';
+  const baseStyles = 'text-neutral-900';
   const gradientStyles = gradient
-    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent'
+    ? 'bg-gradient-to-r from-teal-700 via-emerald-600 to-amber-500 bg-clip-text text-transparent'
     : '';
 
   return (

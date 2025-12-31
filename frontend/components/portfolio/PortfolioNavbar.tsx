@@ -118,7 +118,7 @@ export const PortfolioNavbar: React.FC<PortfolioNavbarProps> = ({ sections, resu
           <div className="flex-shrink-0">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+              className="text-xl md:text-2xl font-bold bg-gradient-to-r from-teal-700 to-emerald-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
             >
               Portfolio
             </button>
@@ -132,7 +132,7 @@ export const PortfolioNavbar: React.FC<PortfolioNavbarProps> = ({ sections, resu
                 onClick={() => scrollToSection(section.id)}
                 className={`px-3 lg:px-4 py-2 rounded-lg text-sm lg:text-base font-medium transition-all ${
                   activeSection === section.id
-                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                    ? 'bg-gradient-to-r from-teal-700 to-emerald-600 text-white shadow-lg'
                     : ''
                 }`}
                 style={{
@@ -247,7 +247,7 @@ export const PortfolioNavbar: React.FC<PortfolioNavbarProps> = ({ sections, resu
                 onClick={() => scrollToSection(section.id)}
                 className={`block w-full text-left px-4 py-3 rounded-lg text-base font-medium transition-all ${
                   activeSection === section.id
-                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                    ? 'bg-gradient-to-r from-teal-700 to-emerald-600 text-white shadow-lg'
                     : ''
                 }`}
                 style={{

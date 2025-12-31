@@ -34,7 +34,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   return (
     <Card className="text-center" padding="lg">
       <Stack spacing="lg" align="center" className="px-4 sm:px-6 py-6 sm:py-8">
-        <Box className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center">
+        <Box className="w-16 h-16 sm:w-20 sm:h-20 gradient-primary rounded-full flex items-center justify-center">
           <span className="text-3xl sm:text-4xl">{icon}</span>
         </Box>
         <Heading as="h1" size="4xl" align="center" className="text-2xl sm:text-3xl lg:text-4xl">

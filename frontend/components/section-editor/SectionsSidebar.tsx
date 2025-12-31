@@ -96,7 +96,7 @@ export function SectionsSidebar({
 
       {/* Add Section Panel */}
       {showAddSection && (
-        <div className="mb-4 p-4 bg-gray-50 rounded-lg">
+        <div className="mb-4 p-4 bg-neutral-50 rounded-lg">
           <AddSectionPanel
             sectionTypes={sectionTypes}
             addingSection={addingSection}
@@ -109,7 +109,7 @@ export function SectionsSidebar({
       <Stack spacing="sm">
         {sections.length === 0 ? (
           <Stack spacing="md" align="center" className="py-8 text-center">
-            <Text size="sm" className="text-gray-500">
+            <Text size="sm" className="text-neutral-500">
               No sections yet. Click "+ Add" to start building!
             </Text>
           </Stack>

@@ -22,7 +22,7 @@ export function AddSectionPanel({
     return (
       <Stack spacing="md" align="center" className="py-8">
         <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
-        <Text className="text-gray-600">Creating section...</Text>
+        <Text className="text-neutral-600">Creating section...</Text>
       </Stack>
     );
   }
@@ -37,12 +37,12 @@ export function AddSectionPanel({
           key={st.id}
           onClick={() => onAddSection(st.id)}
           disabled={addingSection}
-          className="w-full p-3 sm:p-2 text-left text-sm bg-white border rounded-lg hover:border-indigo-600 hover:bg-indigo-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full p-3 sm:p-2 text-left text-sm bg-white border rounded-lg hover:border-indigo-600 hover:bg-teal-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Text weight="medium" className="mb-1">
             {st.displayName}
           </Text>
-          <Text size="xs" className="text-gray-500">
+          <Text size="xs" className="text-neutral-500">
             {st.category}
           </Text>
         </button>

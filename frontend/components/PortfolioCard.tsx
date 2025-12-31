@@ -71,27 +71,27 @@ export const PortfolioCard: React.FC<PortfolioCardProps> = ({
             {portfolio.isPublished ? '✓ Live' : 'Draft'}
           </Badge>
         </Flex>
-        <Text className="text-indigo-100 text-xs sm:text-sm">{portfolio.template.name}</Text>
+        <Text className="text-teal-100 text-xs sm:text-sm">{portfolio.template.name}</Text>
       </CardHeader>
 
       {/* Body */}
       <CardBody className="flex-1 flex flex-col p-4 sm:p-6">
         {/* Published/Unpublished Notice */}
         {portfolio.isPublished ? (
-          <div className="mb-3 p-2.5 sm:p-3 bg-green-50 border border-green-200 rounded-lg flex-shrink-0">
-            <Text className="text-xs sm:text-sm font-medium text-green-800 mb-1.5">Portfolio is live</Text>
+          <div className="mb-3 p-2.5 sm:p-3 bg-emerald-50 border border-emerald-200 rounded-lg flex-shrink-0">
+            <Text className="text-xs sm:text-sm font-medium text-emerald-800 mb-1.5">Portfolio is live</Text>
             <Flex gap="sm" align="center" className="flex-wrap">
               <button
                 onClick={handleCopyLink}
-                className="text-xs sm:text-sm text-green-700 hover:text-green-900 font-medium whitespace-nowrap"
+                className="text-xs sm:text-sm text-emerald-700 hover:text-emerald-900 font-medium whitespace-nowrap"
                 aria-label="Copy portfolio link"
               >
                 📋 Copy Link
               </button>
-              <span className="text-green-300 hidden sm:inline">•</span>
+              <span className="text-emerald-300 hidden sm:inline">•</span>
               <button
                 onClick={handleViewLive}
-                className="text-xs sm:text-sm text-green-700 hover:text-green-900 font-medium whitespace-nowrap"
+                className="text-xs sm:text-sm text-emerald-700 hover:text-emerald-900 font-medium whitespace-nowrap"
                 aria-label="View live portfolio"
               >
                 🌐 View Live
@@ -99,9 +99,9 @@ export const PortfolioCard: React.FC<PortfolioCardProps> = ({
             </Flex>
           </div>
         ) : (
-          <div className="mb-3 p-2.5 sm:p-3 bg-yellow-50 border border-yellow-200 rounded-lg flex-shrink-0">
-            <Text className="text-xs sm:text-sm font-medium text-yellow-800 mb-1.5">Portfolio is not published</Text>
-            <Text className="text-xs sm:text-sm text-yellow-700">Click "Publish" to make it live</Text>
+          <div className="mb-3 p-2.5 sm:p-3 bg-amber-50 border border-amber-200 rounded-lg flex-shrink-0">
+            <Text className="text-xs sm:text-sm font-medium text-amber-800 mb-1.5">Portfolio is not published</Text>
+            <Text className="text-xs sm:text-sm text-amber-700">Click "Publish" to make it live</Text>
           </div>
         )}
 
@@ -121,7 +121,7 @@ export const PortfolioCard: React.FC<PortfolioCardProps> = ({
             fullWidth
             size="md"
             disabled={publishing}
-            className="!bg-blue-100 !text-blue-700 hover:!bg-blue-200 disabled:!bg-gray-200 disabled:!text-gray-500 text-xs sm:text-sm"
+            className="!bg-sky-100 !text-sky-700 hover:!bg-sky-200 disabled:!bg-neutral-200 disabled:!text-neutral-500 text-xs sm:text-sm"
           >
             <span>{portfolio.isPublished ? '🔒' : '🚀'}</span>
             <span>{portfolio.isPublished ? 'Unpublish' : 'Publish'}</span>

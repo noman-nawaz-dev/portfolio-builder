@@ -22,8 +22,8 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div
-      className={`bg-white rounded-2xl shadow-xl overflow-hidden ${
-        hoverable ? 'hover:shadow-2xl transition-shadow duration-300' : ''
+      className={`bg-white rounded-2xl shadow-xl overflow-hidden border border-neutral-100 ${
+        hoverable ? 'hover:shadow-2xl hover:-translate-y-1 transition-all duration-300' : ''
       } ${paddingStyles[padding]} ${className}`}
     >
       {children}
@@ -45,7 +45,7 @@ export const CardHeader: React.FC<CardHeaderProps> = ({
   return (
     <div
       className={`px-4 py-3 md:px-6 md:py-4 ${
-        gradient ? 'bg-gradient-to-r from-indigo-600 to-purple-600' : 'bg-gray-50 border-b border-gray-200'
+        gradient ? 'bg-gradient-to-r from-teal-700 to-emerald-600' : 'bg-neutral-50 border-b border-neutral-200'
       } ${className}`}
     >
       {children}

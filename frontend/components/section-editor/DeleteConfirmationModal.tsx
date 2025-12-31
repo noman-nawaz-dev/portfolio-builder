@@ -34,16 +34,16 @@ export function DeleteConfirmationModal({
               </svg>
             </div>
             <Stack spacing="xs" className="flex-1">
-              <Heading as="h3" size="lg" className="text-gray-900">
+              <Heading as="h3" size="lg" className="text-neutral-900">
                 Delete Section
               </Heading>
-              <Text size="sm" className="text-gray-500">
+              <Text size="sm" className="text-neutral-500">
                 {sectionName}
               </Text>
             </Stack>
           </Flex>
           
-          <Text className="text-gray-600 mb-6">
+          <Text className="text-neutral-600 mb-6">
             Are you sure you want to delete this section? This action cannot be undone and all
             content will be permanently removed.
           </Text>

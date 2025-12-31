@@ -10,8 +10,8 @@ interface SectionProps {
 
 const backgroundStyles = {
   white: 'bg-white',
-  gray: 'bg-gray-50',
-  gradient: 'bg-gradient-to-br from-indigo-50 via-white to-purple-50',
+  gray: 'bg-neutral-50',
+  gradient: 'bg-gradient-to-br from-teal-50 via-white to-emerald-50',
 };
 
 const paddingStyles = {

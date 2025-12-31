@@ -26,7 +26,7 @@ export function ContentEditorModal({
         <Card className="bg-white rounded-xl shadow-2xl p-8">
           <Stack spacing="md" align="center">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-            <Text size="lg" weight="medium" className="text-gray-700">
+            <Text size="lg" weight="medium" className="text-neutral-700">
               Loading section editor...
             </Text>
           </Stack>

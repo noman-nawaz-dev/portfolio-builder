@@ -15,11 +15,11 @@ interface LinkProps {
 }
 
 const variantStyles: Record<LinkVariant, string> = {
-  default: 'text-indigo-600 hover:text-indigo-700',
-  primary: 'text-indigo-600 hover:text-indigo-800 font-semibold',
-  secondary: 'text-gray-600 hover:text-gray-900',
-  subtle: 'text-gray-500 hover:text-gray-700',
-  nav: 'text-gray-700 hover:text-indigo-600 font-medium',
+  default: 'text-teal-700 hover:text-teal-800',
+  primary: 'text-teal-700 hover:text-emerald-700 font-semibold',
+  secondary: 'text-neutral-700 hover:text-neutral-900',
+  subtle: 'text-neutral-600 hover:text-neutral-800',
+  nav: 'text-neutral-700 hover:text-teal-700 font-medium',
 };
 
 const sizeStyles: Record<LinkSize, string> = {

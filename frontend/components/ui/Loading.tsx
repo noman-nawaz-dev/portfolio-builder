@@ -50,7 +50,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center">
       <div className="text-center">
         <LoadingSpinner size="lg" className="text-indigo-600 mx-auto mb-4" />
-        <div className="text-xl text-gray-600">{message}</div>
+        <div className="text-xl text-neutral-600">{message}</div>
       </div>
     </div>
   );
